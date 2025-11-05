@@ -1,0 +1,13 @@
+node_modules/
+www/
+dist/
+.angular/
+.DS_Store
+.env
+.idea/
+.vscode/
+
+# Angular cache
+.angular/
+.angular/cache/
+
