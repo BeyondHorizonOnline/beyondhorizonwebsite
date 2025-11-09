@@ -1,5 +1,7 @@
-// src/app/star-map/star-map.page.ts
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, signal, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import {
+  Component, ElementRef, OnDestroy, OnInit, ViewChild,
+  signal, CUSTOM_ELEMENTS_SCHEMA
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RoutingService, RouteResponse } from '../services/routing.service';
@@ -12,7 +14,7 @@ import {
   IonButton, IonIcon, IonChip,
 } from '@ionic/angular/standalone';
 
-type P = { x:number; y:number; z:number };
+type P = { x: number; y: number; z: number };
 
 @Component({
   standalone: true,
@@ -26,7 +28,7 @@ type P = { x:number; y:number; z:number };
     IonSegment, IonSegmentButton,
     IonButton, IonIcon, IonChip,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './star-map.page.html',
   styleUrls: ['./star-map.page.scss']
 })
@@ -36,84 +38,117 @@ export class StarMapPage implements OnInit, OnDestroy {
   fromId = 2244677;
   toId = 9008810;
   shipJumpMax: number | null = null;
-  metric: '2d'|'3d' = '3d';
+  metric: '2d' | '3d' = '3d';
 
   loading = signal(false);
   error = signal<string | null>(null);
   route = signal<RouteResponse | null>(null);
 
-  // camera
+  // canvas/camera
   private ctx!: CanvasRenderingContext2D;
   private w = 800; private h = 500;
+  private dpr = 1;
   private zoom = 1.0;
   private offsetX = 0; private offsetY = 0;
   private dragging = false; private dragStartX = 0; private dragStartY = 0;
   private lastX = 0; private lastY = 0;
+
+  // listeners to clean up
+  private onResize = () => {};
+  private onWheel = (e: WheelEvent) => {};
+  private onMouseDown = (e: MouseEvent) => {};
+  private onMouseUp = (e: MouseEvent) => {};
+  private onMouseMove = (e: MouseEvent) => {};
 
   constructor(private routing: RoutingService) {}
 
   ngOnInit() {
     const c = this.canvasRef.nativeElement;
     this.ctx = c.getContext('2d')!;
+
     const resize = () => {
       this.w = c.clientWidth || 800;
-      this.h = 500;
-      c.width = this.w * devicePixelRatio;
-      c.height = this.h * devicePixelRatio;
-      this.ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      this.h = 500; // fixed height; make responsive if you prefer
+      this.dpr = Math.max(1, window.devicePixelRatio || 1);
+      c.width = Math.max(1, Math.floor(this.w * this.dpr));
+      c.height = Math.max(1, Math.floor(this.h * this.dpr));
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
       this.draw();
     };
+    this.onResize = resize;
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', this.onResize);
 
-    // wheel zoom
-    c.addEventListener('wheel', (e) => {
+    // wheel zoom (cursor-anchored)
+    this.onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const delta = Math.sign(e.deltaY);
       const factor = delta > 0 ? 0.9 : 1.1;
-      // zoom relative to cursor
-      const rect = c.getBoundingClientRect();
-      const cx = e.clientX - rect.left, cy = e.clientY - rect.top;
-      const worldBefore = this.screenToWorld(cx, cy);
-      this.zoom = Math.max(0.1, Math.min(5, this.zoom * factor));
-      const worldAfter = this.screenToWorld(cx, cy);
-      this.offsetX += (worldBefore.x - worldAfter.x);
-      this.offsetY += (worldBefore.y - worldAfter.y);
-      this.draw();
-    }, { passive: false });
 
-    // drag pan
-    c.addEventListener('mousedown', (e) => {
+      const rect = c.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+
+      const before = this.screenToWorld(cx, cy);
+      this.zoom = Math.max(0.1, Math.min(5, this.zoom * factor));
+      const after = this.screenToWorld(cx, cy);
+
+      // keep the world point under cursor stable
+      this.offsetX += (before.x - after.x);
+      // mapping uses -z for Y, so adjust with (after - before)
+      this.offsetY += (after.z - before.z);
+
+      this.draw();
+    };
+    c.addEventListener('wheel', this.onWheel, { passive: false });
+
+    // drag to pan
+    this.onMouseDown = (e: MouseEvent) => {
       this.dragging = true;
       this.dragStartX = e.clientX;
       this.dragStartY = e.clientY;
       this.lastX = this.offsetX;
       this.lastY = this.offsetY;
-    });
-    window.addEventListener('mouseup', () => { this.dragging = false; });
-    window.addEventListener('mousemove', (e) => {
+    };
+    this.onMouseUp = () => { this.dragging = false; };
+    this.onMouseMove = (e: MouseEvent) => {
       if (!this.dragging) return;
       const dx = (e.clientX - this.dragStartX) / this.zoom;
       const dy = (e.clientY - this.dragStartY) / this.zoom;
       this.offsetX = this.lastX - dx;
       this.offsetY = this.lastY - dy;
       this.draw();
-    });
+    };
+
+    c.addEventListener('mousedown', this.onMouseDown);
+    window.addEventListener('mouseup', this.onMouseUp);
+    window.addEventListener('mousemove', this.onMouseMove);
   }
 
-  ngOnDestroy() { /* no-op */ }
+  ngOnDestroy() {
+    const c = this.canvasRef?.nativeElement;
+    if (c) {
+      c.removeEventListener('wheel', this.onWheel as any);
+      c.removeEventListener('mousedown', this.onMouseDown as any);
+    }
+    window.removeEventListener('resize', this.onResize as any);
+    window.removeEventListener('mouseup', this.onMouseUp as any);
+    window.removeEventListener('mousemove', this.onMouseMove as any);
+  }
 
   private worldToScreen(p: P) {
-    // project 3D -> 2D top-down (x,z), ignore y for view (we still use full 3D for distance calc)
+    // project 3D -> 2D top-down (x vs z). y is ignored in view; used only for distance.
     const sx = (p.x - this.offsetX) * this.zoom + this.w / 2;
     const sy = (-(p.z) - this.offsetY) * this.zoom + this.h / 2;
     return { x: sx, y: sy };
   }
-  private screenToWorld(sx: number, sy: number) {
-    return {
-      x: (sx - this.w / 2) / this.zoom + this.offsetX,
-      y: (sy - this.h / 2) / this.zoom + this.offsetY,
-    };
+
+  // FIXED: return world {x, z} corresponding to screen point (sx, sy)
+  private screenToWorld(sx: number, sy: number): { x: number; z: number } {
+    const x = (sx - this.w / 2) / this.zoom + this.offsetX;
+    // worldToScreen used -(z) - offsetY => invert that:
+    const z = -((sy - this.h / 2) / this.zoom + this.offsetY);
+    return { x, z };
   }
 
   async run() {
@@ -140,11 +175,62 @@ export class StarMapPage implements OnInit, OnDestroy {
     }
   }
 
+  /** Center on the midpoint between first-from and last-to */
+  centerView() {
+    this.centerViewOnRoute();
+    this.draw();
+  }
+
+  /** Reset pan/zoom to defaults */
+  resetView() {
+    this.zoom = 1.0;
+    this.offsetX = 0;
+    this.offsetY = 0;
+    this.draw();
+  }
+
+  /** Fit the whole route into view with padding */
+  fitToRoute() {
+    const b = this.getRouteBounds();
+    if (!b) return;
+
+    const worldWidth = Math.max(1, b.maxX - b.minX);
+    const worldHeight = Math.max(1, b.maxZ - b.minZ);
+
+    const pad = 40; // px
+    const zx = (this.w - pad * 2) / worldWidth;
+    const zy = (this.h - pad * 2) / worldHeight;
+    this.zoom = Math.max(0.1, Math.min(5, Math.min(zx, zy)));
+
+    const cx = (b.minX + b.maxX) / 2;
+    const cz = (b.minZ + b.maxZ) / 2;
+    this.offsetX = cx;
+    this.offsetY = -cz;
+
+    this.draw();
+  }
+
+  private getRouteBounds(): { minX: number; maxX: number; minZ: number; maxZ: number } | null {
+    const r = this.route();
+    if (!r?.hops?.length) return null;
+    let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+    for (const h of r.hops) {
+      const pts = [h.from, h.to];
+      for (const p of pts) {
+        if (p.x < minX) minX = p.x;
+        if (p.x > maxX) maxX = p.x;
+        if (p.z < minZ) minZ = p.z;
+        if (p.z > maxZ) maxZ = p.z;
+      }
+    }
+    return { minX, maxX, minZ, maxZ };
+  }
+
   private centerViewOnRoute() {
     const r = this.route();
     if (!r?.hops?.length) return;
-    // center on midpoint of first hop for a start
-    const f = r.hops[0].from, t = r.hops[r.hops.length-1].to;
+    const f = r.hops[0].from;
+    const t = r.hops[r.hops.length - 1].to;
     const midX = (f.x + t.x) / 2;
     const midZ = (f.z + t.z) / 2;
     this.offsetX = midX;
@@ -157,17 +243,17 @@ export class StarMapPage implements OnInit, OnDestroy {
     if (!ctx) return;
     ctx.clearRect(0, 0, this.w, this.h);
 
-    // grid (light)
+    // grid
     ctx.save();
-    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
     for (let x = -2000; x <= 2000; x += 200) {
-      const s1 = this.worldToScreen({ x, y:0, z: -2000 });
-      const s2 = this.worldToScreen({ x, y:0, z:  2000 });
+      const s1 = this.worldToScreen({ x, y: 0, z: -2000 });
+      const s2 = this.worldToScreen({ x, y: 0, z: 2000 });
       ctx.beginPath(); ctx.moveTo(s1.x, s1.y); ctx.lineTo(s2.x, s2.y); ctx.stroke();
     }
     for (let z = -2000; z <= 2000; z += 200) {
-      const s1 = this.worldToScreen({ x: -2000, y:0, z });
-      const s2 = this.worldToScreen({ x:  2000, y:0, z });
+      const s1 = this.worldToScreen({ x: -2000, y: 0, z });
+      const s2 = this.worldToScreen({ x: 2000, y: 0, z });
       ctx.beginPath(); ctx.moveTo(s1.x, s1.y); ctx.lineTo(s2.x, s2.y); ctx.stroke();
     }
     ctx.restore();
@@ -175,7 +261,7 @@ export class StarMapPage implements OnInit, OnDestroy {
     const r = this.route();
     if (!r?.hops?.length) return;
 
-    // draw lines
+    // route polyline
     ctx.save();
     ctx.lineWidth = 2;
     ctx.strokeStyle = '#57a6ff';
@@ -189,82 +275,24 @@ export class StarMapPage implements OnInit, OnDestroy {
     ctx.stroke();
     ctx.restore();
 
-    // draw points
+    // points + labels
     ctx.fillStyle = '#fff';
     r.hops.forEach((h, i) => {
       const a = this.worldToScreen(h.from);
       const b = this.worldToScreen(h.to);
-      // from
-      ctx.beginPath(); ctx.arc(a.x, a.y, 3.5, 0, Math.PI*2); ctx.fill();
-      // to
-      ctx.beginPath(); ctx.arc(b.x, b.y, 3.5, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(a.x, a.y, 3.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(b.x, b.y, 3.5, 0, Math.PI * 2); ctx.fill();
 
-      // labels (light)
       if (i === 0) {
         ctx.fillStyle = '#ccc';
-        ctx.fillText(`${h.from.name||h.from.id}`, a.x + 6, a.y - 6);
+        ctx.fillText(`${h.from.name || h.from.id}`, a.x + 6, a.y - 6);
         ctx.fillStyle = '#fff';
       }
       if (i === r.hops!.length - 1) {
         ctx.fillStyle = '#ccc';
-        ctx.fillText(`${h.to.name||h.to.id}`, b.x + 6, b.y - 6);
+        ctx.fillText(`${h.to.name || h.to.id}`, b.x + 6, b.y - 6);
         ctx.fillStyle = '#fff';
       }
     });
   }
-  centerView() {
-  this.centerViewOnRoute();
-  this.draw();
-}
-
-/** Reset pan/zoom to defaults */
-resetView() {
-  this.zoom = 1.0;
-  this.offsetX = 0;
-  this.offsetY = 0;
-  this.draw();
-}
-
-/** Compute tight bounds of the current route in world space (x vs z-plane) */
-private getRouteBounds(): { minX: number; maxX: number; minZ: number; maxZ: number } | null {
-  const r = this.route();
-  if (!r?.hops?.length) return null;
-
-  let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
-  for (const h of r.hops) {
-    const pts = [h.from, h.to];
-    for (const p of pts) {
-      if (p.x < minX) minX = p.x;
-      if (p.x > maxX) maxX = p.x;
-      if (p.z < minZ) minZ = p.z;
-      if (p.z > maxZ) maxZ = p.z;
-    }
-  }
-  return { minX, maxX, minZ, maxZ };
-}
-
-/** Fit the whole route into view with a little padding */
-fitToRoute() {
-  const b = this.getRouteBounds();
-  if (!b) return;
-
-  const worldWidth  = Math.max(1, b.maxX - b.minX);
-  const worldHeight = Math.max(1, b.maxZ - b.minZ);
-
-  // target zoom so that both dimensions fit, with padding
-  const pad = 40; // px padding inside the canvas
-  const zx = (this.w - pad * 2) / worldWidth;
-  const zy = (this.h - pad * 2) / worldHeight;
-  this.zoom = Math.max(0.1, Math.min(5, Math.min(zx, zy)));
-
-  // center on the route bounds center
-  const cx = (b.minX + b.maxX) / 2;
-  const cz = (b.minZ + b.maxZ) / 2;
-
-  // remember: worldToScreen uses (x, -z) for Y
-  this.offsetX = cx;
-  this.offsetY = -cz;
-
-  this.draw();
-}
 }

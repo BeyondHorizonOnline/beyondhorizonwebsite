@@ -38,7 +38,8 @@
                     <ion-label position="stacked">
                       Ship Jump Max <ion-note>(optional)</ion-note>
                     </ion-label>
-                    <ion-input type="number" inputmode="decimal" [(ngModel)]="shipJumpMax" name="jump"></ion-input>
+                    <ion-input type="number" inputmode="decimal"
+                               [(ngModel)]="shipJumpMax" name="jump"></ion-input>
                   </ion-item>
                 </ion-col>
 
@@ -57,7 +58,8 @@
                 </ion-col>
 
                 <ion-col size="12" class="ion-margin-top">
-                  <ion-button type="submit" color="primary" expand="block">
+                  <ion-button type="submit" color="primary" expand="block"
+                              (click)="run()" [disabled]="loading()">
                     <ion-icon name="navigate-outline" slot="start"></ion-icon>
                     Compute & Draw
                   </ion-button>
@@ -65,7 +67,8 @@
               </ion-row>
             </form>
 
-            <ion-item lines="none" class="status muted" *ngIf="!route()?.hops?.length && !error()">
+            <ion-item lines="none" class="status muted"
+                      *ngIf="!route()?.hops?.length && !error()">
               <ion-icon name="information-circle-outline" slot="start"></ion-icon>
               <ion-label>No route yet — run a query.</ion-label>
             </ion-item>
@@ -82,8 +85,8 @@
           <ion-card-header>
             <ion-card-title>Map</ion-card-title>
           </ion-card-header>
-          <ion-card-content>
 
+          <ion-card-content>
             <!-- Overlay controls -->
             <div class="canvas-toolbar">
               <ion-button size="small" fill="clear" (click)="centerView()" title="Center">
@@ -100,6 +103,8 @@
             <!-- Canvas wrapper -->
             <div class="canvas-wrap">
               <canvas #canvas></canvas>
+
+              <!-- Legend -->
               <div class="legend">
                 <ion-chip outline>
                   <ion-icon name="ellipse-outline"></ion-icon>
