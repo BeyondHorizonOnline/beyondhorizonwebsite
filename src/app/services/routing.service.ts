@@ -35,7 +35,7 @@ export class RoutingService {
 
   private async postJSON<T>(body: any, opts?: { timeoutMs?: number; retries?: number }): Promise<T> {
     const timeoutMs = opts?.timeoutMs ?? 8000;
-    const retries   = opts?.retries   ?? 2;
+    const retries   = opts?.retries   ?? 0;
 
     let lastErr: any;
     for (let i = 0; i <= retries; i++) {
@@ -97,7 +97,7 @@ export class RoutingService {
       to:   Number(params.to),
       metric: params.metric ?? '3d',
       shipJumpMax: params.shipJumpMax ?? null,  // FIXED: Use shipJumpMax directly
-      optimize: params.optimize ?? 'distance'
+      optimize: params.optimize ?? (params.shipJumpMax ? 'hops' : 'distance')
     };
     
     console.log('[RoutingService] findRoute called with:', payload);

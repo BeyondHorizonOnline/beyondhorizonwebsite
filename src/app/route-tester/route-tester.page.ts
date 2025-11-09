@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RoutingService, RouteResponse } from '../services/routing.service';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent,
@@ -9,6 +9,7 @@ import {
   IonItem, IonLabel, IonNote, IonInput,
   IonSegment, IonSegmentButton,
   IonButton, IonSpinner, IonChip, IonIcon,
+  IonRange,                                 // 👈 add this
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -25,15 +26,15 @@ import {
     IonItem, IonLabel, IonNote, IonInput,
     IonSegment, IonSegmentButton,
     IonButton, IonSpinner, IonChip, IonIcon,
+    IonRange,                              // 👈 and include here
   ],
 })
 export class RouteTesterPage {
   fromId = 2244677;
   toId = 9008810;
-  shipJumpMax: number | null = null;
+  shipJumpMax: number | null = 500;          // required; slider default
   metric: '2d' | '3d' = '3d';
-  optimize: 'distance' | 'hops' = 'distance';
-  apiKey = '';
+  optimize: 'distance' | 'hops' = 'hops';  // default fewest jumps
 
   loading = signal(false);
   error = signal<string | null>(null);
@@ -41,16 +42,19 @@ export class RouteTesterPage {
 
   constructor(private routing: RoutingService) {}
 
-  async run() {
+  async run(form?: NgForm) {
+    if ((this.shipJumpMax ?? 0) <= 0) return; // required guard
+
     this.loading.set(true);
     this.error.set(null);
     this.result.set(null);
+
     try {
       const out = await this.routing.findRoute({
         from: Number(this.fromId),
         to: Number(this.toId),
         metric: this.metric,
-        shipJumpMax: this.shipJumpMax ?? null,
+        shipJumpMax: Number(this.shipJumpMax),
         optimize: this.optimize,
       });
       if (!out.ok) this.error.set(out.error ?? 'Route failed');

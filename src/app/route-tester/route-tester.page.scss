@@ -1,130 +1,50 @@
 .route-tester {
-  --ion-background-color: var(--ion-color-step-50);
-
-  .elev {
-    border-radius: 16px;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-    backdrop-filter: saturate(1.2);
-  }
-
-  ion-card-subtitle {
-    opacity: 0.8;
-  }
-
-  .form {
-    .metric-item {
-      margin-bottom: 6px;
-      ion-label { font-weight: 600; }
-    }
-    ion-segment {
-      border-radius: 12px;
-      margin-top: 4px;
-    }
-  }
+  .form-grid { row-gap: 12px; }
+  .seg-wrap { margin-bottom: 12px; }
+  .seg-label { font-size: 12px; opacity: .8; margin: 0 0 6px 2px; }
 
   .status {
-    margin-top: 8px;
-    border-radius: 12px;
-    --background: var(--ion-color-light);
-    &.muted {
-      --background: transparent;
-      ion-label { opacity: 0.9; }
-    }
+    margin-top: 10px; border-radius: 10px;
+    --background: #0b1013;
+    border: var(--ed-border);
+    &.muted { border-style: dashed; }
   }
 
   .stats {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-    ion-chip {
-      border-radius: 12px;
-      ion-icon { margin-right: 6px; }
-    }
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;
   }
 
-  /* Table styling */
   .table-wrap {
-    width: 100%;
-    overflow: auto;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.06);
-    background: var(--ion-color-step-100, #fff);
+    overflow: auto; border-radius: 12px;
+    background: #0b1013; border: var(--ed-border);
   }
-
   .table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    font-size: 14px;
-
+    width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; color: #e7e7e7;
     thead th {
-      position: sticky;
-      top: 0;
-      background: var(--ion-color-light);
-      text-align: left;
-      padding: 10px 12px;
-      font-weight: 700;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      z-index: 1;
+      position: sticky; top: 0; z-index: 1;
+      background: #0e1418; color: #ffe6c7;
+      text-align: left; padding: 10px 12px; font-weight: 700;
+      border-bottom: 1px solid rgba(255,159,26,.12);
     }
-
-    tbody td {
-      padding: 10px 12px;
-      border-bottom: 1px dashed rgba(0,0,0,0.06);
-    }
-
-    tbody tr:hover {
-      background: color-mix(in srgb, var(--ion-color-primary) 6%, transparent);
-    }
-
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
+    tbody td { padding: 10px 12px; border-bottom: 1px dashed rgba(255,159,26,.12); }
+    tbody tr:hover { background: rgba(255,159,26,.06); }
+    tbody tr:last-child td { border-bottom: 0; }
   }
 
-  /* Compact, readable on phones: turn rows into cards */
   @media (max-width: 640px) {
+    .stack-on-mobile { display: grid; gap: 8px; }
     .table { display: block; }
     .table thead { display: none; }
     .table tbody { display: grid; gap: 8px; padding: 8px; }
     .table tbody tr {
-      display: grid;
-      gap: 4px;
-      padding: 10px;
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: 10px;
-      background: var(--ion-background-color-step-50, #fff);
+      display: grid; gap: 4px; padding: 10px;
+      border: var(--ed-border); border-radius: 10px;
+      background: #0b1013;
     }
     .table tbody td {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      align-items: center;
-      border: none !important;
-      padding: 6px 0;
+      display: grid; grid-template-columns: 110px 1fr; align-items: center;
+      padding: 6px 0; border: 0 !important;
     }
-    .table tbody td::before {
-      content: attr(data-col);
-      font-weight: 600;
-      opacity: 0.75;
-    }
-  }
-
-  /* Dark mode touches */
-  @media (prefers-color-scheme: dark) {
-    .elev {
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    }
-    .table-wrap {
-      border-color: rgba(255,255,255,0.06);
-      background: var(--ion-color-step-100);
-    }
-    .table thead th {
-      background: var(--ion-color-step-150);
-      border-bottom-color: rgba(255,255,255,0.08);
-    }
-    .table tbody td {
-      border-bottom-color: rgba(255,255,255,0.06);
-    }
+    .table tbody td::before { content: attr(data-col); color: #ffcc80; font-weight: 600; opacity: .85; }
   }
 }

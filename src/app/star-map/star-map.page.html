@@ -1,3 +1,4 @@
+<!-- src/app/star-map/star-map.page.html -->
 <ion-header translucent="true">
   <ion-toolbar>
     <ion-title>Star Map</ion-title>
@@ -13,11 +14,11 @@
         <ion-card class="elev">
           <ion-card-header>
             <ion-card-title>Compute & Draw</ion-card-title>
-            <ion-card-subtitle>Generate a route and visualize it</ion-card-subtitle>
+            <ion-card-subtitle>Fewest jumps by default</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content>
-            <form (ngSubmit)="run()" class="form">
+            <form #f="ngForm" (ngSubmit)="run(f)" class="form">
               <ion-row class="ion-gutter">
 
                 <ion-col size="12" size-md="6">
@@ -34,22 +35,34 @@
                   </ion-item>
                 </ion-col>
 
-                <ion-col size="12" size-md="6">
-                  <ion-item fill="outline">
-                    <ion-label position="stacked">
-                      Ship Jump Max <ion-note>(optional)</ion-note>
-                    </ion-label>
-                    <ion-input type="number" inputmode="decimal"
-                               [(ngModel)]="shipJumpMax" name="jump"></ion-input>
-                  </ion-item>
-                </ion-col>
+                <!-- Ship Jump Max (required) with slider + numeric input -->
+                <ion-col size="12">
+                  <div class="jump-row">
+                    <div class="jump-head">
+                      <div class="jump-title">
+                        Ship Jump Max <ion-note color="danger">&nbsp;required</ion-note>
+                      </div>
+                      <ion-chip outline color="tertiary" class="jump-pill">
+                        <ion-icon name="resize-outline"></ion-icon>
+                        <ion-label>{{ shipJumpMax || 0 | number:'1.1-2' }} ly</ion-label>
+                      </ion-chip>
+                    </div>
 
-                <ion-col size="12" size-md="6">
-                  <ion-item fill="outline">
-                    <ion-label position="stacked">API Key <ion-note>(optional)</ion-note></ion-label>
-                    <ion-input type="password" [(ngModel)]="apiKey" name="apiKey"
-                               placeholder="X-API-Key"></ion-input>
-                  </ion-item>
+                    <div class="jump-controls">
+                      <ion-range
+                        [(ngModel)]="shipJumpMax" name="jump"
+                        [min]="0.1" [max]="50" [step]="0.1" snaps="true" pin="true"
+                        aria-label="Ship Jump Max">
+                      </ion-range>
+
+                      <ion-item fill="outline" class="jump-input">
+                        <ion-input type="number" inputmode="decimal" step="0.1" min="0.1"
+                                   [(ngModel)]="shipJumpMax" name="jumpNumber"
+                                   required placeholder="e.g. 5.0"></ion-input>
+                        <ion-note slot="end">ly</ion-note>
+                      </ion-item>
+                    </div>
+                  </div>
                 </ion-col>
 
                 <ion-col size="12" size-md="6">
@@ -71,18 +84,18 @@
                     <ion-label>Optimize</ion-label>
                   </ion-item>
                   <ion-segment [(ngModel)]="optimize" name="optimize">
-                    <ion-segment-button value="distance">
-                      <ion-label>Distance</ion-label>
-                    </ion-segment-button>
                     <ion-segment-button value="hops">
                       <ion-label>Fewest Jumps</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="distance">
+                      <ion-label>Distance</ion-label>
                     </ion-segment-button>
                   </ion-segment>
                 </ion-col>
 
                 <ion-col size="12" class="ion-margin-top">
                   <ion-button type="submit" color="primary" expand="block"
-                              (click)="run()" [disabled]="loading()">
+                              (click)="run(f)" [disabled]="(shipJumpMax ?? 0) <= 0 || loading()">
                     <ion-icon name="navigate-outline" slot="start"></ion-icon>
                     Compute & Draw
                   </ion-button>
@@ -91,9 +104,8 @@
               </ion-row>
             </form>
 
-            <!-- statuses -->
             <ion-item lines="none" class="status muted"
-                      *ngIf="!route()?.hops?.length && !error()">
+                      *ngIf="!route()?.hops?.length && !error() && !loading()">
               <ion-icon name="information-circle-outline" slot="start"></ion-icon>
               <ion-label>No route yet — run a query.</ion-label>
             </ion-item>
@@ -105,15 +117,15 @@
           </ion-card-content>
         </ion-card>
 
-        <!-- Canvas Card -->
-        <ion-card class="elev canvas-card" *ngIf="route() as r">
+        <!-- Canvas Card (always rendered so ViewChild is valid in ngOnInit) -->
+        <ion-card class="elev canvas-card">
           <ion-card-header>
             <ion-card-title>Map</ion-card-title>
           </ion-card-header>
 
           <ion-card-content>
-            <!-- Result chips -->
-            <div class="stats" *ngIf="r.ok">
+            <!-- Result chips when a route exists -->
+            <div class="stats" *ngIf="route() as r">
               <ion-chip outline>
                 <ion-icon name="bar-chart-outline"></ion-icon>
                 <ion-label>Metric: {{ r.metric || metric }}</ion-label>
@@ -122,9 +134,9 @@
                 <ion-icon name="options-outline"></ion-icon>
                 <ion-label>Optimize: {{ r.optimize || optimize }}</ion-label>
               </ion-chip>
-              <ion-chip outline color="primary" *ngIf="r.hopCount != null">
+              <ion-chip outline color="primary" *ngIf="r.hopCount != null || r.hops?.length">
                 <ion-icon name="swap-horizontal-outline"></ion-icon>
-                <ion-label>Hops: {{ r.hopCount }}</ion-label>
+                <ion-label>Hops: {{ r.hopCount ?? r.hops?.length ?? 0 }}</ion-label>
               </ion-chip>
               <ion-chip outline color="tertiary" *ngIf="r.totalDistance != null">
                 <ion-icon name="resize-outline"></ion-icon>
@@ -147,6 +159,9 @@
               <ion-button size="small" fill="clear" (click)="resetView()" title="Reset View">
                 <ion-icon name="refresh-outline"></ion-icon>
               </ion-button>
+              <ion-button size="small" fill="clear" (click)="fitGalaxy()" title="Fit Galaxy">
+  <ion-icon name="planet-outline"></ion-icon>
+</ion-button>
             </div>
 
             <!-- Canvas -->
@@ -156,10 +171,48 @@
 
             <p class="hint ion-text-center">Scroll to zoom. Drag to pan.</p>
 
-            <ion-item color="danger" lines="none" class="status" *ngIf="!r.ok">
+            <!-- Error inside map card if route failed -->
+            <ion-item color="danger" lines="none" class="status" *ngIf="route() && !route()?.ok">
               <ion-icon name="close-circle" slot="start"></ion-icon>
-              <ion-label>Request failed: {{ r.error }}</ion-label>
+              <ion-label>Request failed: {{ route()?.error }}</ion-label>
             </ion-item>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Debug Card -->
+        <ion-card class="elev debug-card ion-margin-top">
+          <ion-card-header>
+            <ion-card-title>Debug</ion-card-title>
+            <ion-card-subtitle>Inspect / export last request & response</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div class="debug-actions">
+              <ion-button size="small" fill="outline" (click)="copyJson('route')">
+                <ion-icon name="copy-outline" slot="start"></ion-icon>
+                Copy Route JSON
+              </ion-button>
+              <ion-button size="small" fill="outline" (click)="downloadJson('route')">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                Download Route JSON
+              </ion-button>
+              <ion-button size="small" fill="outline" (click)="copyJson('payload')">
+                <ion-icon name="code-slash-outline" slot="start"></ion-icon>
+                Copy Request Payload
+              </ion-button>
+
+              <ion-button size="small" fill="clear" (click)="toggleDebug()">
+                <ion-icon name="bug-outline" slot="start"></ion-icon>
+                {{ showDebug() ? 'Hide' : 'Show' }} Preview
+              </ion-button>
+            </div>
+
+            <div class="debug-preview" *ngIf="showDebug()">
+              <h4>Response</h4>
+              <pre>{{ route() | json }}</pre>
+              <h4>Request Payload</h4>
+              <pre>{{ lastPayload | json }}</pre>
+            </div>
           </ion-card-content>
         </ion-card>
 

@@ -35,3 +35,82 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+/* --- Elite Dangerous HUD theme --- */
+.theme-ed {
+  /* Core palette */
+  --ed-amber: #ff9f1a;
+  --ed-amber-soft: #ffb74a;
+  --ed-amber-dim: #c97a15;
+  --ed-panel: #0b0f12;               /* panel background */
+  --ed-panel-2: #0e1418;             /* slightly lighter */
+  --ed-stroke: rgba(255, 159, 26, .25);
+  --ed-stroke-2: rgba(255, 159, 26, .12);
+
+  /* Map to Ionic tokens */
+  --ion-background-color: #070a0c;
+  --ion-text-color: #e7e7e7;
+  --ion-color-primary: var(--ed-amber);
+  --ion-color-primary-contrast: #0a0a0a;
+
+  /* Subtle borders/shadows */
+  --ed-border: 1px solid rgba(255, 159, 26, .15);
+  --ed-shadow: 0 0 0 1px rgba(255,159,26,.08), 0 6px 24px rgba(0,0,0,.45);
+
+  /* Cards */
+  ion-card {
+    background: linear-gradient(180deg, var(--ed-panel) 0%, var(--ed-panel-2) 100%);
+    border: var(--ed-border);
+    border-radius: 14px;
+    box-shadow: var(--ed-shadow);
+  }
+
+  ion-card-subtitle { opacity: .8; }
+
+  /* Buttons + segments */
+  ion-button {
+    --background: color-mix(in srgb, var(--ed-amber) 92%, #000 8%);
+    --background-hover: color-mix(in srgb, var(--ed-amber) 80%, #000 20%);
+    --border-color: var(--ed-stroke);
+    --box-shadow: 0 0 0 1px var(--ed-stroke);
+    color:#000;
+    border-radius: 10px;
+  }
+
+  ion-segment {
+    border-radius: 12px;
+    border: var(--ed-border);
+    background: #0b1013;
+  }
+  ion-segment-button::part(indicator-background) {
+    background: var(--ed-amber);
+  }
+
+  /* Chips */
+  ion-chip {
+    --background: #10161a;
+    --color: var(--ion-text-color);
+    border: 1px solid var(--ed-stroke-2);
+    border-radius: 10px;
+  }
+
+  /* Table (used by Route Tester) */
+  .table-wrap {
+    background: #0b1013;
+    border: var(--ed-border);
+    border-radius: 12px;
+  }
+  .table {
+    color: #e7e7e7;
+  }
+  .table thead th {
+    background: #0e1418;
+    border-bottom: 1px solid var(--ed-stroke-2);
+  }
+  .table tbody td {
+    border-bottom: 1px dashed rgba(255,159,26,.12);
+  }
+  .table tbody tr:hover {
+    background: rgba(255,159,26,.06);
+  }
+}
+
