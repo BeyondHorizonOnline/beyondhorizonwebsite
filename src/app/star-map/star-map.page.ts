@@ -52,7 +52,7 @@ export class StarMapPage implements OnInit, OnDestroy {
   @ViewChild('canvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
   fromId = 2244677;
-  toId = 9805520;
+  toId = 2526077;
   shipJumpMax: number | null = 500;           // REQUIRED default
   metric: '2d' | '3d' = '3d';
   optimize: 'distance' | 'hops' = 'hops';   // default fewest jumps
