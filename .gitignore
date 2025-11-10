@@ -11,3 +11,4 @@ dist/
 .angular/
 .angular/cache/
 
+.firebase/hosting.d3d3.cache
