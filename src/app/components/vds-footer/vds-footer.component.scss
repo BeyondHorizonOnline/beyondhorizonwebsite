@@ -1,31 +1,31 @@
 /* File: src/app/components/vds-footer/vds-footer.component.scss */
 ion-toolbar {
-  /* Lightweight Tier-1 footer - soft presence, not a heavy bar */
-  /* Matches header's ambient approach */
+  /* Ethereal Tier-1 footer - barely visible, doesn't box in the hero */
+  /* Almost transparent with subtle blur to let starfield bleed through */
   background: linear-gradient(
     180deg,
-    rgba(10, 14, 26, 0.3) 0%,         /* Light at top, fades to nearly transparent */
-    rgba(5, 8, 18, 0.15) 100%         /* Barely visible at bottom */
+    rgba(10, 14, 26, 0.15) 0%,        /* Very light at top */
+    rgba(5, 8, 18, 0.08) 100%         /* Nearly transparent at bottom */
   );
-  backdrop-filter: blur(12px);         /* Moderate blur for consistency */
-  border-top: none;                    /* No hard edge - let it fade */
+  backdrop-filter: blur(8px);          /* Minimal blur - let starfield show */
+  border-top: none;                    /* No hard edge */
   background-image:
     linear-gradient(
       180deg,
-      rgba(10, 14, 26, 0.3) 0%,
-      rgba(5, 8, 18, 0.15) 85%,       /* Fade zone in upper 15% */
-      transparent 100%                 /* Transparent fade */
+      rgba(10, 14, 26, 0.15) 0%,
+      rgba(5, 8, 18, 0.08) 80%,       /* Fade zone in lower 20% */
+      transparent 100%                 /* Soft transparent fade */
     ),
-    /* Tier-1 ambient glow: extremely subtle */
+    /* Tier-1 ambient glow: barely perceptible */
     linear-gradient(
-      45deg,
-      rgba(0, 255, 255, 0.02) 0%,     /* Barely visible teal tint */
-      transparent 50%
+      135deg,
+      rgba(0, 255, 255, 0.01) 0%,     /* Almost invisible teal hint */
+      transparent 40%
     );
   color: var(--vds-muted);
-  box-shadow:
-    0 0 15px rgba(0, 255, 255, 0.02); /* Extremely subtle Tier-1 ambient only */
-  padding-block: 12px;                 /* Slightly less padding - thinner presence */
+  box-shadow: none;                    /* No shadow - keep it weightless */
+  padding-block: 8px;                  /* Minimal padding - thinner than header */
+  padding-inline: 16px;                /* Horizontal padding for content spacing */
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -33,24 +33,24 @@ ion-toolbar {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 8px 12px;
+  padding: 4px 0;           /* Minimal padding */
   font-size: var(--vds-small);
   letter-spacing: 0.01em;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.5);  /* Much more muted - barely visible */
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   a {
     color: inherit;
     text-decoration: none;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    font-weight: 400;  /* Lighter weight - stay Tier-1 */
+    font-weight: 400;
     letter-spacing: 0.02em;
-    opacity: 0.85;     /* Subtle reduction to stay ambient */
+    opacity: 0.7;      /* Very subtle - background text */
 
     &:hover {
       color: var(--color-cyan);
-      opacity: 1;      /* Full opacity on hover for clarity */
-      text-shadow: 0 0 5px rgba(0, 255, 255, 0.15);  /* Tier-1 only, very subtle */
+      opacity: 1;      /* Full opacity on hover */
+      text-shadow: 0 0 4px rgba(0, 255, 255, 0.1);  /* Barely there */
     }
 
     &:focus-visible {
@@ -62,8 +62,8 @@ ion-toolbar {
 
 .right {
   margin-left: auto;
-  opacity: 0.65;
-  font-size: 12px;
+  opacity: 0.5;       /* Very subtle - barely visible */
+  font-size: 11px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }

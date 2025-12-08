@@ -70,61 +70,62 @@ ion-toolbar {
 /* Hero Variant - Blend with Starfield Background */
 ion-header.hero-variant {
   ion-toolbar {
-    /* Much lighter background to let starfield shine through */
-    /* Soft fade from slightly darker top to nearly transparent bottom */
+    /* Lighter background to let starfield bleed through */
+    /* Tinted overlay feel: top slightly visible, bottom nearly transparent */
     background: linear-gradient(
       180deg,
-      rgba(13, 20, 37, 0.4) 0%,        /* Top: 40% opaque */
-      rgba(10, 14, 26, 0.2) 100%       /* Bottom: 20% opaque - fades into hero */
+      rgba(13, 20, 37, 0.35) 0%,       /* Top: 35% opaque - more starfield visible */
+      rgba(10, 14, 26, 0.15) 100%      /* Bottom: 15% opaque - mostly transparent fade */
     ) !important;
-    backdrop-filter: blur(18px);        /* Stronger blur to sharpen starfield focus */
+    backdrop-filter: blur(20px);        /* Stronger blur to sharpen and focus starfield */
 
-    /* Very subtle hairline gradient fade instead of hard edge */
+    /* Soft gradient fade instead of hard cutoff */
     border-bottom: none;
     background-image:
       linear-gradient(
         180deg,
-        rgba(13, 20, 37, 0.4) 0%,
-        rgba(10, 14, 26, 0.2) 85%,     /* Fade zone in lower 15% */
-        transparent 100%                /* Transparent fade into hero */
+        rgba(13, 20, 37, 0.35) 0%,
+        rgba(10, 14, 26, 0.15) 80%,    /* Fade zone in lower 20% */
+        transparent 100%                /* Transparent fade - soft edge */
       ),
       /* Tier 1 ambient glow: extremely subtle, barely perceptible */
       linear-gradient(
         135deg,
-        rgba(0, 255, 255, 0.02) 0%,    /* Barely visible teal tint top-left */
+        rgba(0, 255, 255, 0.015) 0%,   /* Almost invisible teal hint */
         transparent 50%
       );
 
-    /* No shadow - just let it fade into the starfield */
-    box-shadow:
-      0 0 20px rgba(0, 255, 255, 0.02); /* Extremely subtle Tier-1 ambient only */
+    /* No shadow - completely transparent to starfield */
+    box-shadow: none;
+
+    /* Slightly more vertical padding for premium feel */
+    padding-block: 18px;
 
     transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .brand {
-    /* Anchor the top visually - slightly heavier weight to ground the eye */
+    /* Anchor the top visually - bold weight to ground the eye */
     color: var(--color-text-light);
-    font-weight: 800;  /* Bold to anchor the brand */
-    letter-spacing: 0.1em;  /* Slightly more letter spacing for premium feel */
+    font-weight: 800;  /* Bold anchor weight */
+    letter-spacing: 0.12em;  /* More spacing for premium, readable feel */
     /* No text-shadow - hero title is the only element with dramatic glow */
   }
 
   .nav ion-button {
-    /* Slightly reduced brightness vs hero title, but full opacity for legibility */
-    color: color-mix(in oklab, var(--color-text-secondary) 85%, transparent);  /* Slightly muted */
-    font-weight: 400;  /* Lighter weight vs brand - visual hierarchy */
-    opacity: 0.9;      /* Very subtle reduction to stay Tier-1, not compete with hero */
+    /* Reduced brightness vs hero title - let eye focus on hero */
+    color: rgba(255, 255, 255, 0.75);  /* More muted - definite reduction */
+    font-weight: 400;  /* Lighter weight vs brand (800) - clear hierarchy */
+    opacity: 0.8;      /* Subtle reduction - stays background, not competitor */
   }
 
   .nav ion-button:hover {
     /* Keep Tier 2 hover feedback - this is allowed on interactive elements */
     color: var(--color-cyan);
     opacity: 1;        /* Full opacity on hover for clarity */
-    background: color-mix(in oklab, rgba(0, 255, 255, 0.08) 30%, transparent);  /* Very subtle bg */
+    background: color-mix(in oklab, rgba(0, 255, 255, 0.08) 20%, transparent);  /* Subtle bg */
     box-shadow:
-      0 0 12px rgba(0, 255, 255, 0.2),  /* Reduced glow vs default, stays Tier-2 */
-      0 0 0 1px rgba(0, 255, 255, 0.3) inset;
+      0 0 10px rgba(0, 255, 255, 0.15);  /* Minimal glow - stays Tier-2 feedback */
   }
 
   .nav ion-button:focus-visible {
