@@ -1,4 +1,9 @@
 /* File: src/app/components/vds-footer/vds-footer.component.scss */
+/* Override global Ionic CSS variables for this component */
+ion-footer {
+  --ion-toolbar-background: transparent !important;
+}
+
 ion-toolbar {
   /* Ethereal Tier-1 footer - barely visible, doesn't box in the hero */
   /* Almost transparent with subtle blur to let starfield bleed through */
@@ -6,7 +11,7 @@ ion-toolbar {
     180deg,
     rgba(10, 14, 26, 0.15) 0%,        /* Very light at top */
     rgba(5, 8, 18, 0.08) 100%         /* Nearly transparent at bottom */
-  );
+  ) !important;
   backdrop-filter: blur(8px);          /* Minimal blur - let starfield show */
   border-top: none;                    /* No hard edge */
   background-image:
