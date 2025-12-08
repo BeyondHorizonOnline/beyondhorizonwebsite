@@ -263,9 +263,7 @@ small, .text-small, .caption {
   border: 1px solid rgba(0, 255, 255, 0.3);
   border-radius: var(--radius-normal);
   padding: var(--spacing-lg);
-  box-shadow:
-    var(--shadow-lg),
-    0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;
   transition:
@@ -427,7 +425,7 @@ small, .text-small, .caption {
   border: 1px solid var(--color-cyan);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), var(--shadow-md);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.5), 0 0 80px rgba(0, 255, 255, 0.3), var(--shadow-md);
 
   &::before {
     content: '';
@@ -468,7 +466,7 @@ small, .text-small, .caption {
   background-color: transparent;
   color: var(--color-cyan);
   border: 1px solid var(--color-cyan);
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2), var(--shadow-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
   position: relative;
 
   &::before {
@@ -591,11 +589,10 @@ small, .text-small, .caption {
     transition:
       transform var(--duration-normal) var(--easing-ease),
       text-shadow var(--duration-normal) var(--easing-ease);
-    text-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
 
     &.open {
       transform: rotate(90deg);
-      text-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+      text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
     }
   }
 }
@@ -662,7 +659,7 @@ small, .text-small, .caption {
     transform: translate(-50%, -50%);
     width: 800px;
     height: 800px;
-    background: radial-gradient(circle, rgba(183, 64, 217, 0.2) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(183, 64, 217, 0.05) 0%, transparent 60%);
     pointer-events: none;
     z-index: 0;
     animation: glow-pulse-slow 6s ease-in-out infinite;
@@ -675,7 +672,7 @@ small, .text-small, .caption {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.6), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
     z-index: 1;
   }
 }
@@ -841,11 +838,11 @@ small, .text-small, .caption {
 
 @keyframes glow-pulse-slow {
   0%, 100% {
-    opacity: 0.3;
+    opacity: 0.05;
     filter: blur(0px);
   }
   50% {
-    opacity: 0.6;
+    opacity: 0.1;
     filter: blur(2px);
   }
 }
