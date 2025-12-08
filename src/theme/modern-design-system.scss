@@ -259,11 +259,14 @@ small, .text-small, .caption {
 
 /* ===== CARD STYLES ===== */
 .card {
-  background: linear-gradient(180deg, rgba(13, 20, 37, 0.6) 0%, rgba(10, 14, 26, 0.8) 100%);
-  border: 1px solid rgba(0, 255, 255, 0.3);
-  border-radius: var(--radius-normal);
+  display: block;
   padding: var(--spacing-lg);
-  box-shadow: var(--shadow-lg);
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-normal);
+  background: linear-gradient(180deg, rgba(10, 14, 22, 0.9) 0%, rgba(5, 8, 16, 0.95) 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
   position: relative;
   overflow: hidden;
   transition:
@@ -272,29 +275,17 @@ small, .text-small, .caption {
     transform var(--duration-normal) var(--easing-ease),
     box-shadow var(--duration-normal) var(--easing-ease);
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
-    opacity: 0;
-    transition: opacity var(--duration-normal) var(--easing-ease);
+  &:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 255, 255, 0.4);
+    background: linear-gradient(180deg, rgba(10, 14, 22, 0.92) 0%, rgba(5, 8, 16, 0.95) 100%);
+    box-shadow:
+      0 0 20px rgba(0, 255, 255, 0.2),
+      0 8px 24px rgba(0, 0, 0, 0.7);
   }
 
-  &:hover {
-    border-color: var(--color-cyan);
-    background: linear-gradient(135deg, rgba(0, 255, 255, 0.12), rgba(183, 64, 217, 0.08));
-    transform: translateY(-6px);
-    box-shadow:
-      var(--shadow-glow-cyan-strong),
-      0 0 40px rgba(183, 64, 217, 0.2);
-
-    &::before {
-      opacity: 1;
-    }
+  &:hover h3 {
+    color: var(--color-cyan);
   }
 
   &:focus-within {
