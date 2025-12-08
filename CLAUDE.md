@@ -300,9 +300,13 @@ Standard codex cards must be **quiet, clean, and cyan-only** to maintain visual 
 - No purple gradient, no multi-layer glow, no neon halo
 
 **Series Badges**
-- All standard series (VX, CX, BX, EX, MX, HX) use cyan only
-- No green (#89ffa6), no gold, no amber for standard cards
-- Reserve special colors for future rare/legendary variants
+- VX (Voran Defense): Cyan
+- CX (Commercial): Gold
+- BX (Special/Unique): Purple
+- EX (Exploration): Silver
+- MX (Military): Red
+- HX (Exotic/Rare): Cyan
+- Styling: Thin borders, muted text (0.7 opacity), no glow at idle
 
 **Hierarchy Reminder**
 - Brightest → Section heading (Tier-3)
