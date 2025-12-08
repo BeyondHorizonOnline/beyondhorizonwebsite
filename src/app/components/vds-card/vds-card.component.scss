@@ -6,10 +6,17 @@
   background: linear-gradient(180deg, #0e141a, #0a0f13);
   box-shadow: var(--vds-shadow-1);
 }
-.card:hover { 
-  transform: translateY(-3px); 
-  border-color: color-mix(in oklab, var(--vds-teal) 35%, var(--vds-border));
-  box-shadow: 0 10px 30px rgba(0,0,0,.55), 0 0 0 1px #18e6e61c inset;
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--vds-cyan);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(0, 255, 255, 0.3),
+    0 0 0 1px #18e6e61c inset;
+}
+
+.card:hover h3 {
+  text-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
 }
 .head { display:flex; align-items:center; gap:12px; }
 h3 { margin:0; font-size: var(--vds-h3); letter-spacing: .01em; }

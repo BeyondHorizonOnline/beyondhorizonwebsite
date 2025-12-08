@@ -1,7 +1,11 @@
 /* File: src/app/components/vds-header/vds-header.component.css */
 ion-toolbar {
-  background: linear-gradient(180deg, var(--vds-bg-10), var(--vds-bg-20));
-  border-bottom: 1px solid var(--vds-border);
+  background: linear-gradient(180deg, rgba(13, 20, 37, 0.8), rgba(10, 14, 26, 0.95));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(0, 255, 255, 0.05);
 }
 .brand { font-family: var(--vds-font-ui); letter-spacing: .08em; font-weight: 800; font-size: 18px; }
 .mono { font-family: var(--vds-font-code); color: var(--vds-teal); margin-right: 8px; font-weight:700; }
@@ -14,7 +18,7 @@ ion-toolbar {
 .nav ion-button:hover {
   --border-color: var(--vds-border);
   background: color-mix(in oklab, var(--vds-bg-20) 70%, black);
-  box-shadow: 0 0 0 1px #18e6e622 inset;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), 0 0 0 1px #18e6e622 inset;
 }
 
 /* Responsive: show hamburger under 992px */
