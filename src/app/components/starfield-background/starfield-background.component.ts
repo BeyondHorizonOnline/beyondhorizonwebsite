@@ -6,15 +6,7 @@ import {
   OnDestroy,
   Input,
 } from '@angular/core';
-import {
-  Scene,
-  PerspectiveCamera,
-  WebGLRenderer,
-  Points,
-  BufferGeometry,
-  BufferAttribute,
-  PointsMaterial,
-} from 'three';
+import * as THREE from 'three';
 
 @Component({
   selector: 'app-starfield-background',
@@ -44,10 +36,10 @@ export class StarfieldBackgroundComponent implements AfterViewInit, OnDestroy {
   @Input() starCount = 2000;
   @Input() parallaxSpeed = 0.0001; // Subtle drift
 
-  private scene!: Scene;
-  private camera!: PerspectiveCamera;
-  private renderer!: WebGLRenderer;
-  private stars!: Points;
+  private scene!: THREE.Scene;
+  private camera!: THREE.PerspectiveCamera;
+  private renderer!: THREE.WebGLRenderer;
+  private stars!: THREE.Points;
   private animationId: number | null = null;
   private time = 0;
 
@@ -73,15 +65,15 @@ export class StarfieldBackgroundComponent implements AfterViewInit, OnDestroy {
     const height = canvas.clientHeight || window.innerHeight;
 
     // Scene setup
-    this.scene = new Scene();
+    this.scene = new THREE.Scene();
     this.scene.background = null; // Transparent
 
     // Camera
-    this.camera = new PerspectiveCamera(75, width / height, 0.1, 10000);
+    this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
     this.camera.position.z = 0;
 
     // Renderer
-    this.renderer = new WebGLRenderer({
+    this.renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
       alpha: true,
@@ -96,7 +88,7 @@ export class StarfieldBackgroundComponent implements AfterViewInit, OnDestroy {
   }
 
   private createStars(): void {
-    const geometry = new BufferGeometry();
+    const geometry = new THREE.BufferGeometry();
     const positions: number[] = [];
     const colors: number[] = [];
 
@@ -134,17 +126,17 @@ export class StarfieldBackgroundComponent implements AfterViewInit, OnDestroy {
       colors.push(r * opacity, g * opacity, b * opacity);
     }
 
-    geometry.setAttribute('position', new BufferAttribute(new Float32Array(positions), 3));
-    geometry.setAttribute('color', new BufferAttribute(new Float32Array(colors), 3));
+    geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
 
-    const material = new PointsMaterial({
+    const material = new THREE.PointsMaterial({
       size: Math.random() * 1 + 0.5,
       vertexColors: true,
       sizeAttenuation: true,
       transparent: true,
     });
 
-    this.stars = new Points(geometry, material);
+    this.stars = new THREE.Points(geometry, material);
     this.scene.add(this.stars);
   }
 
