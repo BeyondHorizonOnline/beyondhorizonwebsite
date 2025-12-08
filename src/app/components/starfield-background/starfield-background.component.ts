@@ -8,6 +8,18 @@ import {
 } from '@angular/core';
 import * as THREE from 'three';
 
+declare global {
+  namespace THREE {
+    class Scene {}
+    class PerspectiveCamera {}
+    class WebGLRenderer {}
+    class Points {}
+    class BufferGeometry {}
+    class BufferAttribute {}
+    class PointsMaterial {}
+  }
+}
+
 @Component({
   selector: 'app-starfield-background',
   standalone: true,
@@ -36,10 +48,10 @@ export class StarfieldBackgroundComponent implements AfterViewInit, OnDestroy {
   @Input() starCount = 2000;
   @Input() parallaxSpeed = 0.0001; // Subtle drift
 
-  private scene!: THREE.Scene;
-  private camera!: THREE.PerspectiveCamera;
-  private renderer!: THREE.WebGLRenderer;
-  private stars!: THREE.Points;
+  private scene: any;
+  private camera: any;
+  private renderer: any;
+  private stars: any;
   private animationId: number | null = null;
   private time = 0;
 
