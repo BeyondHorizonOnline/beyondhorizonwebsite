@@ -215,6 +215,75 @@ All Ionicons are pre-loaded in `src/main.ts` via `addIcons(allIcons)`.
 - SCSS files: Each component has its own `.scss` file
 - Global styles: `src/global.scss` and `src/theme/variables.scss`
 
+## Visual Design Rules
+
+### Three-Tier Glow Hierarchy
+
+All visual effects follow a strict three-tier glow system to maintain visual hierarchy. **Never break this ordering.**
+
+| Tier | Purpose | Opacity | Components | Rule |
+|------|---------|---------|------------|------|
+| **Tier 3** (Brightest) | Hero CTAs, titles | 0.5–1.0 | Hero title text-shadow, CTA buttons | Only the main call-to-action. Everything else must be dimmer. |
+| **Tier 2** (Interactive) | Hover/active states | 0.15–0.3 | Nav button hover/active, card hover | Interactive feedback. Sharp, clear glow on user interaction. |
+| **Tier 1** (Ambient) | Subtle atmosphere | 0.01–0.03 | Header/footer glow, card borders | Barely perceptible. Creates mood without competing for attention. |
+
+**Key Rule**: If something is glowing brightly, it must be either a hero CTA (Tier 3) or the user just hovered over it (Tier 2). Never add bright glows to passive elements.
+
+### Header-Hero Blend Pattern
+
+The `vds-header` component supports two variants via `[variant]` input:
+
+- **`default`**: Dark opaque header (0.8–0.95 opacity) for all non-hero pages
+- **`hero`**: Semi-transparent header (0.35–0.15 opacity) for home-v2, blends with starfield background
+
+**Route Detection** (in `app.component.ts`):
+- `/home-v2` → applies `hero` variant automatically
+- All other routes → applies `default` variant
+- Detection uses Angular Router NavigationEnd events + route URL check
+
+**CSS Variable Override** (critical):
+- Global `--ion-toolbar-background` in `global.scss:187` overrides component styles
+- Both header and footer must override this: `--ion-toolbar-background: transparent !important;`
+- Background property must use `!important` flag to enforce component styling
+
+**Hero Variant Specifics**:
+- Desktop (>1024px): 0.35–0.15 opacity, 20px blur, soft gradient fade (20% fade zone)
+- Tablet (768–1024px): 0.5–0.3 opacity, 16px blur
+- Mobile (<768px): 0.6–0.4 opacity, 14px blur
+- **No text-shadow on brand or nav buttons** (only hero title has Tier-3 glow)
+- Nav text opacity: 75–80% (muted but readable, supports hierarchy)
+- Nav button font weight: 400 (lighter than brand's 800)
+- **Active nav state** (`.router-link-active`): Same styling as hover (Tier-2 feedback)
+
+### Footer Ethereal Treatment
+
+Footer must not "box in" the hero content. Use Tier-1 ambient only:
+
+- Opacity: 0.15–0.08 (nearly invisible)
+- Blur: 8px (minimal, doesn't obscure starfield)
+- Padding: 8px block (thinner than header's 18px)
+- Text color: Barely visible (0.5–0.7 opacity), increases to 1.0 only on hover
+- Shadow: **None** (no depth, weightless)
+- Border: **None** (hard edges create visual separation; use gradient fades instead)
+
+**Global CSS Override**: Add to `ion-footer` in footer SCSS:
+```scss
+ion-footer {
+  --ion-toolbar-background: transparent !important;
+}
+ion-toolbar {
+  background: [...] !important;  // Always use !important
+}
+```
+
+### Design Philosophy
+
+1. **Optical Hierarchy**: User's eye should naturally move to hero CTA first, then brand, then nav
+2. **Minimal Weight**: Header and footer should feel like they're floating in the same space as the background, not sitting on top
+3. **Gradient Fades**: Use soft 20% fade zones instead of hard borders for visual blending
+4. **Padding as Breathing Room**: Premium feel comes from generous padding, not opacity reduction
+5. **Text Weight Over Opacity**: Use font weight and color to create hierarchy, not opacity (users need readable text)
+
 ## Known Issues
 
 - Duplicate route definition for `/route-tester` in `app.routes.ts`
