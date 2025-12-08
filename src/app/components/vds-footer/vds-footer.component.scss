@@ -1,13 +1,31 @@
 /* File: src/app/components/vds-footer/vds-footer.component.scss */
 ion-toolbar {
-  background: linear-gradient(180deg, rgba(10, 14, 26, 0.9), rgba(5, 8, 18, 0.95));
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(0, 255, 255, 0.2);
+  /* Lightweight Tier-1 footer - soft presence, not a heavy bar */
+  /* Matches header's ambient approach */
+  background: linear-gradient(
+    180deg,
+    rgba(10, 14, 26, 0.3) 0%,         /* Light at top, fades to nearly transparent */
+    rgba(5, 8, 18, 0.15) 100%         /* Barely visible at bottom */
+  );
+  backdrop-filter: blur(12px);         /* Moderate blur for consistency */
+  border-top: none;                    /* No hard edge - let it fade */
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 14, 26, 0.3) 0%,
+      rgba(5, 8, 18, 0.15) 85%,       /* Fade zone in upper 15% */
+      transparent 100%                 /* Transparent fade */
+    ),
+    /* Tier-1 ambient glow: extremely subtle */
+    linear-gradient(
+      45deg,
+      rgba(0, 255, 255, 0.02) 0%,     /* Barely visible teal tint */
+      transparent 50%
+    );
   color: var(--vds-muted);
   box-shadow:
-    0 -8px 32px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(0, 255, 255, 0.05);
-  padding-block: 16px;
+    0 0 15px rgba(0, 255, 255, 0.02); /* Extremely subtle Tier-1 ambient only */
+  padding-block: 12px;                 /* Slightly less padding - thinner presence */
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -25,12 +43,14 @@ ion-toolbar {
     color: inherit;
     text-decoration: none;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    font-weight: 500;
+    font-weight: 400;  /* Lighter weight - stay Tier-1 */
     letter-spacing: 0.02em;
+    opacity: 0.85;     /* Subtle reduction to stay ambient */
 
     &:hover {
       color: var(--color-cyan);
-      text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+      opacity: 1;      /* Full opacity on hover for clarity */
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.15);  /* Tier-1 only, very subtle */
     }
 
     &:focus-visible {
