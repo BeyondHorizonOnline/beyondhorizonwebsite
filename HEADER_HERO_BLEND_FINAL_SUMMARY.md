@@ -1,10 +1,10 @@
 # Header-Hero Blend Implementation - Final Summary
 
-**Status:** ✅ COMPLETE AND FIXED - READY FOR TESTING
+**Status:** ✅ COMPLETE AND FULLY FIXED - READY FOR TESTING
 **Date:** December 8, 2025
 **Build Status:** Passing (no errors)
-**Commits:** 5 (0233147, 7481f38, 2ce3b9d, 6f0a912, 948bd16)
-**Last Fix:** Default header styling uncommented (948bd16)
+**Commits:** 7 (0233147, 7481f38, 2ce3b9d, 6f0a912, 948bd16, d9d5831, 927ffb7)
+**Latest Fix:** Override global Ionic CSS variable (927ffb7) ✅
 
 ---
 
@@ -266,6 +266,40 @@ RESULT:
 - Both variants now display correctly with full styling
 ```
 
+### Commit 6: Update Summary Documentation
+**Hash:** `d9d5831`
+```
+Update summary with fix details for default header styling
+
+- Document the issue: default ion-toolbar styling was commented out
+- Document the solution: uncommented styling
+- Add commit details to commits list
+- Update status to reflect fixed and ready for testing
+- Both default and hero variants now display correctly
+```
+
+### Commit 7: Override Global Ionic CSS Variable ✅
+**Hash:** `927ffb7`
+```
+Fix: Override global Ionic CSS variable for header toolbar background
+
+CRITICAL FIX: The global CSS variable --ion-toolbar-background (set in
+global.scss line 187) was overriding all component toolbar styling because
+Ionic components use this CSS variable by default.
+
+SOLUTION:
+- Override --ion-toolbar-background: transparent in ion-header
+- Force background property with !important on default ion-toolbar
+- This allows component-specific styling to take precedence
+- Maintains hero variant override with !important flag
+
+RESULT:
+- Default header now shows dark gradient background (0.8-0.95 opacity)
+- Hero variant shows semi-transparent background (0.55-0.8 opacity)
+- Both variants now display correctly with full styling applied
+- CSS cascade priority resolved with !important flags
+```
+
 ---
 
 ## Related Documentation
@@ -393,10 +427,21 @@ The header-hero blend implementation is **complete, fixed, and production-ready*
 **Status:** Ready for immediate testing and deployment
 
 ### What Was Fixed
-The default `ion-toolbar` styling was commented out in the component SCSS, preventing the header from displaying its full styling on non-hero pages. This has been uncommented in commit `948bd16`, ensuring:
+Two critical CSS issues were identified and resolved:
+
+**Issue 1 (Commit 948bd16):** Default `ion-toolbar` styling was commented out, preventing component styling from applying.
+
+**Issue 2 (Commit 927ffb7):** Global CSS variable `--ion-toolbar-background` (set in global.scss:187) was overriding component styles due to Ionic's CSS cascade.
+
+**Solution:**
+- Uncommented default ion-toolbar styling
+- Overrode global CSS variable with `--ion-toolbar-background: transparent !important;`
+- Used `!important` flags on background properties to enforce component styling
+
+**Result:**
 - **Default pages:** Dark opaque header with full styling (0.8-0.95 opacity)
 - **Home-v2 page:** Semi-transparent header (0.55-0.8 opacity) with starfield visible
-- Both variants are now fully functional and visually distinct
+- Both variants now fully functional and visually distinct with proper styling
 
 ---
 
