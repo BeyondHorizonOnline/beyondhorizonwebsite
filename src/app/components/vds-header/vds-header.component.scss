@@ -45,7 +45,8 @@ ion-toolbar {
   color: var(--color-text-secondary);
 }
 
-.nav ion-button:hover {
+.nav ion-button:hover,
+.nav ion-button.router-link-active {
   --border-color: var(--color-cyan);
   color: var(--color-cyan);
   background: color-mix(in oklab, var(--vds-bg-20) 70%, black);
@@ -119,7 +120,8 @@ ion-header.hero-variant {
     opacity: 0.8;      /* Subtle reduction - stays background, not competitor */
   }
 
-  .nav ion-button:hover {
+  .nav ion-button:hover,
+  .nav ion-button.router-link-active {
     /* Keep Tier 2 hover feedback - this is allowed on interactive elements */
     color: var(--color-cyan);
     opacity: 1;        /* Full opacity on hover for clarity */
