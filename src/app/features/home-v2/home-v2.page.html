@@ -1,0 +1,180 @@
+<ion-content fullscreen class="home-v2">
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Starfield Background -->
+    <app-starfield-background></app-starfield-background>
+
+    <div class="hero-inner">
+      <h1 class="hero-title">Beyond Horizon</h1>
+      <p class="hero-subtitle">Conquer the Frontier</p>
+      <div class="hero-ctas">
+        <a href="https://game.beyondhorizononline.com/download" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          Download Game
+          <span>➜</span>
+        </a>
+        <a href="#learn-more" class="btn btn-secondary">
+          Learn More
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Hub -->
+  <section class="section">
+    <div class="section-container">
+      <h2 class="section-title">Explore the Universe</h2>
+      <vds-nav-hub></vds-nav-hub>
+    </div>
+  </section>
+
+  <!-- Featured Assets Carousel -->
+  <section class="section" *ngIf="featuredAssets.length > 0">
+    <div class="section-container">
+      <h2 class="section-title">Featured Assets</h2>
+      <vds-asset-carousel [assets]="featuredAssets"></vds-asset-carousel>
+    </div>
+  </section>
+
+  <!-- How to Play / Learning Section -->
+  <section class="section" id="learn-more">
+    <div class="section-container">
+      <h2 class="section-title">How to Play</h2>
+      <div class="accordion-wrapper">
+        <!-- Section 1: What is Beyond Horizon -->
+        <div class="accordion-item">
+          <button
+            class="accordion-header"
+            (click)="toggleSection('what-is-bh')"
+            type="button"
+          >
+            <span>What is Beyond Horizon?</span>
+            <span class="chevron" [class.open]="isExpanded('what-is-bh')">›</span>
+          </button>
+          <div
+            class="accordion-content"
+            [class.open]="isExpanded('what-is-bh')"
+          >
+            <p class="accordion-text">
+              Beyond Horizon is an expansive space-based MMO set in a vast universe of competing factions, distant worlds, and limitless possibility. Build your empire across the galaxy, commanding fleets of warships, mining stations, and trade routes. Engage in epic large-scale battles, form alliances with other players, and leave your mark on the frontier.
+            </p>
+            <p class="accordion-text">
+              Whether you're a ruthless tactician, a shrewd merchant, or a frontier explorer, Beyond Horizon offers rich, emergent gameplay where your choices shape the galaxy.
+            </p>
+            <a href="/lore" class="btn btn-tertiary">Read the Lore →</a>
+          </div>
+        </div>
+
+        <!-- Section 2: The Voran Catalog -->
+        <div class="accordion-item">
+          <button
+            class="accordion-header"
+            (click)="toggleSection('voran-catalog')"
+            type="button"
+          >
+            <span>The Voran Catalog</span>
+            <span class="chevron" [class.open]="isExpanded('voran-catalog')">›</span>
+          </button>
+          <div
+            class="accordion-content"
+            [class.open]="isExpanded('voran-catalog')"
+          >
+            <p class="accordion-text">
+              Voran Defense Systems manufactures the cutting-edge starships and industrial facilities that power empires. Every vessel—from nimble Frigates to devastating Dreadnoughts—is engineered for mission-critical performance. Mining stations, research labs, and trading hubs form the economic backbone of every successful faction.
+            </p>
+            <p class="accordion-text">
+              Explore detailed specifications, view 3D models, and learn the tactical role of each asset in the Voran catalog.
+            </p>
+            <a href="/ships" class="btn btn-tertiary">Explore Ships →</a>
+            <a href="/stations" class="btn btn-tertiary">View Stations →</a>
+          </div>
+        </div>
+
+        <!-- Section 3: Getting Started -->
+        <div class="accordion-item">
+          <button
+            class="accordion-header"
+            (click)="toggleSection('getting-started')"
+            type="button"
+          >
+            <span>Getting Started</span>
+            <span class="chevron" [class.open]="isExpanded('getting-started')">›</span>
+          </button>
+          <div
+            class="accordion-content"
+            [class.open]="isExpanded('getting-started')"
+          >
+            <p class="accordion-text">
+              <strong>Create Your Account:</strong> Sign up on the Beyond Horizon launcher or website to begin your journey.
+            </p>
+            <p class="accordion-text">
+              <strong>Choose Your Faction:</strong> Align with one of three rival factions, each with unique ship designs and strategic advantages.
+            </p>
+            <p class="accordion-text">
+              <strong>Claim Your System:</strong> Establish your first station and begin mining resources, building ships, or engaging in commerce.
+            </p>
+            <p class="accordion-text">
+              <strong>Join the Battle:</strong> Form alliances, engage in large-scale fleet warfare, and compete for dominance across the galaxy.
+            </p>
+            <a href="/learn" class="btn btn-tertiary">Full Guide →</a>
+          </div>
+        </div>
+
+        <!-- Section 4: Progression & Ranks -->
+        <div class="accordion-item">
+          <button
+            class="accordion-header"
+            (click)="toggleSection('progression')"
+            type="button"
+          >
+            <span>Progression & Ranks</span>
+            <span class="chevron" [class.open]="isExpanded('progression')">›</span>
+          </button>
+          <div
+            class="accordion-content"
+            [class.open]="isExpanded('progression')"
+          >
+            <p class="accordion-text">
+              As you grow your empire, your faction rank increases, unlocking access to new ship classes, technology tiers, and strategic bonuses. Early ranks focus on survival and resource gathering; later ranks grant access to devastating capital ships and faction-wide warfare mechanics.
+            </p>
+            <p class="accordion-text">
+              Compete in ranked conflicts, complete objectives, and form powerful alliances to accelerate your rise through the ranks.
+            </p>
+          </div>
+        </div>
+
+        <!-- Section 5: Multiplayer & Community -->
+        <div class="accordion-item">
+          <button
+            class="accordion-header"
+            (click)="toggleSection('multiplayer')"
+            type="button"
+          >
+            <span>Multiplayer & Community</span>
+            <span class="chevron" [class.open]="isExpanded('multiplayer')">›</span>
+          </button>
+          <div
+            class="accordion-content"
+            [class.open]="isExpanded('multiplayer')"
+          >
+            <p class="accordion-text">
+              Beyond Horizon thrives on player interaction. Form guilds, coordinate massive fleet operations, negotiate trade agreements, and wage wars across shared star systems. The game world evolves based on player decisions—your actions matter.
+            </p>
+            <p class="accordion-text">
+              Join our Discord community, share strategies, showcase your fleet, and connect with thousands of players exploring the frontier.
+            </p>
+            <a href="https://discord.gg/beyondhorizon" target="_blank" rel="noopener noreferrer" class="btn btn-tertiary">Join Discord →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <vds-cta-section
+    title="Ready to Join the Frontier?"
+    primaryBtnText="Download Game"
+    primaryBtnLink="https://game.beyondhorizononline.com/download"
+    secondaryBtnText="Pre-Register"
+    secondaryBtnLink="https://game.beyondhorizononline.com/preregister"
+  ></vds-cta-section>
+</ion-content>

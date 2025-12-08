@@ -1,0 +1,214 @@
+:host {
+  display: block;
+  --background: var(--color-dark-navy);
+}
+
+.home-v2 {
+  background-color: var(--color-dark-navy);
+  color: var(--color-text-light);
+
+  ion-content {
+    --padding-bottom: 0;
+    --background: var(--color-dark-navy);
+  }
+}
+
+/* Hide Ionic header background on this page */
+::ng-deep ion-header {
+  --background: transparent !important;
+  backdrop-filter: blur(10px);
+  background: rgba(5, 8, 18, 0.7) !important;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+/* Section container */
+.section {
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  background-color: var(--color-dark-navy);
+}
+
+.section-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: var(--fs-h2);
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-light);
+}
+
+/* Accordion styles */
+.accordion-wrapper {
+  background-color: var(--color-bg-dark);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: var(--radius-normal);
+  overflow: hidden;
+}
+
+.accordion-item {
+  border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+  padding: 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: var(--spacing-lg);
+  user-select: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-light);
+  transition: color var(--duration-quick) var(--easing-ease);
+
+  span:first-child {
+    flex: 1;
+  }
+
+  &:hover {
+    color: var(--color-cyan);
+    background: rgba(0, 217, 255, 0.03);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: -2px;
+  }
+
+  .chevron {
+    font-size: 1.5rem;
+    color: var(--color-cyan);
+    transition: transform var(--duration-normal) var(--easing-ease);
+    flex-shrink: 0;
+    margin-left: var(--spacing-md);
+
+    &.open {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height var(--duration-normal) var(--easing-ease),
+    opacity var(--duration-normal) var(--easing-ease),
+    padding var(--duration-normal) var(--easing-ease);
+
+  &.open {
+    max-height: 2000px;
+    opacity: 1;
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
+  }
+}
+
+.accordion-text {
+  color: var(--color-text-light);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--spacing-md);
+
+  a {
+    color: var(--color-cyan);
+    text-decoration: underline;
+    transition: color var(--duration-quick) var(--easing-ease);
+
+    &:hover {
+      color: var(--color-lime);
+    }
+  }
+
+  strong {
+    color: var(--color-cyan);
+    font-weight: var(--fw-bold);
+  }
+
+  &:last-child {
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+/* CTA links in accordion */
+.accordion-content .btn {
+  margin-right: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .accordion-header {
+    padding: var(--spacing-md);
+    font-size: 1.1rem;
+  }
+
+  .accordion-text {
+    font-size: var(--fs-body);
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: var(--spacing-lg);
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .accordion-wrapper {
+    border-width: 1px;
+  }
+
+  .accordion-header {
+    padding: var(--spacing-md);
+    font-size: 1rem;
+
+    .chevron {
+      font-size: 1.25rem;
+    }
+  }
+
+  .accordion-content {
+    &.open {
+      padding: 0 var(--spacing-md) var(--spacing-md);
+    }
+  }
+
+  .accordion-text {
+    font-size: var(--fs-small);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .accordion-content .btn {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: var(--spacing-sm);
+  }
+}

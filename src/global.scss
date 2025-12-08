@@ -25,6 +25,12 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+/* Google Fonts - Space Grotesk and JetBrains Mono */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+/* Modern Design System - EVE Online Inspired */
+@import './theme/modern-design-system.scss';
+
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
