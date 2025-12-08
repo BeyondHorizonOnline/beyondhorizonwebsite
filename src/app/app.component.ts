@@ -23,18 +23,21 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    // Check initial route immediately (router might not be ready yet)
+    this.updateVariantForUrl(this.router.url);
+
     // Listen to route changes and apply hero variant on home-v2
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: any) => {
-        this.headerVariant.set(
-          event.urlAfterRedirects === '/home-v2' ? 'hero' : 'default'
-        );
+      .subscribe((event: NavigationEnd) => {
+        this.updateVariantForUrl(event.urlAfterRedirects);
       });
+  }
 
-    // Check initial route
-    if (this.router.url === '/home-v2') {
-      this.headerVariant.set('hero');
-    }
+  private updateVariantForUrl(url: string) {
+    // Check if URL contains /home-v2
+    this.headerVariant.set(
+      url.includes('/home-v2') ? 'hero' : 'default'
+    );
   }
 }
