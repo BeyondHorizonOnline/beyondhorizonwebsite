@@ -5,10 +5,10 @@
   padding: var(--spacing-lg);
   text-decoration: none;
   color: inherit;
-  border: 1px solid rgba(0, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-normal);
-  background: linear-gradient(180deg, rgba(13, 20, 37, 0.6) 0%, rgba(10, 14, 26, 0.8) 100%);
-  box-shadow: var(--shadow-lg);
+  background: linear-gradient(180deg, rgba(10, 14, 22, 0.9) 0%, rgba(5, 8, 16, 0.95) 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
   position: relative;
   overflow: hidden;
   transition:
@@ -19,17 +19,16 @@
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-cyan);
-  background: linear-gradient(135deg, rgba(0, 255, 255, 0.12), rgba(183, 64, 217, 0.08));
+  transform: translateY(-3px);
+  border-color: rgba(0, 255, 255, 0.4);
+  background: linear-gradient(180deg, rgba(10, 14, 22, 0.92) 0%, rgba(5, 8, 16, 0.95) 100%);
   box-shadow:
-    var(--shadow-glow-cyan),
-    var(--shadow-lg);
+    0 0 20px rgba(0, 255, 255, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.7);
 }
 
 .card:hover h3 {
   color: var(--color-cyan);
-  transition: color var(--duration-normal) var(--easing-ease);
 }
 
 .card:focus-within {
@@ -67,7 +66,7 @@ h3 {
 }
 
 .vds-chip {
-  border: 1px solid rgba(0, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: 999px;
   font-size: var(--fs-caption);
@@ -79,6 +78,6 @@ h3 {
 }
 
 .vds-chip:hover {
-  border-color: var(--color-cyan);
+  border-color: rgba(0, 255, 255, 0.5);
   color: var(--color-cyan);
 }

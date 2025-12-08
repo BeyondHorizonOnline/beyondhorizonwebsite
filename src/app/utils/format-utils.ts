@@ -2,14 +2,17 @@
 import { SeriesCode } from '../models/catalog.models';
 
 export function seriesColor(series: SeriesCode): string {
+  // Standard cards use cyan only. Rare/legendary variants can use gold/special colors later.
+  // For now, all series badges unified to cyan for clean, consistent grid presentation.
   switch (series) {
-    case 'VX': return 'var(--vds-teal)';
-    case 'CX': return 'var(--vds-amber)';
-    case 'BX': return 'var(--vds-gold)';
-    case 'EX': return 'var(--vds-silver)';
-    case 'MX': return 'var(--vds-red)';
-    case 'HX': return '#89ffa6';
-    default: return 'var(--vds-silver)';
+    case 'VX':
+    case 'CX':
+    case 'BX':
+    case 'EX':
+    case 'MX':
+    case 'HX':
+    default:
+      return 'var(--color-cyan)';
   }
 }
 

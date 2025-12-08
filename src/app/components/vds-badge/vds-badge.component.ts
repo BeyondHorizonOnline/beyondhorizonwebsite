@@ -5,17 +5,22 @@ import { seriesColor } from '../../utils/format-utils';
 @Component({
   selector: 'vds-badge',
   standalone: true,
-  template: `<span class="vds-badge" [style.borderColor]="color" [style.color]="color"><ng-content></ng-content></span>`,
-// File: src/app/components/vds-badge/vds-badge.component.ts (styles inline)
-styles: [`
-  .vds-badge{
-    display:inline-block; font-family:var(--vds-font-code);
-    border:1px solid var(--vds-border); border-radius:8px; padding:3px 10px;
-    box-shadow: 0 0 0 1px color-mix(in oklab, currentColor 18%, transparent) inset;
-    letter-spacing:.02em;
-  }
-`]
-
+  template: `<span class="vds-badge" [style.borderColor]="color"><ng-content></ng-content></span>`,
+  styles: [`
+    .vds-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      border: 1px solid rgba(0, 255, 255, 0.25);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      color: rgba(255, 255, 255, 0.7);
+      background: transparent;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+  `]
 })
 export class VdsBadgeComponent {
   @Input() series: any;
