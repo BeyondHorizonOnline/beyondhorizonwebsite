@@ -1,0 +1,139 @@
+:host {
+  display: block;
+}
+
+.cta-section {
+  position: relative;
+  padding: var(--spacing-3xl) var(--spacing-lg);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.08) 0%,
+    rgba(183, 64, 217, 0.08) 100%
+  ),
+  linear-gradient(
+    180deg,
+    rgba(13, 20, 37, 0.4) 0%,
+    rgba(10, 14, 26, 0.6) 100%
+  );
+  border-top: 1px solid rgba(0, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(183, 64, 217, 0.2);
+  text-align: center;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 40px rgba(0, 255, 255, 0.03),
+    inset 0 0 80px rgba(183, 64, 217, 0.02);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(183, 64, 217, 0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    animation: cta-glow-pulse 6s ease-in-out infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+    z-index: 1;
+  }
+}
+
+@keyframes cta-glow-pulse {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: var(--fs-h2);
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-lg);
+}
+
+.cta-buttons {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  a {
+    white-space: nowrap;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cta-section {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+
+    &::before {
+      width: 400px;
+      height: 400px;
+    }
+  }
+
+  .cta-title {
+    font-size: 1.5rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .cta-buttons a {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .cta-section {
+    padding: var(--spacing-xl) var(--spacing-lg);
+
+    &::before {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  .cta-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .cta-buttons a {
+    width: 100%;
+  }
+}
