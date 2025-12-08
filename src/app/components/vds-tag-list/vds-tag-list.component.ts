@@ -1,15 +1,17 @@
 // File: src/app/components/vds-tag-list/vds-tag-list.component.ts
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'vds-tag-list',
   standalone: true,
   
-  imports: [CommonModule],   
+  imports: [],   
   template: `
   <div class="tags">
-    <button class="vds-chip" [class.active]="t===active" (click)="pick(t)" *ngFor="let t of tags">{{t}}</button>
+    @for (t of tags; track t) {
+      <button class="vds-chip" [class.active]="t===active" (click)="pick(t)">{{t}}</button>
+    }
     <button class="vds-chip" [class.active]="!active" (click)="pick('')">All</button>
   </div>`,
   styles:[`

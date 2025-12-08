@@ -1,12 +1,12 @@
 // File: src/app/features/updates/updates.page.ts
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   standalone: true,
   selector: 'app-updates',
-  imports: [IonContent,CommonModule],
+  imports: [IonContent],
   templateUrl: './updates.page.html',
   styleUrls: ['./updates.page.scss']
 })

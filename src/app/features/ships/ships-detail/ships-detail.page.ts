@@ -2,7 +2,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { IonContent, IonButtons, IonButton } from '@ionic/angular/standalone';
-import { CommonModule } from '@angular/common';
+
 
 import { SHIPS } from '../../../data/seed-ships'; // Stripped version
 import { ShipDisplay, CatalogEntityStats } from '../../../models/catalog.models';
@@ -16,14 +16,13 @@ import { UnitStatsService } from '../../../services/unit-stats/unit-stats';
   selector: 'app-ship-detail',
   imports: [
     IonContent,
-    CommonModule,
     RouterLink,
     IonButtons,
     IonButton,
     VdsBadgeComponent,
     VdsSpecGridComponent,
     ModelViewerComponent
-  ],
+],
   templateUrl: './ships-detail.page.html',
   styleUrls: ['./ships-detail.page.scss']
 })

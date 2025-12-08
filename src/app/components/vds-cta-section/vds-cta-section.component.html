@@ -1,0 +1,16 @@
+<section class="cta-section">
+  <div class="cta-content">
+    <h2 class="cta-title">{{ title }}</h2>
+    <div class="cta-buttons">
+      <a [href]="primaryBtnLink" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+        {{ primaryBtnText }}
+        <span>→</span>
+      </a>
+      @if (showSecondaryBtn) {
+        <a [href]="secondaryBtnLink || '#'" class="btn btn-secondary">
+          {{ secondaryBtnText }}
+        </a>
+      }
+    </div>
+  </div>
+</section>

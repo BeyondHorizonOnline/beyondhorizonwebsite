@@ -6,7 +6,7 @@ import {
   ViewChild,
   Input,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonCard, IonCardContent, IonSpinner } from '@ionic/angular/standalone';
 
 
@@ -19,7 +19,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
   selector: 'bh-model-viewer',
   templateUrl: './model-viewer.component.html',
   styleUrls: ['./model-viewer.component.scss'],
-  imports: [CommonModule, IonCard, IonCardContent, IonSpinner],
+  imports: [IonCard, IonCardContent, IonSpinner],
 })
 export class ModelViewerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('canvas', { static: true })

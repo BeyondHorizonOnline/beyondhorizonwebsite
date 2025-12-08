@@ -2,12 +2,12 @@
 import { Component } from '@angular/core';
 import { IonContent } from '@ionic/angular/standalone';
 import { VdsPosterComponent } from '../../components/vds-poster/vds-poster.component';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   standalone: true,
   selector: 'app-media',
-  imports: [IonContent,CommonModule, VdsPosterComponent],
+  imports: [IonContent, VdsPosterComponent],
   templateUrl: './media.page.html',
   styleUrls: ['./media.page.scss']
 })

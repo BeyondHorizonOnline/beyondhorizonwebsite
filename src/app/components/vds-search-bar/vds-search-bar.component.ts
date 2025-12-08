@@ -1,12 +1,12 @@
 // File: src/app/components/vds-search-bar/vds-search-bar.component.ts
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'vds-search-bar',
   standalone: true,
-  imports: [CommonModule, FormsModule],  
+  imports: [FormsModule],  
   template: `
   <label class="wrap">
     <span class="visually-hidden">Search</span>

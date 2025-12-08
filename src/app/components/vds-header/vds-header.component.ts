@@ -1,5 +1,5 @@
 // File: src/app/components/vds-header/vds-header.component.ts
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton
 } from '@ionic/angular/standalone';
@@ -12,4 +12,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './vds-header.component.html',
   styleUrls: ['./vds-header.component.scss']
 })
-export class VdsHeaderComponent {}
+export class VdsHeaderComponent {
+  @Input() variant: 'default' | 'hero' = 'default';
+}

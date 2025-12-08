@@ -58,8 +58,8 @@
 
                       <ion-item fill="outline" class="jump-input">
                         <ion-input type="number" inputmode="decimal" step="0.1" min="0.1"
-                                   [(ngModel)]="shipJumpMax" name="jumpNumber"
-                                   required placeholder="e.g. 5.0"></ion-input>
+                          [(ngModel)]="shipJumpMax" name="jumpNumber"
+                        required placeholder="e.g. 5.0"></ion-input>
                         <ion-note slot="end">ly</ion-note>
                       </ion-item>
                     </div>
@@ -96,7 +96,7 @@
 
                 <ion-col size="12" class="ion-margin-top">
                   <ion-button type="submit" color="primary" expand="block"
-                              (click)="run(f)" [disabled]="(shipJumpMax ?? 0) <= 0 || loading()">
+                    (click)="run(f)" [disabled]="(shipJumpMax ?? 0) <= 0 || loading()">
                     <ion-icon name="navigate-outline" slot="start"></ion-icon>
                     Compute & Draw
                   </ion-button>
@@ -105,16 +105,20 @@
               </ion-row>
             </form>
 
-            <ion-item lines="none" class="status muted"
-                      *ngIf="!route()?.hops?.length && !error() && !loading()">
-              <ion-icon name="information-circle-outline" slot="start"></ion-icon>
-              <ion-label>No route yet — run a query.</ion-label>
-            </ion-item>
+            @if (!route()?.hops?.length && !error() && !loading()) {
+              <ion-item lines="none" class="status muted"
+                >
+                <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+                <ion-label>No route yet — run a query.</ion-label>
+              </ion-item>
+            }
 
-            <ion-item color="danger" lines="none" class="status" *ngIf="error()">
-              <ion-icon name="alert-circle" slot="start"></ion-icon>
-              <ion-label>Error: {{ error() }}</ion-label>
-            </ion-item>
+            @if (error()) {
+              <ion-item color="danger" lines="none" class="status">
+                <ion-icon name="alert-circle" slot="start"></ion-icon>
+                <ion-label>Error: {{ error() }}</ion-label>
+              </ion-item>
+            }
           </ion-card-content>
         </ion-card>
 
@@ -131,28 +135,36 @@
 
           <ion-card-content>
             <!-- Result chips when a route exists -->
-            <div class="stats" *ngIf="route() as r">
-              <ion-chip outline>
-                <ion-icon name="bar-chart-outline"></ion-icon>
-                <ion-label>Metric: {{ r.metric || metric }}</ion-label>
-              </ion-chip>
-              <ion-chip outline>
-                <ion-icon name="options-outline"></ion-icon>
-                <ion-label>Optimize: {{ r.optimize || optimize }}</ion-label>
-              </ion-chip>
-              <ion-chip outline color="primary" *ngIf="r.hopCount != null || r.hops?.length">
-                <ion-icon name="swap-horizontal-outline"></ion-icon>
-                <ion-label>Hops: {{ r.hopCount ?? r.hops?.length ?? 0 }}</ion-label>
-              </ion-chip>
-              <ion-chip outline color="tertiary" *ngIf="r.totalDistance != null">
-                <ion-icon name="resize-outline"></ion-icon>
-                <ion-label>Total: {{ r.totalDistance | number:'1.2-4' }}</ion-label>
-              </ion-chip>
-              <ion-chip outline *ngIf="r.maxEdgeLength != null">
-                <ion-icon name="planet-outline"></ion-icon>
-                <ion-label>Max Ship Jump: {{ r.maxEdgeLength }}</ion-label>
-              </ion-chip>
-            </div>
+            @if (route(); as r) {
+              <div class="stats">
+                <ion-chip outline>
+                  <ion-icon name="bar-chart-outline"></ion-icon>
+                  <ion-label>Metric: {{ r.metric || metric }}</ion-label>
+                </ion-chip>
+                <ion-chip outline>
+                  <ion-icon name="options-outline"></ion-icon>
+                  <ion-label>Optimize: {{ r.optimize || optimize }}</ion-label>
+                </ion-chip>
+                @if (r.hopCount != null || r.hops?.length) {
+                  <ion-chip outline color="primary">
+                    <ion-icon name="swap-horizontal-outline"></ion-icon>
+                    <ion-label>Hops: {{ r.hopCount ?? r.hops?.length ?? 0 }}</ion-label>
+                  </ion-chip>
+                }
+                @if (r.totalDistance != null) {
+                  <ion-chip outline color="tertiary">
+                    <ion-icon name="resize-outline"></ion-icon>
+                    <ion-label>Total: {{ r.totalDistance | number:'1.2-4' }}</ion-label>
+                  </ion-chip>
+                }
+                @if (r.maxEdgeLength != null) {
+                  <ion-chip outline>
+                    <ion-icon name="planet-outline"></ion-icon>
+                    <ion-label>Max Ship Jump: {{ r.maxEdgeLength }}</ion-label>
+                  </ion-chip>
+                }
+              </div>
+            }
 
             <!-- Canvas toolbar -->
             <div class="canvas-toolbar">
@@ -166,8 +178,8 @@
                 <ion-icon name="refresh-outline"></ion-icon>
               </ion-button>
               <ion-button size="small" fill="clear" (click)="fitGalaxy()" title="Fit Galaxy">
-  <ion-icon name="planet-outline"></ion-icon>
-</ion-button>
+                <ion-icon name="planet-outline"></ion-icon>
+              </ion-button>
             </div>
 
             <!-- Canvas -->
@@ -178,10 +190,12 @@
             <p class="hint ion-text-center">Scroll to zoom. Drag to pan.</p>
 
             <!-- Error inside map card if route failed -->
-            <ion-item color="danger" lines="none" class="status" *ngIf="route() && !route()?.ok">
-              <ion-icon name="close-circle" slot="start"></ion-icon>
-              <ion-label>Request failed: {{ route()?.error }}</ion-label>
-            </ion-item>
+            @if (route() && !route()?.ok) {
+              <ion-item color="danger" lines="none" class="status">
+                <ion-icon name="close-circle" slot="start"></ion-icon>
+                <ion-label>Request failed: {{ route()?.error }}</ion-label>
+              </ion-item>
+            }
           </ion-card-content>
         </ion-card>
 
@@ -213,12 +227,14 @@
               </ion-button>
             </div>
 
-            <div class="debug-preview" *ngIf="showDebug()">
-              <h4>Response</h4>
-              <pre>{{ route() | json }}</pre>
-              <h4>Request Payload</h4>
-              <pre>{{ lastPayload | json }}</pre>
-            </div>
+            @if (showDebug()) {
+              <div class="debug-preview">
+                <h4>Response</h4>
+                <pre>{{ route() | json }}</pre>
+                <h4>Request Payload</h4>
+                <pre>{{ lastPayload | json }}</pre>
+              </div>
+            }
           </ion-card-content>
         </ion-card>
 

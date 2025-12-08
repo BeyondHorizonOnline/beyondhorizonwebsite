@@ -1,6 +1,6 @@
 // File: src/app/features/ships/ships-list/ships-list.page.ts
 import { Component, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonContent, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { SHIPS, ShipDisplayData } from '../../../data/seed-ships';
 import { VdsCardComponent } from '../../../components/vds-card/vds-card.component';
@@ -9,7 +9,7 @@ import { VdsCardComponent } from '../../../components/vds-card/vds-card.componen
 @Component({
   standalone: true,
   selector: 'app-ships-list',
-  imports: [CommonModule, IonContent, IonSelect, IonSelectOption, VdsCardComponent],
+  imports: [IonContent, IonSelect, IonSelectOption, VdsCardComponent],
   templateUrl: './ships-list.page.html',
   styleUrls: ['./ships-list.page.scss']
 })

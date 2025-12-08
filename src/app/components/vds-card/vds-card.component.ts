@@ -2,12 +2,12 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { VdsBadgeComponent } from '../vds-badge/vds-badge.component';
-import { CommonModule } from '@angular/common';  
+  
 
 @Component({
   selector: 'vds-card',
   standalone: true,
-  imports: [RouterLink, VdsBadgeComponent, CommonModule],
+  imports: [RouterLink, VdsBadgeComponent],
   templateUrl: './vds-card.component.html',
   styleUrls: ['./vds-card.component.scss']
 })

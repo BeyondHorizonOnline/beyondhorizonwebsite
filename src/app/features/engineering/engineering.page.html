@@ -7,9 +7,11 @@
     </p>
 
     <div class="grid">
-      <vds-card *ngFor="let f of list" [title]="f.name" [code]="f.code" [series]="f.series" [summary]="f.summary"
-        [tags]="f.tags" [to]="'/codex/' + f.id">
-      </vds-card>
+      @for (f of list; track f) {
+        <vds-card [title]="f.name" [code]="f.code" [series]="f.series" [summary]="f.summary"
+          [tags]="f.tags" [to]="'/codex/' + f.id">
+        </vds-card>
+      }
     </div>
   </section>
 </ion-content>

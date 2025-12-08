@@ -1,0 +1,72 @@
+<div class="carousel" *ngIf="currentAsset() as asset">
+  <div class="carousel-container">
+    <!-- Navigation arrows (desktop) -->
+    <button
+      class="carousel-arrow prev-arrow"
+      (click)="prevSlide()"
+      aria-label="Previous asset"
+      type="button"
+    >
+      ◀
+    </button>
+
+    <!-- Image -->
+    <div class="carousel-image">
+      <img [src]="asset.image" [alt]="asset.title" loading="lazy" />
+    </div>
+
+    <!-- Content -->
+    <div class="carousel-content">
+      <h3 class="carousel-title">{{ asset.title }}</h3>
+      <p class="carousel-subtitle" *ngIf="asset.subtitle">{{ asset.subtitle }}</p>
+      <p class="carousel-desc">{{ asset.description }}</p>
+
+      <!-- Stats -->
+      <div class="carousel-stats" *ngIf="asset.stats && asset.stats.length > 0">
+        <div class="stat" *ngFor="let stat of asset.stats">
+          <span class="stat-label">{{ stat.label }}:</span>
+          <span class="stat-value">{{ stat.value }}</span>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="carousel-nav">
+        <a [routerLink]="asset.link" class="btn btn-primary">
+          View Full Details
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Navigation arrows (desktop) -->
+    <button
+      class="carousel-arrow next-arrow"
+      (click)="nextSlide()"
+      aria-label="Next asset"
+      type="button"
+    >
+      ▶
+    </button>
+  </div>
+
+  <!-- Mobile navigation -->
+  <div class="carousel-mobile-nav">
+    <button
+      class="carousel-arrow mobile-prev"
+      (click)="prevSlide()"
+      aria-label="Previous asset"
+      type="button"
+    >
+      ◀
+    </button>
+    <span class="carousel-indicator">{{ currentIndex() + 1 }} / {{ assets.length }}</span>
+    <button
+      class="carousel-arrow mobile-next"
+      (click)="nextSlide()"
+      aria-label="Next asset"
+      type="button"
+    >
+      ▶
+    </button>
+  </div>
+</div>

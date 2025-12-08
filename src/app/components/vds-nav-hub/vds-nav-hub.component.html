@@ -1,0 +1,10 @@
+<div class="nav-hub">
+  @for (card of cards; track card.title) {
+    <a [routerLink]="card.link" class="nav-card">
+      <span class="nav-icon">{{ card.icon }}</span>
+      <h3 class="nav-title">{{ card.title }}</h3>
+      <p class="nav-desc">{{ card.description }}</p>
+      <span class="nav-cta">{{ card.label || 'Learn More' }}</span>
+    </a>
+  }
+</div>

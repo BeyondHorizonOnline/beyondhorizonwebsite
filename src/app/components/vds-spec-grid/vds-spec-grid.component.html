@@ -1,7 +1,11 @@
 <!-- File: src/app/components/vds-spec-grid/vds-spec-grid.component.html -->
-<div class="grid" *ngIf="specs">
-  <div class="cell" *ngFor="let kv of specs | keyvalue">
-    <div class="k">{{ kv.key }}</div>
-    <div class="v">{{ kv.value }}</div>
+@if (specs) {
+  <div class="grid">
+    @for (kv of specs | keyvalue; track kv) {
+      <div class="cell">
+        <div class="k">{{ kv.key }}</div>
+        <div class="v">{{ kv.value }}</div>
+      </div>
+    }
   </div>
-</div>
+}

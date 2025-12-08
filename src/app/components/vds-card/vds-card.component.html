@@ -6,6 +6,8 @@
   </div>
   <p class="summary">{{summary}}</p>
   <div class="tags">
-    <span class="vds-chip" *ngFor="let t of tags">{{t}}</span>
+    @for (t of tags; track t) {
+      <span class="vds-chip">{{t}}</span>
+    }
   </div>
 </a>

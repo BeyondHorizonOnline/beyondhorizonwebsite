@@ -1,12 +1,12 @@
 // File: src/app/components/vds-hero/vds-hero.component.ts
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'vds-hero',
   standalone: true,
-    imports: [CommonModule, RouterLink],   
+    imports: [RouterLink],   
   templateUrl: './vds-hero.component.html',
   styleUrls: ['./vds-hero.component.scss']
 })

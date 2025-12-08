@@ -13,14 +13,6 @@
   }
 }
 
-/* Hide Ionic header background on this page */
-::ng-deep ion-header {
-  --background: transparent !important;
-  backdrop-filter: blur(10px);
-  background: rgba(5, 8, 18, 0.7) !important;
-  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-}
-
 /* Section container */
 .section {
   padding: var(--spacing-2xl) var(--spacing-lg);

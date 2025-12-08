@@ -3,14 +3,16 @@
   <section class="vds-section">
     <h1 class="vds-h1">Cargo &amp; Expedition (CX)</h1>
     <div class="grid">
-      <vds-card *ngFor="let a of list"
-        [title]="a.name"
-        [code]="a.code"
-        [series]="a.series"
-        [summary]="a.summary"
-        [tags]="a.tags"
-        [to]="'/codex/' + a.id">
-      </vds-card>
+      @for (a of list; track a) {
+        <vds-card
+          [title]="a.name"
+          [code]="a.code"
+          [series]="a.series"
+          [summary]="a.summary"
+          [tags]="a.tags"
+          [to]="'/codex/' + a.id">
+        </vds-card>
+      }
     </div>
   </section>
 </ion-content>

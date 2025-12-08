@@ -4,10 +4,12 @@
       <canvas #canvas></canvas>
 
       <!-- Loading overlay -->
-      <div class="loading-overlay" *ngIf="isLoading">
-        <ion-spinner name="crescent"></ion-spinner>
-        <p>Initializing ship model…</p>
-      </div>
+      @if (isLoading) {
+        <div class="loading-overlay">
+          <ion-spinner name="crescent"></ion-spinner>
+          <p>Initializing ship model…</p>
+        </div>
+      }
     </div>
   </ion-card-content>
 </ion-card>

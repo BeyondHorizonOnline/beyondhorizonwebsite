@@ -1,7 +1,7 @@
 // File: src/app/features/codex/codex-detail.page.ts
 import { Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { IonContent, IonButtons, IonButton } from '@ionic/angular/standalone';
 
 import { ShipDisplayData, SHIPS } from '../../../data/seed-ships';
@@ -33,12 +33,11 @@ function isShipDisplay(e: CodexEntity | undefined): e is ShipDisplayData {
     IonContent,
     IonButtons,
     IonButton,
-    CommonModule,
     RouterLink,
     VdsBadgeComponent,
     VdsSpecGridComponent,
     ModelViewerComponent
-  ],
+],
   templateUrl: './codex-detail.page.html',
   styleUrls: ['./codex-detail.page.scss']
 })
