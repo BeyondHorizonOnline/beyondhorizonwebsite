@@ -276,6 +276,40 @@ ion-toolbar {
 }
 ```
 
+### Card Styling Rules (vds-card)
+
+Standard codex cards must be **quiet, clean, and cyan-only** to maintain visual hierarchy:
+
+**At Rest (Idle State)**
+- Background: Dark navy gradient (rgba 10-22, opacity 0.9–0.95) — muted, premium feel
+- Border: Subtle white (0.08 opacity) — barely visible
+- Shadow: Minimal depth shadow only, no glow
+- No color, no gradient flooding, no idle animation
+
+**Text**
+- Title: Pure white, bold, clean
+- Summary: Muted gray (--color-text-muted)
+- Badges: Cyan border (0.25 opacity), muted white text (0.7 opacity), thin capsule
+- Chips/Tags: Muted white (0.7), thin white border (0.1 opacity)
+
+**Hover State (Tier-2 Feedback Only)**
+- Lift: Tiny 3px translateY (not 8px — restrained)
+- Border: Brighten to cyan (0.4 opacity)
+- Glow: Single subtle cyan glow (0.2 opacity) — Tier-2 only, never strong
+- Title: Smooth transition to cyan (Tier-2, not Tier-3)
+- No purple gradient, no multi-layer glow, no neon halo
+
+**Series Badges**
+- All standard series (VX, CX, BX, EX, MX, HX) use cyan only
+- No green (#89ffa6), no gold, no amber for standard cards
+- Reserve special colors for future rare/legendary variants
+
+**Hierarchy Reminder**
+- Brightest → Section heading (Tier-3)
+- Bright → Hovered card (Tier-2 only)
+- Medium → Card title at rest
+- Subtle → Summary, badges, chips (Tier-1 ambient)
+
 ### Design Philosophy
 
 1. **Optical Hierarchy**: User's eye should naturally move to hero CTA first, then brand, then nav
@@ -283,6 +317,7 @@ ion-toolbar {
 3. **Gradient Fades**: Use soft 20% fade zones instead of hard borders for visual blending
 4. **Padding as Breathing Room**: Premium feel comes from generous padding, not opacity reduction
 5. **Text Weight Over Opacity**: Use font weight and color to create hierarchy, not opacity (users need readable text)
+6. **Quiet at Rest, Responsive on Hover**: Cards should be solid and premium when idle, with restrained Tier-2 feedback only on interaction
 
 ## Known Issues
 
