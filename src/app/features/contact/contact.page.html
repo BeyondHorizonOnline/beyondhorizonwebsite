@@ -1,50 +1,61 @@
 <!-- File: src/app/features/contact/contact.page.html -->
-<ion-content fullscreen class="page-with-header">
-  <ion-card class="vds-section vds-card">
-    <ion-card-header>
-      <ion-card-title class="vds-h1">
-        Contact / Press Kit
-      </ion-card-title>
-    </ion-card-header>
+<ion-content>
+  <!-- Hero Section -->
+  <section class="hero">
+    <app-starfield-background></app-starfield-background>
+    <div class="hero-inner">
+      <h1 class="hero-title">Get in Touch</h1>
+      <p class="hero-subtitle">Questions about the game? Reach out to us.</p>
+    </div>
+  </section>
 
-    <ion-card-content>
-      <form (submit)="submit($event)" class="form">
-        <ion-list lines="none">
-          <ion-item>
-            <ion-input
-              label="Name"
-              labelPlacement="stacked"
-              required
-            ></ion-input>
-          </ion-item>
+  <!-- Content Section -->
+  <section class="section">
+    <div class="section-container">
+      <h2 class="section-title">Send a Message</h2>
 
-          <ion-item>
-            <ion-input
-              label="Email"
-              labelPlacement="stacked"
-              type="email"
-              required
-            ></ion-input>
-          </ion-item>
+      <form (submit)="submit($event)" class="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <ion-input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Your name"
+            required
+          ></ion-input>
+        </div>
 
-          <ion-item>
-            <ion-textarea
-              label="Message"
-              labelPlacement="stacked"
-              autoGrow
-              required
-            ></ion-textarea>
-          </ion-item>
-        </ion-list>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <ion-input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="your@email.com"
+            required
+          ></ion-input>
+        </div>
 
-        <ion-button
-          type="submit"
-          expand="block"
-          class="submit-btn"
-        >
-          Send
-        </ion-button>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <ion-textarea
+            id="message"
+            name="message"
+            placeholder="Your message..."
+            rows="6"
+            required
+          ></ion-textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Send Message</button>
       </form>
-    </ion-card-content>
-  </ion-card>
+
+      @if (submitSuccess()) {
+        <div class="success-message">
+          <p>Thank you! We'll get back to you soon.</p>
+        </div>
+      }
+    </div>
+  </section>
 </ion-content>

@@ -1,17 +1,54 @@
 <!-- File: src/app/features/logistics/logistics.page.html -->
 <ion-content>
-  <section class="vds-section">
-    <h1 class="vds-h1">Cargo &amp; Expedition (CX)</h1>
-    <div class="grid">
-      @for (a of list; track a) {
-        <vds-card
-          [title]="a.name"
-          [code]="a.code"
-          [series]="a.series"
-          [summary]="a.summary"
-          [tags]="a.tags"
-          [to]="'/codex/' + a.id">
-        </vds-card>
+  <!-- Hero Section -->
+  <section class="hero">
+    <app-starfield-background></app-starfield-background>
+    <div class="hero-inner">
+      <h1 class="hero-title">Cargo & Expedition Fleet</h1>
+      <p class="hero-subtitle">Commercial and scientific asset collection</p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="section">
+    <div class="section-container">
+      <h2 class="section-title">Browse Assets</h2>
+
+      <div class="filters">
+        <ion-select label="Type" interface="popover" (ionChange)="logisticsFilter.set($event.detail.value||'')">
+          <ion-select-option value="">All Types</ion-select-option>
+          @for (t of types; track t) {
+            <ion-select-option [value]="t">{{t}}</ion-select-option>
+          }
+        </ion-select>
+
+        @if (logisticsFilter() !== null && logisticsFilter() !== '') {
+          <button class="reset-filter" (click)="logisticsFilter.set('')" type="button">
+            Reset
+          </button>
+        }
+      </div>
+
+      <div class="grid">
+        @for (a of list(); track a) {
+          <vds-card
+            [title]="a.name"
+            [code]="a.code"
+            [series]="a.series"
+            [summary]="a.summary"
+            [tags]="tagsOf(a)"
+            [to]="'/codex/'+a.id">
+          </vds-card>
+        }
+      </div>
+
+      @if (list().length === 0) {
+        <div class="empty-state">
+          <p>No assets found matching your filter.</p>
+          <button class="btn btn-secondary" (click)="logisticsFilter.set('')" type="button">
+            Clear Filters
+          </button>
+        </div>
       }
     </div>
   </section>

@@ -1,15 +1,106 @@
 <!-- File: src/app/features/updates/updates.page.html -->
 <ion-content>
-  <section class="vds-section vds-card">
-    <h1 class="vds-h1">Changelog</h1>
-    <ul class="feed">
-      @for (e of entries; track e) {
-        <li>
-          <div class="date">{{e.date}}</div>
-          <div class="title">{{e.title}}</div>
-          <p class="body">{{e.body}}</p>
-        </li>
+  <!-- Hero Section -->
+  <section class="hero">
+    <app-starfield-background></app-starfield-background>
+    <div class="hero-inner">
+      <h1 class="hero-title">Development Timeline</h1>
+      <p class="hero-subtitle">Track game updates and progress</p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="section">
+    <div class="section-container">
+      <h2 class="section-title">Latest Updates</h2>
+
+      <!-- Category Filter -->
+      <div class="category-filter">
+        <button
+          class="filter-btn"
+          [class.active]="!categoryFilter()"
+          (click)="categoryFilter.set(null)"
+          type="button">
+          All
+        </button>
+        @for (cat of categories; track cat) {
+          <button
+            class="filter-btn"
+            [class.active]="categoryFilter() === cat"
+            (click)="categoryFilter.set(cat)"
+            type="button">
+            {{ cat | titlecase }}
+          </button>
+        }
+      </div>
+
+      <!-- Featured Updates -->
+      @if (featuredUpdates().length > 0) {
+        <div class="featured-section">
+          @for (update of featuredUpdates(); track update.id) {
+            <div class="featured-card">
+              <div class="featured-header">
+                <span class="featured-date">{{ update.date | date:'MMM dd, yyyy' }}</span>
+                <span
+                  class="category-badge"
+                  [class]="'cat-' + update.category">
+                  {{ update.category | titlecase }}
+                </span>
+              </div>
+              <h3 class="featured-title">{{ update.title }}</h3>
+              <p class="featured-body">{{ update.body }}</p>
+              @if (update.tags) {
+                <div class="tags">
+                  @for (tag of update.tags; track tag) {
+                    <span class="tag">{{ tag }}</span>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
       }
-    </ul>
+
+      <!-- Timeline Feed -->
+      <div class="timeline">
+        @for (update of regularUpdates(); track update.id; let idx = $index) {
+          <div class="timeline-entry" [class]="'entry-' + (idx % 2)">
+            <div class="timeline-date">
+              <span class="date">{{ update.date | date:'MMM dd' }}</span>
+            </div>
+            <div class="timeline-content">
+              <div class="entry-header">
+                <h3>{{ update.title }}</h3>
+                <span
+                  class="category-badge"
+                  [class]="'cat-' + update.category">
+                  {{ update.category | titlecase }}
+                </span>
+              </div>
+              <p>{{ update.body }}</p>
+              @if (update.tags) {
+                <div class="tags">
+                  @for (tag of update.tags; track tag) {
+                    <span class="tag">{{ tag }}</span>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      @if (filteredUpdates().length === 0) {
+        <div class="empty-state">
+          <p>No updates found matching your filter.</p>
+          <button
+            class="btn btn-secondary"
+            (click)="categoryFilter.set(null)"
+            type="button">
+            Clear Filters
+          </button>
+        </div>
+      }
+    </div>
   </section>
 </ion-content>
