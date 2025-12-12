@@ -70,6 +70,16 @@ ion-toolbar {
 
 /* Hero Variant - Blend with Starfield Background */
 ion-header.hero-variant {
+  /* Remove Ionic's default shadow pseudo-element */
+  &::after {
+    display: none !important;
+  }
+
+  /* Override Ionic's Material Design header shadow */
+  &.header-md {
+    box-shadow: none !important;
+  }
+
   ion-toolbar {
     /* Lighter background to let starfield bleed through */
     /* Tinted overlay feel: top slightly visible, bottom nearly transparent */
@@ -78,7 +88,7 @@ ion-header.hero-variant {
       rgba(13, 20, 37, 0.35) 0%,       /* Top: 35% opaque - more starfield visible */
       rgba(10, 14, 26, 0.15) 100%      /* Bottom: 15% opaque - mostly transparent fade */
     ) !important;
-    backdrop-filter: blur(20px);        /* Stronger blur to sharpen and focus starfield */
+    backdrop-filter: blur(10px);        /* Lighter blur to let starfield show through */
 
     /* Soft gradient fade instead of hard cutoff */
     border-bottom: none;
