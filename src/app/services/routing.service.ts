@@ -77,12 +77,30 @@ export class RoutingService {
 
         if (ct.includes('application/json')) {
           const parsed = JSON.parse(text) as T;
-          console.log('[RoutingService] Success:', {
-            ok: (parsed as any).ok,
-            hopCount: (parsed as any).hopCount,
-            totalDistance: (parsed as any).totalDistance,
-            expanded: (parsed as any).expanded
+          const routeResp = parsed as any;
+
+          console.log('[RoutingService] ✓ Full Response Object:', routeResp);
+          console.log('[RoutingService] Response Summary:', {
+            ok: routeResp.ok,
+            hopCount: routeResp.hopCount,
+            totalDistance: routeResp.totalDistance,
+            expanded: routeResp.expanded,
+            optimize: routeResp.optimize,
+            metric: routeResp.metric,
+            maxEdgeLength: routeResp.maxEdgeLength,
+            hasHops: Array.isArray(routeResp.hops),
+            hopsLength: routeResp.hops?.length ?? 0,
+            errorMessage: routeResp.error ?? 'none'
           });
+
+          // Log hop details if available
+          if (Array.isArray(routeResp.hops) && routeResp.hops.length > 0) {
+            console.log('[RoutingService] Hops Details:');
+            routeResp.hops.forEach((hop: any, idx: number) => {
+              console.log(`  Hop ${idx + 1}: ${hop.from.name} (${hop.from.id}) → ${hop.to.name} (${hop.to.id}), Distance: ${hop.distance.toFixed(2)} LY`);
+            });
+          }
+
           return parsed;
         }
 
@@ -160,15 +178,27 @@ export class RoutingService {
       payload.optimize = 'distance';
     }
 
-    console.log('[RoutingService] findRoute called with:', payload);
+    console.log('[RoutingService] 🚀 findRoute called');
+    console.log('[RoutingService] Input Params:', params);
+    console.log('[RoutingService] Payload to send:', payload);
 
-    return this.postJSON<RouteResponse>(
-      payload,
-      { 
-        timeoutMs: params.timeoutMs ?? 30000,  // 12s default (allows server 10s + overhead)
-        retries: params.retries ?? 1            // Retry once by default
-      }
-    );
+    try {
+      const result = await this.postJSON<RouteResponse>(
+        payload,
+        {
+          timeoutMs: params.timeoutMs ?? 30000,  // 12s default (allows server 10s + overhead)
+          retries: params.retries ?? 1            // Retry once by default
+        }
+      );
+      console.log('[RoutingService] ✓ findRoute completed successfully');
+      return result;
+    } catch (error: any) {
+      console.error('[RoutingService] ✗ findRoute failed with error:', {
+        message: error.message,
+        stack: error.stack
+      });
+      throw error;
+    }
   }
 
   /**
@@ -195,6 +225,8 @@ export class RoutingService {
     if (!shipJumpMax || shipJumpMax <= 0) {
       throw new Error('shipJumpMax must be a positive number for fewest jumps calculation');
     }
+
+    console.log('[RoutingService] findFewestJumps: from=%d, to=%d, shipJumpMax=%d', from, to, shipJumpMax);
 
     return this.findRoute({
       from,
@@ -224,6 +256,8 @@ export class RoutingService {
     shipJumpMax?: number | null,
     opts?: Omit<RouteOptions, 'shipJumpMax' | 'optimize'>
   ): Promise<RouteResponse> {
+    console.log('[RoutingService] findShortestDistance: from=%d, to=%d, shipJumpMax=%s', from, to, shipJumpMax ?? 'null');
+
     return this.findRoute({
       from,
       to,
