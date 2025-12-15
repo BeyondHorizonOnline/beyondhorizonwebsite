@@ -1,8 +1,9 @@
 // File: src/app/features/codex/codex-detail.page.ts
 import { Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { UpperCasePipe } from '@angular/common';
 
-import { IonContent, IonButtons, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonIcon } from '@ionic/angular/standalone';
 
 import { ShipDisplayData, SHIPS } from '../../../data/seed-ships';
 import { FACILITIES } from '../../../data/seed-facilities';
@@ -10,11 +11,16 @@ import { CX_ASSETS } from '../../../data/seed-cx';
 
 import { CatalogEntityBase } from '../../../models/catalog.models';
 
-
-
 import { VdsBadgeComponent } from '../../../components/vds-badge/vds-badge.component';
-import { VdsSpecGridComponent } from '../../../components/vds-spec-grid/vds-spec-grid.component';
+import { VdsQuickFactsComponent, QuickFact } from '../../../components/vds-quick-facts/vds-quick-facts.component';
+import { VdsSystemCardComponent } from '../../../components/vds-system-card/vds-system-card.component';
 import { ModelViewerComponent } from 'src/app/component/model-viewer/model-viewer.component';
+import { getSystemsForEntity, SystemCard } from '../../../data/mock-systems';
+
+// Map of entity IDs to their 3D model paths (only for entities with models)
+const MODEL_PATHS: Record<string, string> = {
+  'vx-6c-vulcan': 'assets/models/vulcan.glb',
+};
 
 // Ships use UI-only ShipDisplayData; facilities/CX use full DB-backed CatalogEntityBase
 export type CodexEntity = ShipDisplayData | CatalogEntityBase;
@@ -22,7 +28,8 @@ export type CodexEntity = ShipDisplayData | CatalogEntityBase;
 
 
 function isShipDisplay(e: CodexEntity | undefined): e is ShipDisplayData {
-  return !!e && (e as ShipDisplayData).templateId !== undefined && (e as any).unitType === undefined;
+  // ShipDisplay has required 'class' property; CatalogEntityBase has 'unitType'
+  return !!e && 'templateId' in e && !('unitType' in e);
 }
 
 
@@ -31,31 +38,40 @@ function isShipDisplay(e: CodexEntity | undefined): e is ShipDisplayData {
   selector: 'app-codex-detail',
   imports: [
     IonContent,
-    IonButtons,
-    IonButton,
+    IonIcon,
     RouterLink,
+    UpperCasePipe,
     VdsBadgeComponent,
-    VdsSpecGridComponent,
+    VdsQuickFactsComponent,
+    VdsSystemCardComponent,
     ModelViewerComponent
-],
+  ],
   templateUrl: './codex-detail.page.html',
   styleUrls: ['./codex-detail.page.scss']
 })
 export class CodexDetailPage {
-private id = signal<string>('');
+  private id = signal<string>('');
 
-entity = computed<CodexEntity | undefined>(() => {
-  const targetId = this.id();
-  if (!targetId) return undefined;
+  specsExpanded = false;
 
-  return (
-    SHIPS.find(s => s.id === targetId) ||
-    FACILITIES.find(f => f.id === targetId) ||
-    CX_ASSETS.find(c => c.id === targetId)
-  ) as CodexEntity | undefined;
-});
+  entity = computed<CodexEntity | undefined>(() => {
+    const targetId = this.id();
+    if (!targetId) return undefined;
+
+    return (
+      SHIPS.find(s => s.id === targetId) ||
+      FACILITIES.find(f => f.id === targetId) ||
+      CX_ASSETS.find(c => c.id === targetId)
+    ) as CodexEntity | undefined;
+  });
 
   isShip = computed<boolean>(() => isShipDisplay(this.entity()));
+
+  // Path to 3D model if available, otherwise null for placeholder
+  modelPath = computed<string | null>(() => {
+    const targetId = this.id();
+    return MODEL_PATHS[targetId] || null;
+  });
  // this will be used instead of e.unitType in the template
   unitTypeLabel = computed<string | null>(() => {
     const e = this.entity();
@@ -70,57 +86,135 @@ entity = computed<CodexEntity | undefined>(() => {
     return e.unitType;
   });
 
-  specs = computed<Record<string, string | number>>(() => {
+  // Full specs as QuickFacts with icons
+  specFacts = computed<QuickFact[]>(() => {
     const e = this.entity();
-    if (!e) return {};
+    if (!e) return [];
 
-    const specs: Record<string, string | number> = {};
+    // Map of spec labels to icons
+    const specIcons: Record<string, string> = {
+      'Series': 'pricetag-outline',
+      'Code': 'code-outline',
+      'Role': 'briefcase-outline',
+      'Class': 'layers-outline',
+      'Template ID': 'finger-print-outline',
+      'Unit Type': 'cube-outline',
+      'Size': 'resize-outline',
+      'Hull': 'home-outline',
+      'Shield': 'shield-outline',
+      'Weapon Slots': 'flash-outline',
+      'Crew Required': 'people-outline',
+      'Housing': 'bed-outline',
+      'Speed': 'speedometer-outline',
+      'Hyperspace': 'rocket-outline',
+      'Atmospheric': 'cloudy-outline',
+      'Shield Type': 'shield-checkmark-outline',
+      'Tech Tier': 'list-outline',
+      'Resource Capacity': 'cube-outline',
+      'Dock Capacity': 'boat-outline',
+      'Energy Produced': 'flash-outline',
+      'Energy Used': 'battery-charging-outline',
+      'Requires Power': 'battery-charging-outline',
+      'Provides Power': 'flash-outline',
+      'Provides Storage': 'file-tray-stacked-outline',
+      'Construction Cost': 'construct-outline',
+      'Development Cost': 'trending-up-outline'
+    };
+
+    const specs: Array<{ label: string; value: string | number }> = [];
 
     if (isShipDisplay(e)) {
       // Display-only ship: use the UI data you actually have
-      specs['Series'] = e.series;
-      specs['Code'] = e.code;
-      specs['Role'] = e.role;
-      if (e.class) specs['Class'] = e.class;
-      specs['Template ID'] = e.templateId;
+      specs.push({ label: 'Series', value: e.series });
+      specs.push({ label: 'Code', value: e.code });
+      specs.push({ label: 'Role', value: e.role });
+      if (e.class) specs.push({ label: 'Class', value: e.class });
+      specs.push({ label: 'Template ID', value: e.templateId });
     } else {
       // Facilities / CX assets: full DB-backed stats from CatalogEntityBase
-      specs['Unit Type'] = e.unitType;
-      specs['Size'] = e.size;
-      specs['Hull'] = e.baseHealth;
-      specs['Shield'] = e.baseShield;
-      specs['Weapon Slots'] = e.weaponSlots;
-      specs['Crew Required'] = e.staffRequired;
-      specs['Housing'] = e.totalHousing;
-      specs['Speed'] = e.speed;
-      specs['Hyperspace'] = e.hyperspace;
-      specs['Atmospheric'] = e.atmospheric ? 'Yes' : 'No';
-      specs['Shield Type'] = e.shieldType;
-      specs['Tech Tier'] = e.techTier;
-      specs['Resource Capacity'] = e.resourceCapacity;
-      specs['Dock Capacity'] = e.dockCapacity;
-      specs['Energy Produced'] = e.baseEnergyProduced;
-      specs['Energy Used'] = e.baseEnergyUsed;
-      specs['Requires Power'] = e.requiresPower ? 'Yes' : 'No';
-      specs['Provides Power'] = e.providesPower;
-      specs['Provides Storage'] = e.providesStorage;
-      specs['Construction Cost'] = e.constructionCost;
-      specs['Development Cost'] = e.developmentCost;
+      specs.push({ label: 'Unit Type', value: e.unitType });
+      specs.push({ label: 'Size', value: e.size });
+      specs.push({ label: 'Hull', value: e.baseHealth });
+      specs.push({ label: 'Shield', value: e.baseShield });
+      specs.push({ label: 'Weapon Slots', value: e.weaponSlots });
+      specs.push({ label: 'Crew Required', value: e.staffRequired });
+      specs.push({ label: 'Housing', value: e.totalHousing });
+      specs.push({ label: 'Speed', value: e.speed });
+      specs.push({ label: 'Hyperspace', value: e.hyperspace });
+      specs.push({ label: 'Atmospheric', value: e.atmospheric ? 'Yes' : 'No' });
+      specs.push({ label: 'Shield Type', value: e.shieldType });
+      specs.push({ label: 'Tech Tier', value: e.techTier });
+      specs.push({ label: 'Resource Capacity', value: e.resourceCapacity });
+      specs.push({ label: 'Dock Capacity', value: e.dockCapacity });
+      specs.push({ label: 'Energy Produced', value: e.baseEnergyProduced });
+      specs.push({ label: 'Energy Used', value: e.baseEnergyUsed });
+      specs.push({ label: 'Requires Power', value: e.requiresPower ? 'Yes' : 'No' });
+      specs.push({ label: 'Provides Power', value: e.providesPower });
+      specs.push({ label: 'Provides Storage', value: e.providesStorage });
+      specs.push({ label: 'Construction Cost', value: e.constructionCost });
+      specs.push({ label: 'Development Cost', value: e.developmentCost });
     }
 
-    // Strip zero numeric values
-    Object.keys(specs).forEach(key => {
-      const v = specs[key];
-      if (typeof v === 'number' && v === 0) {
-        delete specs[key];
-      }
-    });
-
-    return specs;
+    // Filter out zero values and convert to QuickFact format
+    return specs
+      .filter(spec => !(typeof spec.value === 'number' && spec.value === 0))
+      .map(spec => ({
+        icon: specIcons[spec.label] || 'information-circle-outline',
+        label: spec.label,
+        value: typeof spec.value === 'number' ? spec.value.toLocaleString() : spec.value
+      }));
   });
 
+  // Quick Facts with icons for the new component
+  quickFacts = computed<QuickFact[]>(() => {
+    const e = this.entity();
+    if (!e) return [];
 
+    const facts: QuickFact[] = [];
 
+    if (isShipDisplay(e)) {
+      // Ships: show key identifying info
+      facts.push({ icon: 'pricetag-outline', label: 'Series', value: e.series });
+      facts.push({ icon: 'code-outline', label: 'Code', value: e.code });
+      facts.push({ icon: 'briefcase-outline', label: 'Role', value: e.role });
+      if (e.class) facts.push({ icon: 'layers-outline', label: 'Class', value: e.class });
+    } else {
+      // Facilities/CX: show gameplay-relevant stats
+      const f = e as CatalogEntityBase;
+      if (f.baseShield) facts.push({ icon: 'shield-outline', label: 'Shield', value: f.baseShield.toLocaleString() });
+      if (f.baseHealth) facts.push({ icon: 'home-outline', label: 'Hull', value: f.baseHealth.toLocaleString() });
+      if (f.hyperspace) facts.push({ icon: 'rocket-outline', label: 'Hyperspace', value: f.hyperspace });
+      if (f.speed) facts.push({ icon: 'flash-outline', label: 'Speed', value: f.speed });
+      if (f.staffRequired) facts.push({ icon: 'people-outline', label: 'Crew', value: f.staffRequired.toLocaleString() });
+      if (f.techTier) facts.push({ icon: 'list-outline', label: 'Tech Tier', value: f.techTier });
+    }
+
+    return facts.slice(0, 6); // Limit to 6 facts
+  });
+
+  // Systems & Capabilities based on entity type
+  systems = computed<SystemCard[]>(() => {
+    const e = this.entity();
+    if (!e) return [];
+
+    const unitType = isShipDisplay(e) ? e.class : (e as CatalogEntityBase).unitType;
+    return getSystemsForEntity(e.id, unitType, e.role);
+  });
+
+  // Related units (same class or series)
+  relatedUnits = computed(() => {
+    const e = this.entity();
+    if (!e) return [];
+
+    const currentId = e.id;
+    const currentSeries = e.series;
+    const currentClass = isShipDisplay(e) ? e.class : null;
+
+    // Find up to 4 related ships by class or series
+    return SHIPS
+      .filter(s => s.id !== currentId && (s.class === currentClass || s.series === currentSeries))
+      .slice(0, 4);
+  });
 
   constructor(route: ActivatedRoute) {
     const id = route.snapshot.paramMap.get('id') || '';

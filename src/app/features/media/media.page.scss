@@ -1,2 +1,348 @@
 /* File: src/app/features/media/media.page.scss */
-.grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:12px; }
+
+// Color variables matching design spec
+$bg-dark: #0a0e1a;
+$bg-card: #141820;
+$cyan-primary: #5fffff;
+$cyan-muted: rgba(95, 255, 255, 0.6);
+$text-muted: #8a9199;
+$text-light: #e0e4e8;
+$border-subtle: rgba(255, 255, 255, 0.08);
+
+// ============================================
+// HERO SECTION
+// ============================================
+.hero-section {
+  padding: 0 24px 24px;
+  padding-top: 100px;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $cyan-primary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 12px 0;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  color: $text-muted;
+  margin: 0;
+  line-height: 1.6;
+}
+
+// ============================================
+// CONTENT SECTION
+// ============================================
+.content-section {
+  padding: 0 24px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// ============================================
+// CATEGORY NAVIGATION
+// ============================================
+.category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $border-subtle;
+}
+
+.category-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid $border-subtle;
+  border-radius: 6px;
+  color: $text-muted;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  ion-icon {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    border-color: $cyan-muted;
+    color: $text-light;
+  }
+
+  &.active {
+    background: rgba(95, 255, 255, 0.1);
+    border-color: $cyan-primary;
+    color: $cyan-primary;
+  }
+}
+
+// ============================================
+// GALLERY GRID
+// ============================================
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+// ============================================
+// MEDIA CARD
+// ============================================
+.media-card {
+  background: rgba(20, 24, 32, 0.8);
+  border: 1px solid $border-subtle;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+
+  &:hover:not(.coming-soon) {
+    border-color: $cyan-muted;
+    transform: translateY(-2px);
+  }
+
+  &.coming-soon {
+    opacity: 0.7;
+
+    .card-image {
+      filter: grayscale(30%);
+    }
+  }
+}
+
+.card-image {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: rgba(10, 14, 26, 0.8);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .media-card:hover:not(.coming-soon) & img {
+    transform: scale(1.05);
+  }
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(20, 24, 32, 0.9) 0%, rgba(10, 14, 26, 0.9) 100%);
+
+  ion-icon {
+    font-size: 3rem;
+    color: rgba(95, 255, 255, 0.2);
+  }
+}
+
+.coming-soon-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 14, 26, 0.6);
+}
+
+.coming-soon-badge {
+  padding: 8px 16px;
+  background: rgba(95, 255, 255, 0.1);
+  border: 1px solid $cyan-muted;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $cyan-primary;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $text-light;
+  margin: 0 0 6px 0;
+}
+
+.card-description {
+  font-size: 0.85rem;
+  color: $text-muted;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid $border-subtle;
+  border-radius: 4px;
+  color: $text-muted;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  ion-icon {
+    font-size: 0.95rem;
+  }
+
+  &:hover {
+    border-color: $cyan-muted;
+    color: $cyan-primary;
+    background: rgba(95, 255, 255, 0.05);
+  }
+}
+
+// ============================================
+// EMPTY STATE
+// ============================================
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 64px 24px;
+  text-align: center;
+  color: $text-muted;
+
+  ion-icon {
+    font-size: 4rem;
+    opacity: 0.3;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+// ============================================
+// INFO SECTION
+// ============================================
+.info-section {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid $border-subtle;
+}
+
+.info-card {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(20, 24, 32, 0.6);
+  border: 1px solid $border-subtle;
+  border-radius: 8px;
+
+  > ion-icon {
+    font-size: 1.5rem;
+    color: $cyan-muted;
+    flex-shrink: 0;
+  }
+}
+
+.info-content {
+  h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $text-light;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: $text-muted;
+    margin: 0;
+    line-height: 1.6;
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: 768px) {
+  .hero-section {
+    padding-top: 80px;
+    padding-bottom: 20px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .content-section {
+    padding: 0 16px 32px;
+  }
+
+  .category-nav {
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .category-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+
+    span {
+      display: none;
+    }
+
+    ion-icon {
+      font-size: 1.1rem;
+    }
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .info-card {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}

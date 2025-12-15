@@ -43,7 +43,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     providesStorage: 1,
     isShip: true,
     resourceCapacity: 225000,
-    dockCapacity: 0
+    dockCapacity: 0,
+    thumbnail: 'assets/thumbnails/Hauler.png'
   },
   {
     id: 'cx-5-atlas',
@@ -129,7 +130,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     providesStorage: 1,
     isShip: true,
     resourceCapacity: 14000000,
-    dockCapacity: 0
+    dockCapacity: 0,
+    thumbnail: 'assets/thumbnails/CX7.png'
   },
   {
     id: 'cx-7b-loadstar',
@@ -301,6 +303,7 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     providesStorage: 1,
     isShip: true,
     resourceCapacity: 3000000,
-    dockCapacity: 0
+    dockCapacity: 0,
+    thumbnail: 'assets/thumbnails/Trailblazer.png'
   }
 ];

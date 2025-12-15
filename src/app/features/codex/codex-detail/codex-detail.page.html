@@ -1,45 +1,124 @@
 <!-- File: src/app/features/codex/codex-detail.page.html -->
 @if (entity(); as e) {
   <ion-content>
-    <section class="vds-section">
-      <!-- Only show model viewer for ships (for now) -->
-      @if (isShip()) {
-        <bh-model-viewer></bh-model-viewer>
-      }
-      <div class="head">
-        <vds-badge [series]="e.series">{{ e.code }}</vds-badge>
-        <h1 class="vds-h1">{{ e.name }}</h1>
-        @if (e.class) {
-          <span class="vds-chip vds-code">
-            {{ e.class }}
-          </span>
-        }
-        @if (!e.class && unitTypeLabel()) {
-          <span class="vds-chip vds-code">
-            {{ unitTypeLabel() }}
-          </span>
-        }
-        <a routerLink="/codex" class="back">Back to Codex</a>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-left">
+          <vds-badge [series]="e.series">{{ e.code }}</vds-badge>
+          <h1 class="hero-title">{{ e.name }}</h1>
+          <h2 class="hero-class">
+            @if (e.class) {
+              {{ e.class | uppercase }} CLASS
+            } @else if (unitTypeLabel()) {
+              {{ unitTypeLabel() | uppercase }}
+            }
+          </h2>
+          <div class="role-badges">
+            @for (tag of e.tags; track tag) {
+              <span class="role-badge">{{ tag | uppercase }}</span>
+            }
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="model-viewport">
+            @if (modelPath()) {
+              <bh-model-viewer [src]="modelPath()!"></bh-model-viewer>
+            } @else {
+              <div class="placeholder-image">
+                <ion-icon name="cube-outline"></ion-icon>
+                <span>3D Model Coming Soon</span>
+              </div>
+            }
+          </div>
+        </div>
       </div>
-      <div class="layout">
-        <article class="vds-card prose">
-          <h2 class="vds-h2">{{ e.role }}</h2>
-          <p>{{ e.summary }}</p>
-          <p>{{ e.description }}</p>
-          @if (e.tags?.length) {
-            <div class="tags">
-              @for (t of e.tags; track t) {
-                <span class="tag">{{ t }}</span>
+      <a routerLink="/codex" class="back-link">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Back to Codex
+      </a>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+      <div class="content-grid">
+        <!-- Left Sidebar: Quick Facts + Tech Specs -->
+        <aside class="sidebar">
+          <div class="quick-facts">
+            <h3 class="section-label">Quick Facts</h3>
+            <vds-quick-facts [facts]="quickFacts()"></vds-quick-facts>
+          </div>
+
+          <!-- Technical Specifications (Collapsible) -->
+          @if (specFacts().length > 0) {
+            <div class="tech-specs-section">
+              <button class="specs-toggle" (click)="specsExpanded = !specsExpanded">
+                <h3 class="section-label">Technical Specifications</h3>
+                <ion-icon [name]="specsExpanded ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+              </button>
+              @if (specsExpanded) {
+                <div class="specs-content">
+                  <vds-quick-facts [facts]="specFacts()"></vds-quick-facts>
+                </div>
               }
             </div>
           }
-        </article>
-        <aside class="right">
-          <vds-spec-grid [specs]="specs()"></vds-spec-grid>
-          <div class="cta vds-card">
-            <a routerLink="/media" class="btn">Download Media</a>
-          </div>
         </aside>
+
+        <!-- Right Main Area: Combat Debrief + Systems -->
+        <main class="main-content">
+          <article class="combat-debrief">
+            <h3 class="section-label">Combat Debrief</h3>
+            <div class="debrief-content">
+              <p class="role-line">{{ e.role }}</p>
+              <p class="summary">{{ e.summary }}</p>
+              @if (e.description && e.description !== e.summary) {
+                <blockquote class="pull-quote">
+                  {{ e.description }}
+                </blockquote>
+              }
+            </div>
+          </article>
+
+          <!-- Systems & Capabilities -->
+          @if (systems().length > 0) {
+            <section class="systems-section">
+              <h3 class="section-label">Systems & Capabilities</h3>
+              <div class="systems-grid">
+                @for (system of systems(); track system.id) {
+                  <vds-system-card
+                    [name]="system.name"
+                    [icon]="system.icon"
+                    [description]="system.description">
+                  </vds-system-card>
+                }
+              </div>
+            </section>
+          }
+        </main>
+      </div>
+
+      <!-- Related Units -->
+      @if (relatedUnits().length > 0) {
+        <section class="related-section">
+          <h3 class="section-label">Related Units</h3>
+          <div class="related-grid">
+            @for (unit of relatedUnits(); track unit.id) {
+              <a [routerLink]="['/codex', unit.id]" class="related-card">
+                <vds-badge [series]="unit.series">{{ unit.code }}</vds-badge>
+                <span class="related-name">{{ unit.name }}</span>
+              </a>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- CTA -->
+      <div class="cta-section">
+        <a routerLink="/media" class="cta-btn">
+          <ion-icon name="download-outline"></ion-icon>
+          Download Media Kit
+        </a>
       </div>
     </section>
   </ion-content>

@@ -20,42 +20,42 @@ export interface NavCard {
 export class VdsNavHubComponent {
   @Input() cards: NavCard[] = [
     {
-      icon: '🚀',
+      icon: 'assets/icon/icon-ships.png',
       title: 'Ships',
       description: 'Explore Fleet',
       link: '/ships',
       label: 'Explore'
     },
     {
-      icon: '🏗️',
+      icon: 'assets/icon/icon-stations.png',
       title: 'Stations',
       description: 'View Habitats',
       link: '/stations',
       label: 'Explore'
     },
     {
-      icon: '📖',
+      icon: 'assets/icon/icon-codex.png',
       title: 'Codex',
       description: 'Read Lore',
       link: '/codex',
       label: 'Explore'
     },
     {
-      icon: '📚',
+      icon: 'assets/icon/icon-learning.png',
       title: 'Learning',
       description: 'How to Play',
       link: '/learn',
       label: 'Get Started'
     },
     {
-      icon: '🎨',
+      icon: 'assets/icon/icon-media.png',
       title: 'Media',
       description: 'View Gallery',
       link: '/media',
       label: 'Browse'
     },
     {
-      icon: '📢',
+      icon: 'assets/icon/icon-updates.png',
       title: 'Updates',
       description: 'Latest News',
       link: '/updates',

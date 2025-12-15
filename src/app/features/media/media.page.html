@@ -1,11 +1,79 @@
 <!-- File: src/app/features/media/media.page.html -->
 <ion-content>
-  <section class="vds-section">
-    <h1 class="vds-h1">Media & Wallpapers</h1>
-    <div class="grid">
-      @for (p of posters; track p) {
-        <vds-poster [src]="p.src" [caption]="p.caption"></vds-poster>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Media Gallery</h1>
+      <p class="hero-subtitle">Concept art, wallpapers, and renders from the Beyond Horizon universe</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="content-section">
+    <!-- Category Filter -->
+    <nav class="category-nav">
+      @for (cat of categories; track cat.id) {
+        <button
+          class="category-btn"
+          [class.active]="activeCategory() === cat.id"
+          (click)="setCategory(cat.id)">
+          <ion-icon [name]="cat.icon"></ion-icon>
+          <span>{{ cat.label }}</span>
+        </button>
+      }
+    </nav>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      @for (item of filteredItems; track item.id) {
+        <article class="media-card" [class.coming-soon]="item.comingSoon">
+          <div class="card-image">
+            @if (item.thumbnail && !item.comingSoon) {
+              <img [src]="item.thumbnail" [alt]="item.title" loading="lazy">
+            } @else {
+              <div class="placeholder">
+                <ion-icon name="image-outline"></ion-icon>
+              </div>
+            }
+            @if (item.comingSoon) {
+              <div class="coming-soon-overlay">
+                <span class="coming-soon-badge">Coming Soon</span>
+              </div>
+            }
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">{{ item.title }}</h3>
+            @if (item.description) {
+              <p class="card-description">{{ item.description }}</p>
+            }
+            @if (!item.comingSoon && item.fullImage) {
+              <button class="download-btn" (click)="downloadImage(item)">
+                <ion-icon name="download-outline"></ion-icon>
+                <span>Download</span>
+              </button>
+            }
+          </div>
+        </article>
       }
     </div>
+
+    <!-- Empty State -->
+    @if (filteredItems.length === 0) {
+      <div class="empty-state">
+        <ion-icon name="images-outline"></ion-icon>
+        <p>No media items in this category yet.</p>
+      </div>
+    }
+
+    <!-- Info Section -->
+    <aside class="info-section">
+      <div class="info-card">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <div class="info-content">
+          <h4>Media Usage</h4>
+          <p>All artwork and media are property of Beyond Horizon. Personal use and fan content are welcome. For commercial licensing, please contact us.</p>
+        </div>
+      </div>
+    </aside>
   </section>
 </ion-content>

@@ -506,6 +506,12 @@ small, .text-small, .caption {
   }
 }
 
+.btn-disabled {
+  opacity: 0.7;
+  cursor: default;
+  pointer-events: none;
+}
+
 /* ===== SECTION STYLES ===== */
 .section {
   padding: var(--spacing-2xl) var(--spacing-lg);

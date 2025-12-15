@@ -19,7 +19,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `The EX-1 Vibz is the smallest member of the EX lineup "" a rapid-deployment builder drone designed for tight construction spaces and quick assembly tasks.`,
     description: `The EX-1 Vibz is the smallest member of the EX lineup "" a rapid-deployment builder drone designed for tight construction spaces and quick assembly tasks. Where larger yardships cannot safely maneuver, Vibz units swarm in through access shafts, fractured hull ribs, and half-pressurized corridors to weld new structure over old scars. Each chassis mounts dual plasma welders, magnetic manipulators, and a modular tool cradle that can be refit for lattice-printing, shielding node emplacement, or precision hull scoring. Voran site foremen deploy Vibz clouds ahead of full-scale construction groups to lay calibration anchors, diagnostic beacons, and foundation scaffolds across raw rock or derelict stations. On the frontier, the arrival of a Vibz swarm in orbit is often the first visible sign that a barren grid square has been marked for transformation into a Beyond Horizon staging point.`,
     tags: ['logistics', 'other'],
-    class: 'other'
+    class: 'other',
+    thumbnail: 'assets/thumbnails/Vibz.png'
   },
   {
     id: 'vx-6-apex',
@@ -31,7 +32,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `The Apex stands as the pinnacle of Voran's VX-Series design philosophy "" a warship engineered not merely for combat, but for domination through precision.`,
     description: 'The VX-6 Apex stands as the pinnacle of Voran\'s VX-Series design philosophy "" a warship engineered not merely for combat, but for domination through precision. Its elongated tritanium spine houses a phased mass-driver array tuned to punch clean corridors through enemy formations, allowing Voran fleets to carve the battlespace into controllable lanes. Multi-layered shield lattices cycle frequencies on predictive combat algorithms, shrugging off return fire that lesser vessels cannot even track. Within its strategic CIC, lattice-map projectors and quantum-linked fire control weave data from every hull in the task force, turning the Apex into a thinking engine of war. In the Beyond Horizon frontier campaigns, the silhouette of an Apex on long-range scans has become shorthand across the Rim for a simple truth: negotiation has already failed.',
     tags: ['warship', 'battleship'],
-    class: 'battleship'
+    class: 'battleship',
+    thumbnail: 'assets/thumbnails/Apex.png'
   },
   {
     id: 'drx-500-oretrain',
@@ -67,7 +69,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `Optimized for stealth and strike missions in nebular or atmospheric zones.`,
     description: 'The VX-4A Viper is optimized for stealth and strike missions in nebular or atmospheric zones, where conventional targeting systems falter and visibility dissolves into static. Its hull geometry channels ionized gases along embedded vanes, diffusing drive signatures into the turbulence of nebulae or cloud layers. A low-EM output profile and insulated weapon housings allow the Viper to lurk within storm fronts, emerging only long enough to deliver crippling volleys at close range. Many of Voran\'s most decisive convoy ambushes along the Beyond Horizon trade lanes began with a single encrypted whisper on fleet comms: "Viper has eyes." By the time the enemy realized the weather itself was hostile, the escort screen was already in pieces.',
     tags: ['warship', 'destroyer'],
-    class: 'destroyer'
+    class: 'destroyer',
+    thumbnail: 'assets/thumbnails/VX4-Viper.png'
   },
   {
     id: 'vx-6-omen',
@@ -79,7 +82,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `The Omen embodies Voran's doctrine of "precision intimidation." Equipped with dual spinal mass cannons and adaptive energy shielding, it can annihilate targets before they breach effective counter-...`,
     description: 'The VX-6 Omen embodies Voran\'s doctrine of "precision intimidation," a battleship whose presence is engineered to erode enemy morale before the first shot is fired. Twin spinal mass cannons run the length of its reinforced keel, each capable of firing slugs large enough to crater a city block from orbit. Adaptive energy shielding wraps the hull in cascading layers that flare with controlled brilliance when struck, turning incoming fire into a spectacle of futility. The Omen\'s targeting suites specialize in long-range threat elimination, prioritizing command ships, shield generators, and escape vectors before an opposing fleet can properly form a response. In the Beyond Horizon conflicts, entire sectors learned to read its arrival as a sign that negotiations had reached their final chapter "" and Voran had already written the ending.',
     tags: ['warship', 'battleship'],
-    class: 'battleship'
+    class: 'battleship',
+    thumbnail: 'assets/thumbnails/Omen.png'
   },
   {
     id: 'vx-9-vanguard',
@@ -91,7 +95,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `Designed as the strategic nerve center of Voran's fleets, the Vanguard fuses advanced tactical computation with heavy carrier capacity.`,
     description: 'Designed as the strategic nerve center of Voran\'s fleets, the VX-9 Vanguard fuses advanced tactical computation with heavy carrier capacity to dominate the operational layer of any engagement. Its multi-tiered bridge architecture isolates strategic command, real-time analytics, and flight operations into separate hardened cores, all linked through quantum-synced data trunks. From this nexus, Voran admirals can coordinate dozens of wings, carriers, and capital hulls, adapting formations to shifting conditions in seconds. Beneath its armored dorsal spine, recessed hangar bays launch interceptors, VX-2 strike elements, and recon drones that extend the Vanguard\'s eyes and claws deep into contested space. During the early Beyond Horizon campaigns, systems that saw a Vanguard in high orbit understood at once: they were not facing a task group, but the fully awakened will of Voran Defense shaped into steel.',
     tags: ['warship', 'command'],
-    class: 'command'
+    class: 'command',
+    thumbnail: 'assets/thumbnails/Vanguard.png'
   },
   {
     id: 'vx-10-sharknado',
@@ -247,7 +252,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `The Atlas Prime acts as a mobile dockyard, resupplying and repairing deployed vessels.`,
     description: 'The VX-5B Atlas Prime acts as a mobile dockyard, the logistical spine that keeps Voran task forces fighting far beyond conventional supply lines. Its reinforced hangars and external cargo spines are fitted with modular bays that can be reconfigured as repair slips, fabrication lines, or bulk storage in a matter of hours. EX-3 Spanner drones swarm over damaged hulls under the Atlas Prime\'s direction, knitting armor, replacing modules, and recharging shield lattices without the need for a friendly port. Entire strike groups have survived grueling Beyond Horizon campaigns solely because an Atlas Prime remained intact, quietly turning wrecks back into warships between jumps. For Voran crews, seeing its massive frame slide out of hyperspace is less like the arrival of a carrier and more like the appearance of a lifeline.',
     tags: ['warship', 'carrier'],
-    class: 'carrier'
+    class: 'carrier',
+    thumbnail: 'assets/thumbnails/Atlas.png'
   },
   {
     id: 'vx-5c-bastion',
@@ -259,7 +265,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `Built to protect critical fleets or stations, the Bastion prioritizes shield arrays, defensive batteries, and interceptor squadrons.`,
     description: `The VX-5C Bastion is built to protect what Voran values most "" critical fleets, corporate capitals, and irreplaceable infrastructure. Unlike its more aggressive siblings, the Bastion prioritizes layered shield arrays, overlapping defensive batteries, and dense interceptor squadrons over raw offensive power. When it transitions from carrier to fortress mid-battle, its projectors expand to cast protective fields across an entire task group, blunting incoming ordnance and sheltering damaged hulls. At close range, point-defense storms and interceptor meshes turn the surrounding volume into a kill box where hostile missiles and strike craft rarely survive more than a few seconds. In the Beyond Horizon frontier, the surest sign that Voran has no intention of relinquishing a position is the arrival of a Bastion to sit in orbit and simply refuse to fall.`,
     tags: ['warship', 'carrier'],
-    class: 'carrier'
+    class: 'carrier',
+    thumbnail: 'assets/thumbnails/VX5.png'
   },
   {
     id: 'vx-6a-tyrant',
@@ -307,6 +314,20 @@ export const SHIPS: ShipDisplay[] = [
     summary: `Using a solar-fusion drive and high-energy focusing lenses, the Helios delivers radiant lances that vaporize targets from orbit.`,
     description: 'The VX-6D Helios wields light itself as a weapon, coupling a solar-fusion drive with high-energy focusing lenses to project radiant lances across orbital distances. Its reactors feed artificial micro-stars that are then shaped and released as coherent beams, slicing through warships, defense grids, and hardened bunkers with surgical finality. Because its primary weapons favor extreme range and line-of-sight corridors, Helios captains often operate from the periphery of engagements, acting as celestial executioners while VX frigates and destroyers herd targets into clean firing arcs. Even when idle, the vessel\'s lens arrays glow with caged radiance, earning it a reputation as a second sun hanging in hostile skies. On worlds touched by the Beyond Horizon conflict, the phrase "Daylight is here" carries a new, uneasy meaning "" it might simply mean a Helios has taken station overhead.',
     tags: ['warship', 'battleship'],
-    class: 'battleship'
+    class: 'battleship',
+    thumbnail: 'assets/thumbnails/VX6.png'
+  },
+  {
+    id: 'ex-1-rivvox',
+    templateId: 0,
+    series: 'EX',
+    code: 'EX-1',
+    name: 'EX-1 Rivvox',
+    role: 'Light utility vessel',
+    summary: `A nimble support craft designed for rapid deployment and versatile field operations.`,
+    description: `The EX-1 Rivvox is a nimble support craft designed for rapid deployment and versatile field operations. Compact yet capable, it serves as the eyes and hands of larger Voran operations, performing reconnaissance, emergency repairs, and personnel transfers in zones too dangerous or confined for heavier vessels.`,
+    tags: ['logistics', 'other'],
+    class: 'other',
+    thumbnail: 'assets/thumbnails/Rivvox.png'
   }
 ];

@@ -1,13 +1,33 @@
 <!-- File: src/app/components/vds-card/vds-card.component.html -->
-<a class="card vds-card" [routerLink]="to" [attr.aria-label]="title">
-  <div class="head">
-    <vds-badge [series]="series">{{code}}</vds-badge>
-    <h3>{{title}}</h3>
-  </div>
-  <p class="summary">{{summary}}</p>
-  <div class="tags">
-    @for (t of tags; track t) {
-      <span class="vds-chip">{{t}}</span>
+<a class="card vds-card has-thumbnail" [routerLink]="to" [attr.aria-label]="title">
+  <div class="thumbnail">
+    @if (thumbnail) {
+      @if (imageLoading()) {
+        <div class="loading-overlay">
+          <div class="spinner"></div>
+        </div>
+      }
+      <img [src]="thumbnail" [alt]="title" loading="lazy"
+           [class.loaded]="!imageLoading()"
+           (load)="onImageLoad()"
+           (error)="onImageError()">
+    } @else {
+      <div class="placeholder">
+        <ion-icon name="image-outline"></ion-icon>
+        <span class="coming-soon-badge">Coming Soon</span>
+      </div>
     }
+  </div>
+  <div class="content">
+    <div class="head">
+      <vds-badge [series]="series">{{code}}</vds-badge>
+      <h3>{{title}}</h3>
+    </div>
+    <p class="summary">{{summary}}</p>
+    <div class="tags">
+      @for (t of tags; track t) {
+        <span class="vds-chip">{{t}}</span>
+      }
+    </div>
   </div>
 </a>

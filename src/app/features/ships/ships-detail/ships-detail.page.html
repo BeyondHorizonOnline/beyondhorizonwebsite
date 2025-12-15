@@ -1,51 +1,134 @@
 <!-- File: src/app/features/ships/ship-detail.page.html -->
 @if (ship(); as s) {
   <ion-content>
-    <section class="vds-section">
-      <div class="head">
-        <vds-badge [series]="s.series">{{ s.code }}</vds-badge>
-        <h1 class="vds-h1">{{ s.name }}</h1>
-        <span class="vds-chip vds-code">{{ s.class }}</span>
-        @if (s.line) {
-          <span class="vds-chip vds-code">{{ s.line }}</span>
-        }
-        <a routerLink="/ships" class="back">Back to Ships</a>
-      </div>
-      <div class="layout">
-        <article class="vds-card prose">
-          @if (showViewer) {
-            <bh-model-viewer></bh-model-viewer>
-          }
-          <h2 class="vds-h2">[ DEBRIEF FOR {{s.name}} ]</h2>
-          <p>{{ s.summary }}</p>
-          <p>{{ s.description }}</p>
-        </article>
-        <aside class="right">
-          <!-- Loading State -->
-          @if (loadingStats()) {
-            <div class="vds-card loading-state">
-              <div class="spinner"></div>
-              <p>Loading specifications...</p>
-            </div>
-          }
-          <!-- Error State -->
-          @if (statsError()) {
-            <div class="vds-card error-state">
-              <p>⚠️ {{ statsError() }}</p>
-              <button (click)="retryLoadStats()" class="btn">Retry</button>
-            </div>
-          }
-          <!-- Stats Loaded - driven from API via signal -->
-          @if (!loadingStats() && !statsError()) {
-            <vds-spec-grid
-              [specs]="specs()">
-            </vds-spec-grid>
-          }
-          <div class="cta vds-card">
-            <a routerLink="/codex" class="btn">View in Codex</a>
-            <a routerLink="/media" class="btn">Download Poster</a>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-left">
+          <vds-badge [series]="s.series">{{ s.code }}</vds-badge>
+          <h1 class="hero-title">{{ s.name }}</h1>
+          <h2 class="hero-class">{{ s.class | uppercase }} CLASS</h2>
+          <div class="role-badges">
+            @for (tag of s.tags; track tag) {
+              <span class="role-badge">{{ tag | uppercase }}</span>
+            }
           </div>
+        </div>
+        <div class="hero-right">
+          <div class="model-viewport">
+            @if (modelPath()) {
+              <bh-model-viewer [src]="modelPath()!"></bh-model-viewer>
+            } @else {
+              <div class="placeholder-image">
+                <ion-icon name="cube-outline"></ion-icon>
+                <span>3D Model Coming Soon</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+      <a routerLink="/ships" class="back-link">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Back to Ships
+      </a>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+      <div class="content-grid">
+        <!-- Left Sidebar: Quick Facts + Tech Specs -->
+        <aside class="sidebar">
+          <div class="quick-facts">
+            <h3 class="section-label">Quick Facts</h3>
+            @if (loadingStats()) {
+              <div class="loading-state">
+                <ion-icon name="sync-outline" class="spinner"></ion-icon>
+                <span>Loading stats...</span>
+              </div>
+            } @else if (statsError()) {
+              <div class="error-state">
+                <p>{{ statsError() }}</p>
+                <button (click)="retryLoadStats()" class="retry-btn">Retry</button>
+              </div>
+            } @else {
+              <vds-quick-facts [facts]="quickFacts()"></vds-quick-facts>
+            }
+          </div>
+
+          <!-- Technical Specifications (Collapsible) -->
+          @if (specFacts().length > 0) {
+            <div class="tech-specs-section">
+              <button class="specs-toggle" (click)="specsExpanded = !specsExpanded">
+                <h3 class="section-label">Technical Specifications</h3>
+                <ion-icon [name]="specsExpanded ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+              </button>
+              @if (specsExpanded) {
+                <div class="specs-content">
+                  <vds-quick-facts [facts]="specFacts()"></vds-quick-facts>
+                </div>
+              }
+            </div>
+          }
         </aside>
+
+        <!-- Right Main Area: Combat Debrief + Systems -->
+        <main class="main-content">
+          <article class="combat-debrief">
+            <h3 class="section-label">Combat Debrief</h3>
+            <div class="debrief-content">
+              <p class="role-line">{{ s.role }}</p>
+              <p class="summary">{{ s.summary }}</p>
+              @if (s.description && s.description !== s.summary) {
+                <blockquote class="pull-quote">
+                  {{ s.description }}
+                </blockquote>
+              }
+            </div>
+          </article>
+
+          <!-- Systems & Capabilities -->
+          @if (systems().length > 0) {
+            <section class="systems-section">
+              <h3 class="section-label">Systems & Capabilities</h3>
+              <div class="systems-grid">
+                @for (system of systems(); track system.id) {
+                  <vds-system-card
+                    [name]="system.name"
+                    [icon]="system.icon"
+                    [description]="system.description">
+                  </vds-system-card>
+                }
+              </div>
+            </section>
+          }
+        </main>
+      </div>
+
+      <!-- Related Ships -->
+      @if (relatedShips().length > 0) {
+        <section class="related-section">
+          <h3 class="section-label">Related Ships</h3>
+          <div class="related-grid">
+            @for (ship of relatedShips(); track ship.id) {
+              <a [routerLink]="['/ships', ship.id]" class="related-card">
+                <vds-badge [series]="ship.series">{{ ship.code }}</vds-badge>
+                <span class="related-name">{{ ship.name }}</span>
+              </a>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- CTA -->
+      <div class="cta-section">
+        <a [routerLink]="['/codex', s.id]" class="cta-btn">
+          <ion-icon name="book-outline"></ion-icon>
+          View in Codex
+        </a>
+        <a routerLink="/media" class="cta-btn">
+          <ion-icon name="download-outline"></ion-icon>
+          Download Media Kit
+        </a>
       </div>
     </section>
   </ion-content>

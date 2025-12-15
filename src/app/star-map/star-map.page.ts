@@ -81,12 +81,24 @@ export class StarMapPage implements OnInit, OnDestroy {
   private bgImg = new Image();
   private bgReady = false;
 
+  /** Hover tooltip */
+  private mouseX = 0;
+  private mouseY = 0;
+  private hoveredWaypoint: { name: string; id: number; x: number; y: number; z: number; hopIndex: number } | null = null;
+
+  /** Route animation */
+  private animationProgress = 0;
+  private animationId: number | null = null;
+  private isAnimating = false;
+
   /** Listeners */
   private onResize = () => {};
   private onWheel = (e: WheelEvent) => {};
   private onPointerDown = (e: PointerEvent) => {};
   private onPointerMove = (e: PointerEvent) => {};
   private onPointerUpCancel = (e: PointerEvent) => {};
+  private onMouseMove = (e: MouseEvent) => {};
+  private onKeyDown = (e: KeyboardEvent) => {};
 
   constructor(private routing: RoutingService) {}
 
@@ -173,6 +185,41 @@ export class StarMapPage implements OnInit, OnDestroy {
     window.addEventListener('pointerup', this.onPointerUpCancel, { passive: false });
     window.addEventListener('pointercancel', this.onPointerUpCancel, { passive: false });
 
+    // Mouse move for hover tooltips
+    this.onMouseMove = (e: MouseEvent) => {
+      const rect = c.getBoundingClientRect();
+      this.mouseX = e.clientX - rect.left;
+      this.mouseY = e.clientY - rect.top;
+      this.checkHover();
+      if (!this.isAnimating) this.draw();
+    };
+    c.addEventListener('mousemove', this.onMouseMove);
+
+    // Keyboard shortcuts
+    this.onKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      switch (e.key.toLowerCase()) {
+        case 'r':
+          this.resetView();
+          break;
+        case 'f':
+          this.fitToRoute();
+          break;
+        case 'g':
+          this.fitGalaxy();
+          break;
+        case 'c':
+          this.centerView();
+          break;
+        case 'a':
+          this.animateRoute();
+          break;
+      }
+    };
+    window.addEventListener('keydown', this.onKeyDown);
+
     // Load galaxy image once
     this.bgImg.src = GALAXY_IMG_URL;
     this.bgImg.onload = () => { this.bgReady = true; this.draw(); };
@@ -183,11 +230,14 @@ export class StarMapPage implements OnInit, OnDestroy {
     if (c) {
       c.removeEventListener('wheel', this.onWheel as any);
       c.removeEventListener('pointerdown', this.onPointerDown as any);
+      c.removeEventListener('mousemove', this.onMouseMove as any);
     }
     window.removeEventListener('resize', this.onResize as any);
     window.removeEventListener('pointermove', this.onPointerMove as any);
     window.removeEventListener('pointerup', this.onPointerUpCancel as any);
     window.removeEventListener('pointercancel', this.onPointerUpCancel as any);
+    window.removeEventListener('keydown', this.onKeyDown as any);
+    if (this.animationId) cancelAnimationFrame(this.animationId);
   }
 
   // ---------- helpers ----------
@@ -219,6 +269,73 @@ export class StarMapPage implements OnInit, OnDestroy {
     this.draw();
   }
 
+  /** Check if mouse is hovering over a waypoint */
+  private checkHover() {
+    const r = this.route();
+    if (!r?.hops?.length) {
+      this.hoveredWaypoint = null;
+      return;
+    }
+
+    const threshold = 12; // pixels
+    let closest: typeof this.hoveredWaypoint = null;
+    let closestDist = Infinity;
+
+    // Build unique waypoints list
+    const waypoints: Array<{ p: P; name: string; id: number; hopIndex: number }> = [];
+    r.hops.forEach((h, i) => {
+      if (i === 0) {
+        waypoints.push({ p: h.from, name: h.from.name || `System ${h.from.id}`, id: h.from.id, hopIndex: i });
+      }
+      waypoints.push({ p: h.to, name: h.to.name || `System ${h.to.id}`, id: h.to.id, hopIndex: i + 1 });
+    });
+
+    for (const wp of waypoints) {
+      const screen = this.worldToScreen(wp.p);
+      const dist = Math.hypot(screen.x - this.mouseX, screen.y - this.mouseY);
+      if (dist < threshold && dist < closestDist) {
+        closestDist = dist;
+        closest = { name: wp.name, id: wp.id, x: wp.p.x, y: wp.p.y, z: wp.p.z, hopIndex: wp.hopIndex };
+      }
+    }
+
+    this.hoveredWaypoint = closest;
+  }
+
+  /** Animate route drawing */
+  animateRoute() {
+    const r = this.route();
+    if (!r?.hops?.length) return;
+
+    // Cancel any existing animation
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+    }
+
+    this.animationProgress = 0;
+    this.isAnimating = true;
+
+    const totalHops = r.hops.length;
+    const duration = 3500; // 3.5 seconds for smoother animation
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      this.animationProgress = Math.min(1, elapsed / duration);
+
+      this.draw();
+
+      if (this.animationProgress < 1) {
+        this.animationId = requestAnimationFrame(animate);
+      } else {
+        this.isAnimating = false;
+        this.animationId = null;
+      }
+    };
+
+    this.animationId = requestAnimationFrame(animate);
+  }
+
   // ---------- actions ----------
   async run(form?: NgForm) {
     if ((this.shipJumpMax ?? 0) <= 0) {
@@ -244,7 +361,12 @@ export class StarMapPage implements OnInit, OnDestroy {
       if (!out.ok) this.error.set(out.error || 'Route failed');
       this.route.set(out);
       this.centerViewOnRoute();
-      this.draw();
+      // Auto-animate the route when it loads
+      if (out.ok && out.hops?.length) {
+        this.animateRoute();
+      } else {
+        this.draw();
+      }
     } catch (e: any) {
       this.error.set(e?.message || 'Network error');
     } finally {
@@ -382,46 +504,175 @@ private centerViewOnRoute() {
     const r = this.route();
     if (!r?.hops?.length) return;
 
-    // Route polyline
+    const totalHops = r.hops.length;
+    const animatedHops = this.isAnimating
+      ? Math.floor(this.animationProgress * totalHops)
+      : totalHops;
+    const partialProgress = this.isAnimating
+      ? (this.animationProgress * totalHops) - animatedHops
+      : 1;
+
+    // Route polyline with animation support
     ctx.save();
     ctx.lineWidth = 2.25;
     ctx.strokeStyle = '#ff9f1a';
-    ctx.shadowColor = 'rgba(255,159,26,.35)';
-    ctx.shadowBlur = 6;
+    ctx.shadowColor = this.isAnimating ? 'rgba(255,159,26,.65)' : 'rgba(255,159,26,.35)';
+    ctx.shadowBlur = this.isAnimating ? 12 : 6;
     ctx.beginPath();
-    r.hops.forEach((h, i) => {
+
+    for (let i = 0; i < animatedHops && i < totalHops; i++) {
+      const h = r.hops[i];
       const a = this.worldToScreen(h.from);
       const b = this.worldToScreen(h.to);
       if (i === 0) ctx.moveTo(a.x, a.y);
       ctx.lineTo(b.x, b.y);
-    });
+    }
+
+    // Partial segment for animation
+    if (this.isAnimating && animatedHops < totalHops && partialProgress > 0) {
+      const h = r.hops[animatedHops];
+      const a = this.worldToScreen(h.from);
+      const b = this.worldToScreen(h.to);
+      if (animatedHops === 0) ctx.moveTo(a.x, a.y);
+      const px = a.x + (b.x - a.x) * partialProgress;
+      const py = a.y + (b.y - a.y) * partialProgress;
+      ctx.lineTo(px, py);
+    }
+
     ctx.stroke();
     ctx.restore();
 
-    // Points + end labels
+    // Animated glow trail head
+    if (this.isAnimating && animatedHops < totalHops) {
+      const h = r.hops[animatedHops];
+      const a = this.worldToScreen(h.from);
+      const b = this.worldToScreen(h.to);
+      const px = a.x + (b.x - a.x) * partialProgress;
+      const py = a.y + (b.y - a.y) * partialProgress;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(px, py, 6, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,200,100,0.8)';
+      ctx.shadowColor = '#ff9f1a';
+      ctx.shadowBlur = 20;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Points + ALL waypoint labels
     const fill = '#ffd08a';
     ctx.fillStyle = fill;
+    ctx.font = '11px sans-serif';
+
+    // Collect unique waypoints to avoid duplicate labels
+    const drawnLabels = new Set<number>();
+
     r.hops.forEach((h, i) => {
       const a = this.worldToScreen(h.from);
       const b = this.worldToScreen(h.to);
 
-      ctx.save();
-      ctx.shadowColor = 'rgba(255,159,26,.45)';
-      ctx.shadowBlur = 8;
-      ctx.beginPath(); ctx.arc(a.x, a.y, 3.2, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(b.x, b.y, 3.2, 0, Math.PI * 2); ctx.fill();
-      ctx.restore();
+      // Only draw points that have been animated
+      const drawFrom = !this.isAnimating || i < animatedHops || (i === animatedHops && partialProgress > 0);
+      const drawTo = !this.isAnimating || i < animatedHops;
 
-      if (i === 0) {
-        ctx.fillStyle = 'rgba(255,208,138,.85)';
-        ctx.fillText(`${h.from.name || h.from.id}`, a.x + 6, a.y - 6);
+      if (drawFrom) {
+        ctx.save();
         ctx.fillStyle = fill;
+        ctx.shadowColor = 'rgba(255,159,26,.45)';
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, 3.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // Draw label for all waypoints (not just endpoints)
+        if (!drawnLabels.has(h.from.id)) {
+          drawnLabels.add(h.from.id);
+          const isEndpoint = i === 0;
+          const label = h.from.name || `#${h.from.id}`;
+          ctx.fillStyle = isEndpoint ? 'rgba(95,255,255,.9)' : 'rgba(255,208,138,.7)';
+          ctx.fillText(label, a.x + 6, a.y - 6);
+        }
       }
-      if (i === r.hops!.length - 1) {
-        ctx.fillStyle = 'rgba(255,208,138,.85)';
-        ctx.fillText(`${h.to.name || h.to.id}`, b.x + 6, b.y - 6);
+
+      if (drawTo) {
+        ctx.save();
         ctx.fillStyle = fill;
+        ctx.shadowColor = 'rgba(255,159,26,.45)';
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, 3.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // Draw label for all waypoints
+        if (!drawnLabels.has(h.to.id)) {
+          drawnLabels.add(h.to.id);
+          const isEndpoint = i === r.hops!.length - 1;
+          const label = h.to.name || `#${h.to.id}`;
+          ctx.fillStyle = isEndpoint ? 'rgba(95,255,255,.9)' : 'rgba(255,208,138,.7)';
+          ctx.fillText(label, b.x + 6, b.y - 6);
+        }
       }
     });
+
+    // Hover tooltip
+    if (this.hoveredWaypoint && !this.isAnimating) {
+      const wp = this.hoveredWaypoint;
+      const screen = this.worldToScreen({ x: wp.x, y: wp.y, z: wp.z });
+
+      // Highlight hovered point
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(screen.x, screen.y, 8, 0, Math.PI * 2);
+      ctx.strokeStyle = '#5fffff';
+      ctx.lineWidth = 2;
+      ctx.shadowColor = '#5fffff';
+      ctx.shadowBlur = 10;
+      ctx.stroke();
+      ctx.restore();
+
+      // Draw tooltip box
+      const tooltipLines = [
+        wp.name,
+        `ID: ${wp.id}`,
+        `Hop: ${wp.hopIndex + 1}`,
+        `X: ${wp.x.toFixed(1)}`,
+        `Z: ${wp.z.toFixed(1)}`
+      ];
+
+      ctx.font = '12px sans-serif';
+      const lineHeight = 16;
+      const padding = 8;
+      const maxWidth = Math.max(...tooltipLines.map(l => ctx.measureText(l).width));
+      const boxWidth = maxWidth + padding * 2;
+      const boxHeight = tooltipLines.length * lineHeight + padding * 2;
+
+      // Position tooltip to avoid edge overflow
+      let tx = screen.x + 15;
+      let ty = screen.y - boxHeight / 2;
+      if (tx + boxWidth > this.w) tx = screen.x - boxWidth - 15;
+      if (ty < 0) ty = 5;
+      if (ty + boxHeight > this.h) ty = this.h - boxHeight - 5;
+
+      // Draw tooltip background
+      ctx.save();
+      ctx.fillStyle = 'rgba(10,14,26,0.95)';
+      ctx.strokeStyle = 'rgba(95,255,255,0.5)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(tx, ty, boxWidth, boxHeight, 4);
+      ctx.fill();
+      ctx.stroke();
+
+      // Draw tooltip text
+      ctx.fillStyle = '#e0e4e8';
+      tooltipLines.forEach((line, i) => {
+        ctx.fillStyle = i === 0 ? '#5fffff' : '#e0e4e8';
+        ctx.fillText(line, tx + padding, ty + padding + (i + 1) * lineHeight - 4);
+      });
+      ctx.restore();
+    }
   }
 }

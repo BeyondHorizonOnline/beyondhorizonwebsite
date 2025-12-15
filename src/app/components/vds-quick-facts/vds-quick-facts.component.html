@@ -1,0 +1,14 @@
+<!-- File: src/app/components/vds-quick-facts/vds-quick-facts.component.html -->
+<div class="quick-facts">
+  @for (fact of facts; track fact.label) {
+    <div class="fact-row">
+      <div class="fact-icon">
+        <ion-icon [name]="fact.icon"></ion-icon>
+      </div>
+      <div class="fact-content">
+        <div class="fact-label">{{ fact.label }}</div>
+        <div class="fact-value">{{ fact.value }}</div>
+      </div>
+    </div>
+  }
+</div>

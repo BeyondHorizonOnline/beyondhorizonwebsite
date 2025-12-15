@@ -1,0 +1,55 @@
+/* File: src/app/components/vds-system-card/vds-system-card.component.scss */
+
+.system-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-lg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-normal);
+  background: linear-gradient(180deg, rgba(20, 24, 32, 0.9) 0%, rgba(10, 14, 20, 0.95) 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  transition:
+    border-color var(--duration-normal) var(--easing-ease),
+    box-shadow var(--duration-normal) var(--easing-ease),
+    transform var(--duration-normal) var(--easing-ease);
+}
+
+.system-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 255, 255, 0.4);
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.7);
+}
+
+.system-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--spacing-md);
+
+  ion-icon {
+    font-size: 48px;
+    color: var(--color-cyan);
+  }
+}
+
+.system-name {
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-bold);
+  color: var(--color-cyan);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+}
+
+.system-description {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  line-height: var(--lh-relaxed);
+}

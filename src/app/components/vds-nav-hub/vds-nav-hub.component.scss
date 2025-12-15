@@ -80,7 +80,9 @@
 }
 
 .nav-icon {
-  font-size: 3rem;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
   margin-bottom: var(--spacing-md);
   transition: transform var(--duration-normal) var(--easing-ease);
   display: block;
@@ -136,7 +138,8 @@
   }
 
   .nav-icon {
-    font-size: 2.5rem;
+    width: 48px;
+    height: 48px;
   }
 
   .nav-title {

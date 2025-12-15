@@ -29,7 +29,7 @@ export class HomeV2Page {
       title: 'VX-6 Apex',
       subtitle: 'Capital-line Battleship',
       description: 'The Apex stands as the pinnacle of Voran\'s VX-Series design philosophy — a warship engineered not merely for combat, but for domination through precision. Multi-layered shield lattices cycle frequencies on predictive combat algorithms, shrugging off return fire that lesser vessels cannot even track.',
-      image: 'assets/images/ships/vx-6-apex.jpg',
+      image: 'assets/thumbnails/Apex.png',
       link: '/ships/vx-6-apex',
       stats: [
         { label: 'Hull', value: '8500' },
@@ -38,29 +38,55 @@ export class HomeV2Page {
       ]
     },
     {
-      id: 'ex-1-vibz',
-      title: 'EX-1 Vibz',
-      subtitle: 'Mobile Construction Ship',
-      description: 'The smallest member of the EX lineup — a rapid-deployment builder drone designed for tight construction spaces and quick assembly tasks. Where larger yardships cannot safely maneuver, Vibz units swarm in to weld new structure over old scars.',
-      image: 'assets/images/ships/ex-1-vibz.jpg',
-      link: '/ships/ex-1-vibz',
+      id: 'vx-6-omen',
+      title: 'VX-6 Omen',
+      subtitle: 'Capital-line Battleship',
+      description: 'The Omen embodies Voran\'s doctrine of "precision intimidation" — a battleship whose presence is engineered to erode enemy morale before the first shot is fired. Twin spinal mass cannons run the length of its reinforced keel.',
+      image: 'assets/thumbnails/Omen.png',
+      link: '/ships/vx-6-omen',
       stats: [
-        { label: 'Hull', value: '1500' },
-        { label: 'Shield', value: '800' },
-        { label: 'Speed', value: '650' }
+        { label: 'Hull', value: '9000' },
+        { label: 'Shield', value: '5500' },
+        { label: 'Speed', value: '420' }
       ]
     },
     {
-      id: 'vx-2-valkyrie',
-      title: 'VX-2 Valkyrie',
-      subtitle: 'Heavy Frigate',
-      description: 'A deadly skirmisher that blends raw power with unmatched agility. The Valkyrie is designed for surgical strikes and tactical dominance in fast-paced engagements, making it a favorite among frontline commanders.',
-      image: 'assets/images/ships/vx-2-valkyrie.jpg',
-      link: '/ships/vx-2-valkyrie',
+      id: 'vx-9-vanguard',
+      title: 'VX-9 Vanguard',
+      subtitle: 'Fleet Command Vessel',
+      description: 'The strategic nerve center of Voran\'s fleets, the Vanguard fuses advanced tactical computation with heavy carrier capacity to dominate the operational layer of any engagement.',
+      image: 'assets/thumbnails/Vanguard.png',
+      link: '/ships/vx-9-vanguard',
       stats: [
-        { label: 'Hull', value: '3200' },
-        { label: 'Shield', value: '2000' },
-        { label: 'Speed', value: '550' }
+        { label: 'Hull', value: '12000' },
+        { label: 'Shield', value: '8000' },
+        { label: 'Speed', value: '350' }
+      ]
+    },
+    {
+      id: 'vx-4a-viper',
+      title: 'VX-4A Viper',
+      subtitle: 'Escort Destroyer',
+      description: 'Optimized for stealth and strike missions in nebular or atmospheric zones, where conventional targeting systems falter. The Viper lurks within storm fronts, emerging only long enough to deliver crippling volleys at close range.',
+      image: 'assets/thumbnails/VX4-Viper.png',
+      link: '/ships/vx-4a-viper',
+      stats: [
+        { label: 'Hull', value: '4200' },
+        { label: 'Shield', value: '2800' },
+        { label: 'Speed', value: '580' }
+      ]
+    },
+    {
+      id: 'vx-5c-bastion',
+      title: 'VX-5C Bastion',
+      subtitle: 'Strike Carrier',
+      description: 'Built to protect what Voran values most — critical fleets, corporate capitals, and irreplaceable infrastructure. The Bastion prioritizes layered shield arrays and dense interceptor squadrons over raw offensive power.',
+      image: 'assets/thumbnails/VX5.png',
+      link: '/ships/vx-5c-bastion',
+      stats: [
+        { label: 'Hull', value: '15000' },
+        { label: 'Shield', value: '10000' },
+        { label: 'Speed', value: '280' }
       ]
     }
   ];

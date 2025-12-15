@@ -168,17 +168,20 @@
 
             <!-- Canvas toolbar -->
             <div class="canvas-toolbar">
-              <ion-button size="small" fill="clear" (click)="centerView()" title="Center">
+              <ion-button size="small" fill="clear" (click)="centerView()" title="Center (C)">
                 <ion-icon name="scan-outline"></ion-icon>
               </ion-button>
-              <ion-button size="small" fill="clear" (click)="fitToRoute()" title="Fit to Route">
+              <ion-button size="small" fill="clear" (click)="fitToRoute()" title="Fit to Route (F)">
                 <ion-icon name="expand-outline"></ion-icon>
               </ion-button>
-              <ion-button size="small" fill="clear" (click)="resetView()" title="Reset View">
+              <ion-button size="small" fill="clear" (click)="resetView()" title="Reset View (R)">
                 <ion-icon name="refresh-outline"></ion-icon>
               </ion-button>
-              <ion-button size="small" fill="clear" (click)="fitGalaxy()" title="Fit Galaxy">
+              <ion-button size="small" fill="clear" (click)="fitGalaxy()" title="Fit Galaxy (G)">
                 <ion-icon name="planet-outline"></ion-icon>
+              </ion-button>
+              <ion-button size="small" fill="clear" (click)="animateRoute()" title="Animate Route (A)">
+                <ion-icon name="play-outline"></ion-icon>
               </ion-button>
             </div>
 
@@ -187,7 +190,7 @@
               <canvas #canvas></canvas>
             </div>
 
-            <p class="hint ion-text-center">Scroll to zoom. Drag to pan.</p>
+            <p class="hint ion-text-center">Scroll to zoom. Drag to pan. Hover waypoints for details. Keys: R=Reset, F=Fit, G=Galaxy, A=Animate</p>
 
             <!-- Error inside map card if route failed -->
             @if (route() && !route()?.ok) {
