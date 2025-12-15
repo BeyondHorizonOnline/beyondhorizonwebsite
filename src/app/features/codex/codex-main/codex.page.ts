@@ -3,6 +3,7 @@ import { Component, computed, signal } from '@angular/core';
 import { IonContent } from '@ionic/angular/standalone';
 import { VdsSearchBarComponent } from '../../../components/vds-search-bar/vds-search-bar.component';
 import { VdsCardComponent } from '../../../components/vds-card/vds-card.component';
+import { StarfieldBackgroundComponent } from '../../../components/starfield-background/starfield-background.component';
 import { SHIPS } from '../../../data/seed-ships';
 import { FACILITIES } from '../../../data/seed-facilities';
 import { CX_ASSETS } from '../../../data/seed-cx';
@@ -12,7 +13,7 @@ import { matchesFilter } from '../../../utils/format-utils';
 @Component({
   standalone: true,
   selector: 'app-codex',
-  imports: [IonContent, VdsSearchBarComponent, VdsCardComponent],
+  imports: [IonContent, VdsSearchBarComponent, VdsCardComponent, StarfieldBackgroundComponent],
   templateUrl: './codex.page.html',
   styleUrls: ['./codex.page.scss']
 })

@@ -1,15 +1,39 @@
 <!-- File: src/app/features/codex/codex.page.html -->
 <ion-content>
-  <section class="vds-section">
-    <h1 class="vds-h1">Unified Codex</h1>
-    <vds-search-bar (change)="q.set($event)"></vds-search-bar>
-    <div class="grid">
-      @for (e of list(); track e) {
-        <vds-card
-          [title]="e.name" [code]="e.code" [series]="e.series"
-        [summary]="e.summary" [tags]="e.tags" [to]="e.id.startsWith('vx-')?('/ships/'+e.id):('/codex?focus='+e.id)">
-      </vds-card>
-}
+  <!-- Hero Section -->
+  <section class="hero">
+    <app-starfield-background></app-starfield-background>
+    <div class="hero-inner">
+      <h1 class="hero-title">Unified Codex</h1>
+      <p class="hero-subtitle">Search all ships, stations, and assets across the frontier</p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="section">
+    <div class="section-container">
+      <h2 class="section-title">Explore Everything</h2>
+
+      <vds-search-bar (change)="q.set($event)"></vds-search-bar>
+
+      <div class="grid">
+        @for (e of list(); track e) {
+          <vds-card
+            [title]="e.name"
+            [code]="e.code"
+            [series]="e.series"
+            [summary]="e.summary"
+            [tags]="e.tags"
+            [to]="e.id.startsWith('vx-')?('/ships/'+e.id):('/codex?focus='+e.id)">
+          </vds-card>
+        }
+      </div>
+
+      @if (list().length === 0) {
+        <div class="empty-state">
+          <p>No results found. Try a different search.</p>
+        </div>
+      }
     </div>
   </section>
 </ion-content>

@@ -4,12 +4,13 @@ import { Component, computed, signal } from '@angular/core';
 import { IonContent, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { SHIPS, ShipDisplayData } from '../../../data/seed-ships';
 import { VdsCardComponent } from '../../../components/vds-card/vds-card.component';
+import { StarfieldBackgroundComponent } from '../../../components/starfield-background/starfield-background.component';
 // import { VdsTagListComponent } from '../../../components/vds-tag-list/vds-tag-list.component'; // (still optional/unused)
 
 @Component({
   standalone: true,
   selector: 'app-ships-list',
-  imports: [IonContent, IonSelect, IonSelectOption, VdsCardComponent],
+  imports: [IonContent, IonSelect, IonSelectOption, VdsCardComponent, StarfieldBackgroundComponent],
   templateUrl: './ships-list.page.html',
   styleUrls: ['./ships-list.page.scss']
 })

@@ -1,24 +1,55 @@
 <!-- File: src/app/features/stations/stations.page.html -->
 <ion-content>
-  <section class="vds-section">
-    <h1 class="vds-h1">Bases & Stations</h1>
-    <p class="vds-muted">
-      Includes core Voran command, frontier bases, and the primary jump interface:
-      <strong>BXG-12 Event Horizon</strong>.
-    </p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <app-starfield-background></app-starfield-background>
+    <div class="hero-inner">
+      <h1 class="hero-title">Discover the Universe</h1>
+      <p class="hero-subtitle">Explore stations, bases, and facilities across the frontier</p>
+    </div>
+  </section>
 
-    <div class="grid">
-      @for (f of list; track f) {
-        <vds-card
-          [title]="f.name"
-          [code]="f.code"
-          [series]="f.series"
-          [summary]="f.summary"
-          [tags]="f.tags"
-          [to]="'/codex/' + f.id">
-        </vds-card>
+  <!-- Content Section -->
+  <section class="section">
+    <div class="section-container">
+      <h2 class="section-title">Browse Facilities</h2>
+
+      <div class="filters">
+        <ion-select label="Facility Type" interface="popover" (ionChange)="typeFilter.set($event.detail.value||'')">
+          <ion-select-option value="">All Types</ion-select-option>
+          @for (t of types; track t) {
+            <ion-select-option [value]="t">{{ t | titlecase }}</ion-select-option>
+          }
+        </ion-select>
+
+        @if (typeFilter() !== null && typeFilter() !== '') {
+          <button class="reset-filter" (click)="typeFilter.set('')" type="button">
+            Reset
+          </button>
+        }
+      </div>
+
+      <div class="grid">
+        @for (f of list(); track f) {
+          <vds-card
+            [title]="f.name"
+            [code]="f.code"
+            [series]="f.series"
+            [summary]="f.summary"
+            [tags]="tagsOf(f)"
+            [to]="'/codex/' + f.id">
+          </vds-card>
+        }
+      </div>
+
+      @if (list().length === 0) {
+        <div class="empty-state">
+          <p>No facilities found matching your filter.</p>
+          <button class="btn btn-secondary" (click)="typeFilter.set('')" type="button">
+            Clear Filters
+          </button>
+        </div>
       }
-
     </div>
   </section>
 </ion-content>
