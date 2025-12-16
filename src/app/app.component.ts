@@ -3,7 +3,6 @@ import { Component, OnInit, signal } from '@angular/core';
 import { IonApp, IonRouterOutlet, IonMenu, IonContent, IonList, IonItem, IonItemGroup, IonItemDivider } from '@ionic/angular/standalone';
 import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { VdsHeaderComponent } from './components/vds-header/vds-header.component';
-import { VdsFooterComponent } from './components/vds-footer/vds-footer.component';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -12,7 +11,7 @@ import { filter } from 'rxjs/operators';
   imports: [
     IonApp, IonRouterOutlet,
     IonMenu, IonContent, IonList, IonItem, IonItemGroup, IonItemDivider, RouterLink,   // ⬅️ menu pieces
-    VdsHeaderComponent, VdsFooterComponent
+    VdsHeaderComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -31,6 +30,7 @@ export class AppComponent implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.updateVariantForUrl(event.urlAfterRedirects);
+        this.scrollToTop();
       });
   }
 
@@ -44,5 +44,15 @@ export class AppComponent implements OnInit {
   closeMenu() {
     const menu = document.querySelector('ion-menu');
     menu?.close();
+  }
+
+  private scrollToTop() {
+    // Scroll all ion-content elements to top
+    setTimeout(() => {
+      const contents = document.querySelectorAll('ion-content');
+      contents.forEach((content: any) => {
+        content.scrollToTop?.(0);
+      });
+    }, 0);
   }
 }

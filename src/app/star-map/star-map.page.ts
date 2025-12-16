@@ -522,6 +522,7 @@ private centerViewOnRoute() {
 
     for (let i = 0; i < animatedHops && i < totalHops; i++) {
       const h = r.hops[i];
+      if (!h?.from || !h?.to) continue;
       const a = this.worldToScreen(h.from);
       const b = this.worldToScreen(h.to);
       if (i === 0) ctx.moveTo(a.x, a.y);
@@ -531,12 +532,14 @@ private centerViewOnRoute() {
     // Partial segment for animation
     if (this.isAnimating && animatedHops < totalHops && partialProgress > 0) {
       const h = r.hops[animatedHops];
-      const a = this.worldToScreen(h.from);
-      const b = this.worldToScreen(h.to);
-      if (animatedHops === 0) ctx.moveTo(a.x, a.y);
-      const px = a.x + (b.x - a.x) * partialProgress;
-      const py = a.y + (b.y - a.y) * partialProgress;
-      ctx.lineTo(px, py);
+      if (h?.from && h?.to) {
+        const a = this.worldToScreen(h.from);
+        const b = this.worldToScreen(h.to);
+        if (animatedHops === 0) ctx.moveTo(a.x, a.y);
+        const px = a.x + (b.x - a.x) * partialProgress;
+        const py = a.y + (b.y - a.y) * partialProgress;
+        ctx.lineTo(px, py);
+      }
     }
 
     ctx.stroke();
@@ -545,19 +548,21 @@ private centerViewOnRoute() {
     // Animated glow trail head
     if (this.isAnimating && animatedHops < totalHops) {
       const h = r.hops[animatedHops];
-      const a = this.worldToScreen(h.from);
-      const b = this.worldToScreen(h.to);
-      const px = a.x + (b.x - a.x) * partialProgress;
-      const py = a.y + (b.y - a.y) * partialProgress;
+      if (h?.from && h?.to) {
+        const a = this.worldToScreen(h.from);
+        const b = this.worldToScreen(h.to);
+        const px = a.x + (b.x - a.x) * partialProgress;
+        const py = a.y + (b.y - a.y) * partialProgress;
 
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(px, py, 6, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255,200,100,0.8)';
-      ctx.shadowColor = '#ff9f1a';
-      ctx.shadowBlur = 20;
-      ctx.fill();
-      ctx.restore();
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(px, py, 6, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,200,100,0.8)';
+        ctx.shadowColor = '#ff9f1a';
+        ctx.shadowBlur = 20;
+        ctx.fill();
+        ctx.restore();
+      }
     }
 
     // Points + ALL waypoint labels

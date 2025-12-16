@@ -53,6 +53,8 @@ export class CodexDetailPage {
   private id = signal<string>('');
 
   specsExpanded = false;
+  viewMode = signal<'image' | '3d'>('image');
+  imageLoading = signal<boolean>(true);
 
   entity = computed<CodexEntity | undefined>(() => {
     const targetId = this.id();
@@ -72,6 +74,27 @@ export class CodexDetailPage {
     const targetId = this.id();
     return MODEL_PATHS[targetId] || null;
   });
+
+  // Hero image path
+  heroImage = computed<string | null>(() => {
+    const e = this.entity();
+    return e?.heroImage || null;
+  });
+
+  // Thumbnail fallback
+  thumbnail = computed<string | null>(() => {
+    const e = this.entity();
+    return e?.thumbnail || null;
+  });
+
+  onImageLoad() {
+    this.imageLoading.set(false);
+  }
+
+  onImageError() {
+    this.imageLoading.set(false);
+  }
+
  // this will be used instead of e.unitType in the template
   unitTypeLabel = computed<string | null>(() => {
     const e = this.entity();

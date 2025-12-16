@@ -3,6 +3,10 @@
   <ion-content>
     <!-- Hero Section -->
     <section class="hero-section">
+      <a routerLink="/codex" class="back-link">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Back to Codex
+      </a>
       <div class="hero-content">
         <div class="hero-left">
           <vds-badge [series]="e.series">{{ e.code }}</vds-badge>
@@ -22,21 +26,63 @@
         </div>
         <div class="hero-right">
           <div class="model-viewport">
-            @if (modelPath()) {
-              <bh-model-viewer [src]="modelPath()!"></bh-model-viewer>
+            @if (viewMode() === 'image') {
+              @if (imageLoading()) {
+                <div class="loading-spinner">
+                  <ion-icon name="sync-outline" class="spinner"></ion-icon>
+                </div>
+              }
+              @if (heroImage()) {
+                <img
+                  [src]="heroImage()!"
+                  [alt]="e.name"
+                  class="hero-image"
+                  [class.loaded]="!imageLoading()"
+                  (load)="onImageLoad()"
+                  (error)="onImageError()" />
+              } @else if (thumbnail()) {
+                <img
+                  [src]="thumbnail()!"
+                  [alt]="e.name"
+                  class="hero-image"
+                  [class.loaded]="!imageLoading()"
+                  (load)="onImageLoad()"
+                  (error)="onImageError()" />
+              } @else {
+                <div class="placeholder-image">
+                  <ion-icon name="image-outline"></ion-icon>
+                  <span>Image Coming Soon</span>
+                </div>
+              }
             } @else {
-              <div class="placeholder-image">
-                <ion-icon name="cube-outline"></ion-icon>
-                <span>3D Model Coming Soon</span>
-              </div>
+              @if (modelPath()) {
+                <bh-model-viewer [src]="modelPath()!"></bh-model-viewer>
+              } @else {
+                <div class="placeholder-image">
+                  <ion-icon name="cube-outline"></ion-icon>
+                  <span>3D Model Coming Soon</span>
+                </div>
+              }
             }
+            <div class="view-toggle">
+              <button
+                class="toggle-btn"
+                [class.active]="viewMode() === 'image'"
+                (click)="viewMode.set('image')">
+                <ion-icon name="image-outline"></ion-icon>
+                Image
+              </button>
+              <button
+                class="toggle-btn"
+                [class.active]="viewMode() === '3d'"
+                (click)="viewMode.set('3d')">
+                <ion-icon name="cube-outline"></ion-icon>
+                3D View
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <a routerLink="/codex" class="back-link">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-        Back to Codex
-      </a>
     </section>
 
     <!-- Main Content -->

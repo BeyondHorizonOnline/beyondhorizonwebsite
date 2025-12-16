@@ -146,6 +146,7 @@ export interface CatalogEntityBase {
   specs?: Record<string, string | number>;
   media?: { poster?: string; icon?: string };
   thumbnail?: string;
+  heroImage?: string;
 }
 
 // Ships now carry all DB fields directly on the entity
@@ -159,6 +160,7 @@ export interface ShipDisplay extends CatalogEntityDisplay {
   class: 'frigate' | 'destroyer' | 'battleship' | 'dreadnought' | 'carrier' | 'cargo' | 'command' | 'other';
   line?: string;
   thumbnail?: string;
+  heroImage?: string;
 }
 
 // Facilities with DB-backed stats + DB subtype mapping

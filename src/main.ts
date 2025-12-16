@@ -1,6 +1,6 @@
 import { provideZoneChangeDetection } from "@angular/core";
 import { bootstrapApplication } from '@angular/platform-browser';
-import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
+import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules, withInMemoryScrolling } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { provideHttpClient } from '@angular/common/http';
 import { addIcons } from 'ionicons';
@@ -17,6 +17,10 @@ bootstrapApplication(AppComponent, {
     provideZoneChangeDetection(),{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
       provideHttpClient(),
-    provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideRouter(
+      routes,
+      withPreloading(PreloadAllModules),
+      withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+    ),
   ],
 });

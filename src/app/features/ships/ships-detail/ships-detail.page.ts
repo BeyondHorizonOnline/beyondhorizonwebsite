@@ -38,6 +38,8 @@ export class ShipDetailPage {
   id = signal<string>('');
 
   specsExpanded = false;
+  viewMode = signal<'image' | '3d'>('image');
+  imageLoading = signal<boolean>(true);
 
   // Stats from API
   stats = signal<CatalogEntityStats | null>(null);
@@ -53,6 +55,24 @@ export class ShipDetailPage {
   modelPath = computed<string | null>(() => {
     return MODEL_PATHS[this.id()] || null;
   });
+
+  // Hero image path
+  heroImage = computed<string | null>(() => {
+    const s = this.ship();
+    return s?.heroImage || null;
+  });
+
+  toggleViewMode() {
+    this.viewMode.set(this.viewMode() === 'image' ? '3d' : 'image');
+  }
+
+  onImageLoad() {
+    this.imageLoading.set(false);
+  }
+
+  onImageError() {
+    this.imageLoading.set(false);
+  }
 
   // Quick Facts with icons
   quickFacts = computed<QuickFact[]>(() => {

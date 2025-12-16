@@ -44,7 +44,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     isShip: true,
     resourceCapacity: 225000,
     dockCapacity: 0,
-    thumbnail: 'assets/thumbnails/Hauler.png'
+    thumbnail: 'assets/thumbnails/Hauler.png',
+    heroImage: 'assets/heroImages/Hauler.png'
   },
   {
     id: 'cx-5-atlas',
@@ -88,7 +89,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     isShip: true,
     resourceCapacity: 3000000,
     dockCapacity: 0,
-    thumbnail: 'assets/thumbnails/Atlas.png'
+    thumbnail: 'assets/thumbnails/Atlas.png',
+    heroImage: 'assets/heroImages/Atlas.png'
   },
   {
     id: 'cx-7a-haulbreaker',
@@ -132,7 +134,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     isShip: true,
     resourceCapacity: 14000000,
     dockCapacity: 0,
-    thumbnail: 'assets/thumbnails/Haulbreaker.png'
+    thumbnail: 'assets/thumbnails/Haulbreaker.png',
+    heroImage: 'assets/heroImages/Haulbreaker.png'
   },
   {
     id: 'cx-7b-loadstar',
@@ -176,7 +179,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     isShip: true,
     resourceCapacity: 14000000,
     dockCapacity: 0,
-    thumbnail: 'assets/thumbnails/Loadstar.png'
+    thumbnail: 'assets/thumbnails/Loadstar.png',
+    heroImage: 'assets/heroImages/Loadstar.png'
   },
   {
     id: 'cx-7c-torchline',
@@ -220,7 +224,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     isShip: true,
     resourceCapacity: 14000000,
     dockCapacity: 0,
-    thumbnail: 'assets/thumbnails/Torchline.png'
+    thumbnail: 'assets/thumbnails/Torchline.png',
+    heroImage: 'assets/heroImages/Torchline.png'
   },
   {
     id: 'cx-7d-goldreach',
@@ -264,7 +269,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     isShip: true,
     resourceCapacity: 14000000,
     dockCapacity: 0,
-    thumbnail: 'assets/thumbnails/Goldhauler.png'
+    thumbnail: 'assets/thumbnails/Goldhauler.png',
+    heroImage: 'assets/heroImages/Goldhauler.png'
   },
   {
     id: 'cx-4-trailblazer',
@@ -308,6 +314,7 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     isShip: true,
     resourceCapacity: 3000000,
     dockCapacity: 0,
-    thumbnail: 'assets/thumbnails/Trailblazer.png'
+    thumbnail: 'assets/thumbnails/Trailblazer.png',
+    heroImage: 'assets/heroImages/Trailblazer.png'
   }
 ];
