@@ -1,0 +1,185 @@
+<!-- src/app/star-map-v2/star-map-v2.page.html -->
+<ion-content [fullscreen]="true" class="star-map-v2" [scrollY]="false">
+
+  <!-- Fullscreen Canvas Container -->
+  <div #canvasContainer class="canvas-fullscreen"></div>
+
+  <!-- Loading Overlay -->
+  @if (loadingGalaxy()) {
+    <div class="loading-overlay">
+      <div class="loading-content">
+        <ion-spinner name="crescent" color="primary"></ion-spinner>
+        <p>Loading galaxy systems...</p>
+        <span class="loading-sub">Preparing 70,000+ star systems</span>
+      </div>
+    </div>
+  }
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <a routerLink="/home-v2" class="back-link">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      <span>Back</span>
+    </a>
+    <h1 class="title">STAR MAP</h1>
+    <div class="system-count">
+      <ion-icon name="planet-outline"></ion-icon>
+      <span>{{ systemCount() | number }} systems</span>
+    </div>
+  </div>
+
+  <!-- Floating Control Panel -->
+  <div class="control-panel" [class.collapsed]="panelCollapsed()">
+    <button class="panel-toggle" (click)="togglePanel()" [title]="panelCollapsed() ? 'Expand' : 'Collapse'">
+      <ion-icon [name]="panelCollapsed() ? 'chevron-forward-outline' : 'chevron-back-outline'"></ion-icon>
+    </button>
+
+    <div class="panel-content">
+      <div class="panel-header">
+        <ion-icon name="navigate-outline"></ion-icon>
+        <span>Route Finder</span>
+      </div>
+
+      <form class="route-form" (ngSubmit)="computeRoute()">
+        <div class="input-group">
+          <label>From System</label>
+          <input type="number" [(ngModel)]="fromId" name="fromId" placeholder="System ID" />
+        </div>
+
+        <div class="input-group">
+          <label>To System</label>
+          <input type="number" [(ngModel)]="toId" name="toId" placeholder="System ID" />
+        </div>
+
+        <div class="input-group">
+          <label>Jump Range (ly)</label>
+          <div class="range-input">
+            <input type="number" [(ngModel)]="shipJumpMax" name="jumpMax" min="1" max="3000" />
+            <input type="range" [(ngModel)]="shipJumpMax" name="jumpRange" min="1" max="3000" />
+          </div>
+        </div>
+
+        <button type="submit" class="compute-btn" [disabled]="loading() || (shipJumpMax ?? 0) <= 0">
+          @if (loading()) {
+            <ion-spinner name="crescent"></ion-spinner>
+          } @else {
+            <ion-icon name="rocket-outline"></ion-icon>
+          }
+          <span>{{ loading() ? 'Computing...' : 'Plot Route' }}</span>
+        </button>
+      </form>
+
+      <!-- Error -->
+      @if (error()) {
+        <div class="error-msg">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>{{ error() }}</span>
+        </div>
+      }
+
+      <!-- Route Results -->
+      @if (route(); as r) {
+        <div class="route-results">
+          <div class="result-header">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            <span>Route Found</span>
+          </div>
+          <div class="result-stats">
+            @if (r.hopCount != null || r.hops?.length) {
+              <div class="stat">
+                <span class="value">{{ r.hopCount ?? r.hops?.length ?? 0 }}</span>
+                <span class="label">Jumps</span>
+              </div>
+            }
+            @if (r.totalDistance != null) {
+              <div class="stat">
+                <span class="value">{{ r.totalDistance | number:'1.0-0' }}</span>
+                <span class="label">Total ly</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Filters -->
+      <div class="filters-section">
+        <label class="checkbox-label">
+          <input type="checkbox" [checked]="showImperial()" (change)="toggleImperial()" />
+          <span>Show Imperial Systems</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Route List Panel (Right Side) -->
+  @if (route(); as r) {
+    <div class="route-panel" [class.collapsed]="routePanelCollapsed()">
+      <button class="panel-toggle" (click)="toggleRoutePanel()" [title]="routePanelCollapsed() ? 'Expand' : 'Collapse'">
+        <ion-icon [name]="routePanelCollapsed() ? 'chevron-back-outline' : 'chevron-forward-outline'"></ion-icon>
+      </button>
+
+      <div class="panel-content">
+        <div class="panel-header">
+          <ion-icon name="list-outline"></ion-icon>
+          <span>Route Path</span>
+        </div>
+
+        <div class="route-list">
+          @for (item of routeListItems(); track item.index) {
+            <div
+              class="route-item"
+              [class.start]="item.isStart"
+              [class.end]="item.isEnd"
+              [class.hovered]="hoveredSystemIndex() === item.index"
+              (mouseenter)="highlightSystem(item.index)"
+              (mouseleave)="clearHighlight()"
+              (click)="focusSystem(item)"
+            >
+              <span class="item-index">{{ item.index + 1 }}</span>
+              <div class="item-info">
+                <span class="item-name">{{ item.name }}</span>
+                @if (item.distance) {
+                  <span class="item-distance">{{ item.distance | number:'1.0-0' }} ly</span>
+                }
+              </div>
+              <ion-icon
+                [name]="item.isStart ? 'flag-outline' : item.isEnd ? 'location-outline' : 'ellipse-outline'"
+                class="item-icon"
+              ></ion-icon>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- View Controls (Bottom Right) -->
+  <div class="view-controls">
+    <button (click)="resetView()" title="Reset View (R)">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </button>
+    <button (click)="fitGalaxy()" title="Fit Galaxy (G)">
+      <ion-icon name="planet-outline"></ion-icon>
+    </button>
+    <button (click)="fitRoute()" title="Fit Route (F)" [disabled]="!route()">
+      <ion-icon name="expand-outline"></ion-icon>
+    </button>
+    <button (click)="replayAnimation()" title="Replay (A)" [disabled]="!route()">
+      <ion-icon name="play-outline"></ion-icon>
+    </button>
+    <button (click)="toggleGrid()" title="Toggle Grid" [class.active]="showGrid()">
+      <ion-icon name="grid-outline"></ion-icon>
+    </button>
+    <button (click)="toggleZones()" title="Toggle Zones" [class.active]="showZones()">
+      <ion-icon name="map-outline"></ion-icon>
+    </button>
+  </div>
+
+  <!-- Help Hint -->
+  <div class="help-hint">
+    <span>Drag to rotate</span>
+    <span>Scroll to zoom</span>
+    <span>Right-drag to pan</span>
+  </div>
+
+</ion-content>
