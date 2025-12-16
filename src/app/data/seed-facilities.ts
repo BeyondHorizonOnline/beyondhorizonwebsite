@@ -45,7 +45,8 @@ export const FACILITIES: Facility[] = [
     providesStorage: 1,
     isShip: false,
     resourceCapacity: 2350000,
-    dockCapacity: 0
+    dockCapacity: 0,
+    thumbnail: 'assets/thumbnails/Depot.png'
   },
   {
     id: 'vxg-2-pulse-core',
@@ -270,7 +271,8 @@ export const FACILITIES: Facility[] = [
     providesStorage: 1,
     isShip: false,
     resourceCapacity: 450000,
-    dockCapacity: 30
+    dockCapacity: 30,
+    thumbnail: 'assets/thumbnails/Outpost.png'
   },
   {
     id: 'cxw-1-stockyard',
@@ -540,7 +542,8 @@ export const FACILITIES: Facility[] = [
     providesStorage: 1,
     isShip: false,
     resourceCapacity: 33150000,
-    dockCapacity: 30
+    dockCapacity: 30,
+    thumbnail: 'assets/thumbnails/Citadel.png'
   },
   {
     id: 'exf-9-titan-forge',

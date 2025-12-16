@@ -87,7 +87,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     providesStorage: 1,
     isShip: true,
     resourceCapacity: 3000000,
-    dockCapacity: 0
+    dockCapacity: 0,
+    thumbnail: 'assets/thumbnails/Atlas.png'
   },
   {
     id: 'cx-7a-haulbreaker',
@@ -131,7 +132,7 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     isShip: true,
     resourceCapacity: 14000000,
     dockCapacity: 0,
-    thumbnail: 'assets/thumbnails/CX7.png'
+    thumbnail: 'assets/thumbnails/Haulbreaker.png'
   },
   {
     id: 'cx-7b-loadstar',
@@ -174,7 +175,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     providesStorage: 1,
     isShip: true,
     resourceCapacity: 14000000,
-    dockCapacity: 0
+    dockCapacity: 0,
+    thumbnail: 'assets/thumbnails/Loadstar.png'
   },
   {
     id: 'cx-7c-torchline',
@@ -217,7 +219,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     providesStorage: 1,
     isShip: true,
     resourceCapacity: 14000000,
-    dockCapacity: 0
+    dockCapacity: 0,
+    thumbnail: 'assets/thumbnails/Torchline.png'
   },
   {
     id: 'cx-7d-goldreach',
@@ -260,7 +263,8 @@ export const CX_ASSETS: CatalogEntityBase[] = [
     providesStorage: 1,
     isShip: true,
     resourceCapacity: 14000000,
-    dockCapacity: 0
+    dockCapacity: 0,
+    thumbnail: 'assets/thumbnails/Goldhauler.png'
   },
   {
     id: 'cx-4-trailblazer',

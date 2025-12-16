@@ -82,7 +82,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `The Valkyrie represents the cutting edge of Voran's electronic warfare and reconnaissance technology.`,
     description: 'The VX-7 Valkyrie represents the cutting edge of Voran\'s electronic warfare and reconnaissance technology, a knife-edge silhouette that rarely appears on sensors before it is already departing. Adaptive stealth plating modulates albedo and EM bleed to match local conditions, while pulse-masking systems fold its emissions into background noise. Its internal bays release recon drones and rail-linked strike pods that ride in the Valkyrie\'s wake, using its sensor-shadow as a corridor straight into enemy formations. Once in position, the frigate can unleash precision barrages, cripple key systems, and vanish into a dead vector before retaliation can lock on. Across the Beyond Horizon frontier, pirate syndicates and rival houses trade ghost stories of a nameless shadow that marks the moment a battle shifted "" Voran captains simply call it their Valkyrie.',
     tags: ['warship', 'frigate'],
-    class: 'frigate'
+    class: 'frigate',
+    thumbnail: 'assets/thumbnails/Valkyrie.png'
   },
   {
     id: 'vx-4a-viper',
@@ -181,7 +182,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `Designed for infiltration and early strike missions.`,
     description: `The VX-2A Wraith is tailored for infiltration and early strike missions, a frigate built to exist in the blind spots of enemy doctrine. Low-profile hull plating reduces radar and lidar cross-section, while spectral emission dampeners bleed drive and reactor noise into carefully sculpted background static. Wraiths are typically inserted ahead of a fleet, mapping patrol routes, relay nodes, and defense grids before the main engagement even forms. When the signal comes, they strike in perfect synchrony, crippling sensor hubs and fire-control arrays in the same heartbeat that Voran capital guns light up the horizon. In the Beyond Horizon frontier, station commanders whisper about "the minute of silence" "" that dead, terrifying lull between the last normal sensor ping and the first impact, when the Wraiths have already done their work.`,
     tags: ['warship', 'frigate'],
-    class: 'frigate'
+    class: 'frigate',
+    thumbnail: 'assets/thumbnails/Wraith.png'
   },
   {
     id: 'vx-2b-specter',
@@ -193,7 +195,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `Fast and elusive; optimized for hit-and-run warfare.`,
     description: `The VX-2B Specter is fast, elusive, and optimized for hit-and-run warfare along stretched supply lines and fractured frontiers. Its engines are tuned for brutal short-burst acceleration, allowing it to slam into an engagement, unleash focused salvos, and vanish along pre-mapped escape vectors before enemy guns can traverse. Hull-mounted decoy racks and flare-drones flood local space with false signatures, leaving targeting suites chasing ghosts while the real Specter is already repositioning. Voran task forces commonly deploy Specters in "wolfpacks," small coordinated cells that isolate stragglers, strip escorts from convoys, and bleed an enemy fleet long before a decisive battle. In the Beyond Horizon rim wars, entire campaigns were lost not to grand armadas, but to the slow, relentless attrition dictated by Specter packs.`,
     tags: ['warship', 'frigate'],
-    class: 'frigate'
+    class: 'frigate',
+    thumbnail: 'assets/thumbnails/Specter.png'
   },
   {
     id: 'vx-2c-phantom',
@@ -205,7 +208,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `Equipped with interference arrays and sensor ghosts to scramble targeting systems and shield networks across entire battle zones.`,
     description: 'The VX-2C Phantom is the VX-2 line\'s electronic phantasm, built around interference arrays and sensor ghost projectors that can scramble targeting systems and shield networks across entire battle zones. Rather than hiding itself, the Phantom floods local space with echoes "" false ships, phantom barrages, and spurious telemetry that coax enemy fire toward empty coordinates. Specialized emitters can desynchronize opposing shield harmonics, opening brief, lethal windows for Voran gunnery to punch through. Fleet doctrine often assigns Phantoms to shadow dreadnoughts and carriers, twisting the sensor picture until those massive hulls seem to be everywhere and nowhere at once. Across the Beyond Horizon conflicts, few ships have reshaped the intangible war for information as radically as the Phantom, proving that sometimes the deadliest weapon is simply confusion.',
     tags: ['warship', 'frigate'],
-    class: 'frigate'
+    class: 'frigate',
+    thumbnail: 'assets/thumbnails/Phantom.png'
   },
   {
     id: 'vx-8a-juggernaut',
@@ -303,7 +307,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `Dominance embodied.`,
     description: `The VX-6A Tyrant is dominance embodied, a capital line battleship built to be seen as much as it is meant to be feared. Its command spire rises above the primary hull like a crown, housing fleet coordination suites that synchronize every gun, fighter wing, and escort within its sphere of influence. Advanced fire-control networks allow the Tyrant to orchestrate overlapping fields of fire, turning a loose formation into a precise, merciless machine. While its armor and shields rival any VX-6 variant, what truly sets the Tyrant apart is its role as a symbol: wherever it appears, Voran commanders expect obedience "" from allies, subjects, and enemies alike. In the Beyond Horizon expansion, entire planetary councils capitulated upon first sight of a Tyrant in high orbit, choosing vassalage over the certainty of ruin.`,
     tags: ['warship', 'battleship'],
-    class: 'battleship'
+    class: 'battleship',
+    thumbnail: 'assets/thumbnails/Tyrant.png'
   },
   {
     id: 'vx-6b-onyx',
@@ -315,7 +320,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `A sleek, high-density hull designed for resilience and accuracy.`,
     description: `The VX-6B Onyx is a sleek, high-density battleship whose primary virtue is stubborn, unshakeable resilience. Its hull is forged from compressed tritanium composites that grant exceptional structural integrity without compromising profile or maneuverability. The Onyx typically takes up position at the center of Voran battle groups, anchoring formations and holding the line where lesser ships would crack. Precision gunnery suites favor accurate, sustained fire over dramatic alpha strikes, slowly and methodically dismantling whatever dares to close. In the tumult of Beyond Horizon engagements, Onyx crews pride themselves on a simple creed: when the dust settles and the wreckage cools, the Onyx will still be there "" shields dimmed, guns cycling, waiting for the next order.`,
     tags: ['warship', 'battleship'],
-    class: 'battleship'
+    class: 'battleship',
+    thumbnail: 'assets/thumbnails/Onyx.png'
   },
   {
     id: 'vx-6c-vulcan',
@@ -327,7 +333,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `Powered by twin plasma cores, the Vulcan channels devastating heat-based weaponry through forward-mounted cannon arrays.`,
     description: 'The VX-6C Vulcan is a heat-borne nightmare, powered by twin plasma cores that transform the vessel into a forward-thrust furnace. Those cores feed massive cannon arrays along the ship\'s prow, each shot disgorging focused thermal lances capable of burning through capital-grade armor in seconds. Thermal bleed is captured and redirected through secondary emitters, turning even the Vulcan\'s waste heat into a short-range hazard for anything reckless enough to close. When it opens fire in earnest, ships on the receiving end report sensor feeds dissolving into white, hull plating bubbling away, and the sudden, horrid realization that space itself seems to be burning. In the Beyond Horizon record, systems scarred by Vulcan bombardments are easy to recognize: their orbital lanes glitter with glassed debris.',
     tags: ['warship', 'battleship'],
-    class: 'battleship'
+    class: 'battleship',
+    thumbnail: 'assets/thumbnails/Vulcan.png'
   },
   {
     id: 'vx-6d-helios',
@@ -340,7 +347,7 @@ export const SHIPS: ShipDisplay[] = [
     description: 'The VX-6D Helios wields light itself as a weapon, coupling a solar-fusion drive with high-energy focusing lenses to project radiant lances across orbital distances. Its reactors feed artificial micro-stars that are then shaped and released as coherent beams, slicing through warships, defense grids, and hardened bunkers with surgical finality. Because its primary weapons favor extreme range and line-of-sight corridors, Helios captains often operate from the periphery of engagements, acting as celestial executioners while VX frigates and destroyers herd targets into clean firing arcs. Even when idle, the vessel\'s lens arrays glow with caged radiance, earning it a reputation as a second sun hanging in hostile skies. On worlds touched by the Beyond Horizon conflict, the phrase "Daylight is here" carries a new, uneasy meaning "" it might simply mean a Helios has taken station overhead.',
     tags: ['warship', 'battleship'],
     class: 'battleship',
-    thumbnail: 'assets/thumbnails/VX6.png'
+    thumbnail: 'assets/thumbnails/Helios.png'
   },
   {
     id: 'ex-2-rivvox',
@@ -389,7 +396,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `The VX-6 Ruinweaver is a dedicated tactical disassembler, engineered to pick apart enemy fleets piece by piece.`,
     description: `The VX-6 Ruinweaver is a dedicated tactical disassembler, engineered by the Voran to pick apart enemy fleets piece by piece. While it lacks the overwhelming presence of the VX-8 capitals, the Ruinweaver is feared for an entirely different reason: it never attacks the strongest target first—only the most important.`,
     tags: ['warship', 'battleship'],
-    class: 'battleship'
+    class: 'battleship',
+    thumbnail: 'assets/thumbnails/Ruinweaver.png'
   },
   {
     id: 'vx-1-black-stinger',
@@ -401,7 +409,8 @@ export const SHIPS: ShipDisplay[] = [
     summary: `The VX-1 Black Stinger is the Voran Empire's premier Void-Vector Interceptor, engineered to puncture the enemy line before they know it's been breached.`,
     description: `The VX-1 Black Stinger is the Voran Empire's premier Void-Vector Interceptor, a micro-capital strike craft engineered for one purpose: to puncture the enemy line before the enemy even knows it's been breached.`,
     tags: ['warship', 'frigate'],
-    class: 'frigate'
+    class: 'frigate',
+    thumbnail: 'assets/thumbnails/Black Stinger.png'
   },
   {
     id: 'vx-6-cylb2000',
@@ -413,6 +422,7 @@ export const SHIPS: ShipDisplay[] = [
     summary: `The VX-6 Cylb2000 is a dedicated tactical disassembler, engineered to pick apart enemy fleets piece by piece.`,
     description: `The VX-6 Cylb2000 is a dedicated tactical disassembler, engineered by the Voran to pick apart enemy fleets piece by piece. While it lacks the overwhelming presence of the VX-8 capitals, the Ruinweaver is feared for an entirely different reason: it never attacks the strongest target first—only the most important.`,
     tags: ['warship', 'battleship'],
-    class: 'battleship'
+    class: 'battleship',
+    thumbnail: 'assets/thumbnails/Cybl2000.png'
   }
 ];
