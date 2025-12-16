@@ -1,0 +1,426 @@
+<ion-content class="dashboard-container">
+  <!-- Starfield Background (Hero Section) -->
+  <div class="starfield-hero">
+    <app-starfield-background></app-starfield-background>
+  </div>
+
+  <!-- Command Header Section -->
+  <section class="command-header">
+    <div class="header-content">
+      <div class="header-left">
+        <h1 class="commander-name" *ngIf="commander()">
+          CMDR. {{ commander()!.displayName }}
+        </h1>
+        <div class="header-meta" *ngIf="commander()">
+          <span class="rank">RANK: {{ commander()!.rank }}</span>
+          <span class="divider">|</span>
+          <span class="last-login">
+            Last Login: {{ formatLastLogin(commander()!.lastLogin) }}
+          </span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="status-indicator" [class]="commander()?.status">
+          <span class="status-dot"></span>
+          <span class="status-text">{{ commander()?.status | uppercase }}</span>
+        </div>
+        <button class="settings-btn" ion-button fill="clear">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Data Stream Console -->
+    <div class="live-data-stream">
+      <div class="stream-header">● LIVE FEED</div>
+      <div class="stream-events">
+        <div *ngFor="let event of displayedStreamEvents()" class="stream-event">
+          <span class="stream-time">{{ event.timestamp }}</span>
+          <span class="stream-message">{{ event.message }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Command Briefing Panel (Full Width) -->
+  <section class="briefing-section">
+    <ion-card class="briefing-card">
+      <ion-card-header>
+        <div class="briefing-header">
+          <h2>COMMAND BRIEFING</h2>
+          <button
+            ion-button
+            fill="clear"
+            size="small"
+            (click)="dismissAllBriefings()"
+            class="dismiss-all-btn"
+          >
+            Dismiss All
+          </button>
+        </div>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div *ngIf="briefingItems().length > 0; else emptyBriefing" class="briefing-items">
+          <div
+            *ngFor="let item of briefingItems()"
+            [class]="'briefing-item briefing-' + item.type"
+          >
+            <div class="briefing-icon-label">
+              <span class="briefing-icon">
+                <span *ngIf="item.type === 'priority'">⚠</span>
+                <span *ngIf="item.type === 'opportunity'">●</span>
+                <span *ngIf="item.type === 'completed'">✓</span>
+                <span *ngIf="item.type === 'info'">ℹ</span>
+              </span>
+              <div class="briefing-text">
+                <h3>{{ item.title }}</h3>
+                <p class="detail">{{ item.detail }}</p>
+              </div>
+            </div>
+            <div class="briefing-actions">
+              <button
+                *ngFor="let action of item.actions; let i = index"
+                ion-button
+                fill="outline"
+                size="small"
+                [routerLink]="action.route"
+                (click)="handleBriefingAction(item, i)"
+                class="action-btn"
+              >
+                {{ action.label }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #emptyBriefing>
+          <div class="empty-state">
+            <p>✓ All systems nominal. No priority actions.</p>
+          </div>
+        </ng-template>
+      </ion-card-content>
+    </ion-card>
+  </section>
+
+  <!-- Main Grid (2-column on desktop, single on mobile) -->
+  <ion-grid class="dashboard-grid">
+    <!-- Left Column -->
+    <ion-row>
+      <ion-col size="12" sizeMd="6" class="grid-col-left">
+        <!-- Fleet Readiness Card -->
+        <ion-card class="dashboard-card">
+          <ion-card-header>
+            <div class="card-header">
+              <h3>FLEET READINESS</h3>
+              <ion-button
+                fill="clear"
+                size="small"
+                [routerLink]="'/ships'"
+                class="expand-btn"
+              >
+                <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-card-header>
+
+          <ion-card-content *ngIf="fleetReadiness(); else readinessLoading">
+            <div class="readiness-overall">
+              <div class="readiness-label">Overall</div>
+              <div class="readiness-bar">
+                <ion-progress-bar
+                  [value]="fleetReadiness()!.overall / 100"
+                  [color]="getReadinessColor(fleetReadiness()!.overall)"
+                ></ion-progress-bar>
+                <span class="readiness-percent">{{ fleetReadiness()!.overall }}%</span>
+              </div>
+            </div>
+
+            <div class="readiness-categories">
+              <div
+                *ngFor="let cat of fleetReadiness()!.categories"
+                class="category-item"
+              >
+                <div class="category-name">
+                  <span>{{ cat.name }}</span>
+                  <span class="category-count">{{ cat.count }}</span>
+                </div>
+                <div class="category-bar">
+                  <ion-progress-bar
+                    [value]="cat.readiness / 100"
+                    [color]="getReadinessColor(cat.readiness)"
+                  ></ion-progress-bar>
+                  <span class="status-indicator-small">
+                    <ion-icon
+                      [name]="getReadinessColor(cat.readiness) === 'success' ? 'checkmark-circle' : getReadinessColor(cat.readiness) === 'warning' ? 'warning' : 'alert-circle'"
+                      [color]="getReadinessColor(cat.readiness)"
+                    ></ion-icon>
+                  </span>
+                </div>
+                <span class="category-percent">{{ cat.readiness }}%</span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="fleetReadiness()!.alerts.length > 0"
+              class="readiness-alerts"
+            >
+              <div *ngFor="let alert of fleetReadiness()!.alerts" class="alert-item">
+                <ion-icon name="warning" color="warning"></ion-icon>
+                <span>{{ alert }}</span>
+              </div>
+            </div>
+
+            <div class="readiness-actions">
+              <button ion-button fill="outline" size="small" [routerLink]="'/ships'">
+                View Fleet
+              </button>
+              <button ion-button fill="outline" size="small">
+                Repair All (500C)
+              </button>
+            </div>
+          </ion-card-content>
+
+          <ng-template #readinessLoading>
+            <ion-spinner></ion-spinner>
+          </ng-template>
+        </ion-card>
+
+        <!-- Sector Status Card -->
+        <ion-card class="dashboard-card">
+          <ion-card-header>
+            <div class="card-header">
+              <h3>SECTOR STATUS</h3>
+              <ion-button
+                fill="clear"
+                size="small"
+                [routerLink]="'/star-map'"
+                class="expand-btn"
+              >
+                <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-card-header>
+
+          <ion-card-content *ngIf="sectorStatus(); else sectorLoading">
+            <div class="sector-header">
+              <h4>{{ sectorStatus()!.name }} ({{ sectorStatus()!.type }})</h4>
+            </div>
+
+            <div class="sector-control">
+              <div class="control-label">Control Status</div>
+              <div class="control-bar">
+                <ion-progress-bar
+                  [value]="sectorStatus()!.controlPercent / 100"
+                  [color]="getSectorControlColor(sectorStatus()!.controlPercent)"
+                ></ion-progress-bar>
+                <span class="control-percent">{{ sectorStatus()!.controlPercent }}% Allied</span>
+              </div>
+            </div>
+
+            <div class="sector-activity">
+              <div class="activity-label">Enemy Activity</div>
+              <div class="activity-indicator" [class]="sectorStatus()!.enemyActivity">
+                <ion-icon
+                  [name]="getEnemyActivityIcon(sectorStatus()!.enemyActivity)"
+                ></ion-icon>
+                <span>{{ sectorStatus()!.enemyActivity | uppercase }}</span>
+              </div>
+            </div>
+
+            <div class="sector-systems">
+              <div class="systems-item">
+                <span class="systems-label">Systems Controlled:</span>
+                <span class="systems-value">{{ sectorStatus()!.systemsControlled }}</span>
+              </div>
+              <div class="systems-item">
+                <span class="systems-label">Systems Contested:</span>
+                <span class="systems-value">{{ sectorStatus()!.systemsContested }}</span>
+              </div>
+              <div class="systems-item hq">
+                <span class="systems-label">HQ:</span>
+                <span class="systems-value">{{ sectorStatus()!.hqSystem }}</span>
+                <span
+                  class="hq-status"
+                  [class]="sectorStatus()!.hqStatus === 'secure' ? 'secure' : 'threatened'"
+                >
+                  {{ sectorStatus()!.hqStatus | uppercase }}
+                </span>
+              </div>
+            </div>
+
+            <div class="sector-actions">
+              <button ion-button fill="outline" size="small" [routerLink]="'/stations'">
+                View Sector
+              </button>
+              <button ion-button fill="outline" size="small" [routerLink]="'/star-map'">
+                Star Map
+              </button>
+            </div>
+          </ion-card-content>
+
+          <ng-template #sectorLoading>
+            <ion-spinner></ion-spinner>
+          </ng-template>
+        </ion-card>
+
+      </ion-col>
+
+      <!-- Right Column -->
+      <ion-col size="12" sizeMd="6" class="grid-col-right">
+        <!-- Priority Actions Card -->
+        <ion-card class="dashboard-card">
+          <ion-card-header>
+            <h3>PRIORITY ACTIONS</h3>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div
+              *ngIf="priorityActions().length > 0; else emptyActions"
+              class="actions-list"
+            >
+              <button
+                *ngFor="let action of priorityActions()"
+                ion-button
+                fill="clear"
+                class="action-item"
+                [routerLink]="action.route"
+                (click)="handleActionClick(action)"
+              >
+                <div class="action-content">
+                  <span class="action-label">▸ {{ action.label }}</span>
+                  <span class="action-context">{{ action.context }}</span>
+                </div>
+              </button>
+            </div>
+
+            <ng-template #emptyActions>
+              <div class="empty-state">
+                <p>✓ All systems nominal. No priority actions.</p>
+              </div>
+            </ng-template>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Objectives Card -->
+        <ion-card class="dashboard-card">
+          <ion-card-header>
+            <h3>OBJECTIVES</h3>
+          </ion-card-header>
+
+          <ion-card-content *ngIf="currentObjective(); else noObjective">
+            <div class="current-objective">
+              <div class="obj-header">
+                <span class="obj-label">Current Mission:</span>
+                <span class="obj-title">"{{ currentObjective()!.title }}"</span>
+              </div>
+              <div class="obj-progress">
+                <ion-progress-bar
+                  [value]="currentObjective()!.progress / 100"
+                  color="primary"
+                ></ion-progress-bar>
+                <span class="obj-percent">{{ currentObjective()!.progress }}%</span>
+              </div>
+            </div>
+
+            <div class="achievements-section">
+              <div class="achievements-label">Recent Achievements:</div>
+              <div class="achievements-list">
+                <div
+                  *ngFor="let achievement of recentAchievements() | slice: 0:2"
+                  class="achievement-item"
+                >
+                  <span class="achievement-icon">✓</span>
+                  <div class="achievement-text">
+                    <span class="achievement-title">{{ achievement.title }}</span>
+                    <span class="achievement-date">
+                      ({{ getAchievementDaysAgo(achievement.dateEarned) }})
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="objectives-actions">
+              <button ion-button fill="outline" size="small">
+                View All Objectives
+              </button>
+            </div>
+          </ion-card-content>
+
+          <ng-template #noObjective>
+            <div class="empty-state">
+              <p>No active objectives. Await new orders.</p>
+            </div>
+          </ng-template>
+        </ion-card>
+
+        <!-- Intel & Community Card -->
+        <ion-card class="dashboard-card">
+          <ion-card-header>
+            <h3>INTEL & COMMUNITY</h3>
+          </ion-card-header>
+
+          <ion-card-content>
+            <!-- Segment Buttons for Tab Selection -->
+            <ion-segment
+              [value]="selectedIntelTab()"
+              (ionChange)="selectIntelTab($any($event.detail.value))"
+              class="intel-tabs"
+            >
+              <div class="segment-button-wrapper">
+                <ion-segment-button value="message">
+                  <ion-label>MESSAGES</ion-label>
+                </ion-segment-button>
+                <ion-badge *ngIf="unreadMessageCount() > 0" class="button-badge">
+                  {{ unreadMessageCount() }}
+                </ion-badge>
+              </div>
+              <ion-segment-button value="update">
+                <ion-label>UPDATES</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="forum">
+                <ion-label>FORUM</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+
+            <!-- Intel Items List -->
+            <div class="intel-items">
+              <div
+                *ngIf="filteredIntelItems().length > 0; else emptyIntel"
+                class="items-list"
+              >
+                <button
+                  *ngFor="let item of filteredIntelItems()"
+                  ion-button
+                  fill="clear"
+                  class="intel-item"
+                  [class.unread]="item.unread"
+                >
+                  <div class="item-content">
+                    <div class="item-header">
+                      <span class="item-title">{{ item.title }}</span>
+                      <span *ngIf="item.unread" class="unread-dot"></span>
+                    </div>
+                    <span *ngIf="item.preview" class="item-preview">
+                      {{ item.preview }}
+                    </span>
+                    <span class="item-meta">
+                      <span *ngIf="item.votes" class="votes">↑ {{ item.votes }}</span>
+                    </span>
+                  </div>
+                </button>
+              </div>
+
+              <ng-template #emptyIntel>
+                <div class="empty-state">
+                  <p>No {{ selectedIntelTab() }} at this time.</p>
+                </div>
+              </ng-template>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

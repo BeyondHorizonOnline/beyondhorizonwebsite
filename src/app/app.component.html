@@ -4,16 +4,36 @@
   <ion-menu contentId="main-content" type="overlay">
     <ion-content>
       <ion-list lines="none" inset="true">
-        <ion-item routerLink="/">Home</ion-item>
-        <ion-item routerLink="/ships">Ships</ion-item>
-        <ion-item routerLink="/stations">Stations</ion-item>
-        <ion-item routerLink="/logistics">Logistics</ion-item>
-        <ion-item routerLink="/engineering">Engineering</ion-item>
-        <ion-item routerLink="/codex">Codex</ion-item>
-        <ion-item routerLink="/media">Media</ion-item>
-        <ion-item routerLink="/updates">Updates</ion-item>
-        <ion-item routerLink="/star-map">Star Map</ion-item>
-        <ion-item routerLink="/contact">Contact</ion-item>
+        <ion-item routerLink="/" (click)="closeMenu()">Home</ion-item>
+
+        <!-- Fleet Section -->
+        <ion-item-group>
+          <ion-item-divider>Fleet</ion-item-divider>
+          <ion-item routerLink="/ships" (click)="closeMenu()">Ships</ion-item>
+          <ion-item routerLink="/stations" (click)="closeMenu()">Stations</ion-item>
+        </ion-item-group>
+
+        <!-- Codex Section -->
+        <ion-item-group>
+          <ion-item-divider>Codex</ion-item-divider>
+          <ion-item routerLink="/codex" (click)="closeMenu()">Codex</ion-item>
+          <ion-item routerLink="/logistics" (click)="closeMenu()">Logistics</ion-item>
+          <ion-item routerLink="/engineering" (click)="closeMenu()">Engineering</ion-item>
+        </ion-item-group>
+
+        <!-- Community Section -->
+        <ion-item-group>
+          <ion-item-divider>Community</ion-item-divider>
+          <ion-item routerLink="/media" (click)="closeMenu()">Media</ion-item>
+          <ion-item routerLink="/updates" (click)="closeMenu()">Updates</ion-item>
+          <ion-item routerLink="/contact" (click)="closeMenu()">Contact</ion-item>
+          <ion-item routerLink="/star-map" (click)="closeMenu()">Star Map</ion-item>
+        </ion-item-group>
+
+        <!-- Login Item -->
+        <ion-item-group>
+          <ion-item routerLink="/login" (click)="closeMenu()" class="login-item">Login</ion-item>
+        </ion-item-group>
       </ion-list>
     </ion-content>
   </ion-menu>

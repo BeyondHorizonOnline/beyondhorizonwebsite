@@ -1,6 +1,6 @@
 // File: src/app/app.component.ts
 import { Component, OnInit, signal } from '@angular/core';
-import { IonApp, IonRouterOutlet, IonMenu, IonContent, IonList, IonItem } from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet, IonMenu, IonContent, IonList, IonItem, IonItemGroup, IonItemDivider } from '@ionic/angular/standalone';
 import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { VdsHeaderComponent } from './components/vds-header/vds-header.component';
 import { VdsFooterComponent } from './components/vds-footer/vds-footer.component';
@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
   standalone: true,
   imports: [
     IonApp, IonRouterOutlet,
-    IonMenu, IonContent, IonList, IonItem, RouterLink,   // ⬅️ menu pieces
+    IonMenu, IonContent, IonList, IonItem, IonItemGroup, IonItemDivider, RouterLink,   // ⬅️ menu pieces
     VdsHeaderComponent, VdsFooterComponent
   ],
   templateUrl: './app.component.html',
@@ -39,5 +39,10 @@ export class AppComponent implements OnInit {
     this.headerVariant.set(
       url.includes('/home-v2') ? 'hero' : 'default'
     );
+  }
+
+  closeMenu() {
+    const menu = document.querySelector('ion-menu');
+    menu?.close();
   }
 }

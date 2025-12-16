@@ -1,0 +1,98 @@
+<!-- File: src/app/features/login/login.page.html -->
+<ion-content>
+  <!-- Hero Section -->
+  <section class="hero">
+    <app-starfield-background></app-starfield-background>
+    <div class="hero-inner">
+      <h1 class="hero-title">PILOT LOGIN</h1>
+      <p class="hero-subtitle">Access your command center</p>
+    </div>
+  </section>
+
+  <!-- Login Form Section -->
+  <section class="section">
+    <div class="section-container">
+      <form (submit)="submit($event)" class="login-form">
+        <!-- Email Input -->
+        <div class="form-group" [class.error]="emailError()">
+          <label for="email">Email Address</label>
+          <ion-input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="pilot@beyondhorizon.com"
+            [(ngModel)]="email"
+            (change)="onEmailChange()"
+            required
+          ></ion-input>
+          @if (emailError()) {
+            <span class="error-message">{{ emailError() }}</span>
+          }
+        </div>
+
+        <!-- Password Input with Toggle -->
+        <div class="form-group" [class.error]="passwordError()">
+          <label for="password">Password</label>
+          <div class="password-input-wrapper">
+            <ion-input
+              id="password"
+              name="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              placeholder="Enter your password"
+              [(ngModel)]="password"
+              (change)="onPasswordChange()"
+              required
+            ></ion-input>
+            <button
+              type="button"
+              class="toggle-password"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+            >
+              <ion-icon [icon]="showPassword() ? 'eye' : 'eyeOff'"></ion-icon>
+            </button>
+          </div>
+          @if (passwordError()) {
+            <span class="error-message">{{ passwordError() }}</span>
+          }
+        </div>
+
+        <!-- Remember Me -->
+        <div class="form-group checkbox-group">
+          <ion-checkbox id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe"></ion-checkbox>
+          <label for="rememberMe">Remember me</label>
+        </div>
+
+        <!-- Sign In Button -->
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isSubmitting()"
+          [attr.aria-busy]="isSubmitting()"
+        >
+          @if (isSubmitting()) {
+            <ion-spinner name="crescent"></ion-spinner>
+            <span>Signing in...</span>
+          } @else {
+            Sign In
+          }
+        </button>
+
+        <!-- Forgot Password Link -->
+        <button type="button" class="forgot-password-link" (click)="forgotPassword()">
+          Forgot Password?
+        </button>
+
+        <!-- Divider -->
+        <div class="divider">
+          <span>─── OR ───</span>
+        </div>
+
+        <!-- Create Account Button -->
+        <button type="button" class="btn btn-secondary" (click)="createAccount()">
+          Create Account
+        </button>
+      </form>
+    </div>
+  </section>
+</ion-content>

@@ -10,6 +10,15 @@ export const routes: Routes = [
     loadComponent: () => import('./features/home-v2/home-v2.page').then((m) => m.HomeV2Page),
   },
   {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./features/dashboard/dashboard.page').then(m => m.DashboardPage)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./features/login/login.page').then(m => m.LoginPage)
+  },
+  {
     path: '',
     redirectTo: 'home-v2',
     pathMatch: 'full',
@@ -22,11 +31,7 @@ export const routes: Routes = [
     path: 'star-map',
     loadComponent: () => import('./star-map/star-map.page').then( m => m.StarMapPage)
   },
-  {
-    path: 'route-tester',
-    loadComponent: () => import('./route-tester/route-tester.page').then( m => m.RouteTesterPage)
-  },
-    { path: 'lore', loadComponent: () => import('./features/lore/lore.page').then(m => m.LorePage) },
+  { path: 'lore', loadComponent: () => import('./features/lore/lore.page').then(m => m.LorePage) },
   { path: 'ships', loadComponent: () => import('./features/ships/ships-list/ships-list.page').then(m => m.ShipsListPage) },
   { path: 'ships/:id', loadComponent: () => import('./features/ships/ships-detail/ships-detail.page').then(m => m.ShipDetailPage) },
   { path: 'logistics', loadComponent: () => import('./features/logistics/logistics.page').then(m => m.LogisticsPage) },
@@ -38,10 +43,9 @@ export const routes: Routes = [
   { path: 'media', loadComponent: () => import('./features/media/media.page').then(m => m.MediaPage) },
   { path: 'updates', loadComponent: () => import('./features/updates/updates.page').then(m => m.UpdatesPage) },
   { path: 'contact', loadComponent: () => import('./features/contact/contact.page').then(m => m.ContactPage) },
-  
   {
     path: 'codex/:id',
     loadComponent: () =>
       import('./features/codex/codex-detail/codex-detail.page').then(m => m.CodexDetailPage)
-  }
+  },
 ];

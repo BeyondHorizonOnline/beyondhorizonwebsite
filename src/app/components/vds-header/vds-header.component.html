@@ -10,18 +10,44 @@
       <span class="mono">BEYOND</span> HORIZON
     </ion-title>
 
-    <!-- Desktop: full nav -->
+    <!-- Desktop: nav buttons only -->
     <ion-buttons slot="end" class="desktop-only nav">
       <ion-button routerLink="/">Home</ion-button>
-      <ion-button routerLink="/ships">Ships</ion-button>
-      <ion-button routerLink="/stations">Stations</ion-button>
-      <ion-button routerLink="/logistics">Logistics</ion-button>
-      <ion-button routerLink="/engineering">Engineering</ion-button>
-      <ion-button routerLink="/codex">Codex</ion-button>
-      <ion-button routerLink="/media">Media</ion-button>
-      <ion-button routerLink="/updates">Updates</ion-button>
-      <ion-button routerLink="/star-map">Star Map</ion-button>
-      <ion-button routerLink="/contact">Contact</ion-button>
+      <ion-button class="dropdown-trigger" (mouseenter)="openFleetDropdown()" (mouseleave)="closeFleetDropdown()">
+        Fleet <span class="arrow">▼</span>
+      </ion-button>
+      <ion-button class="dropdown-trigger" (mouseenter)="openCodexDropdown()" (mouseleave)="closeCodexDropdown()">
+        Codex <span class="arrow">▼</span>
+      </ion-button>
+      <ion-button class="dropdown-trigger" (mouseenter)="openCommunityDropdown()" (mouseleave)="closeCommunityDropdown()">
+        Community <span class="arrow">▼</span>
+      </ion-button>
+      <ion-button routerLink="/login" class="login-button">Login</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<!-- Dropdowns OUTSIDE header completely -->
+<div class="dropdown-wrapper dropdown-fleet" (mouseenter)="openFleetDropdown()" (mouseleave)="closeFleetDropdown()">
+  <div class="dropdown" [style.display]="fleetOpen() ? 'block' : 'none'">
+    <a routerLink="/ships" class="dropdown-item">Ships</a>
+    <a routerLink="/stations" class="dropdown-item">Stations</a>
+  </div>
+</div>
+
+<div class="dropdown-wrapper dropdown-codex" (mouseenter)="openCodexDropdown()" (mouseleave)="closeCodexDropdown()">
+  <div class="dropdown" [style.display]="codexOpen() ? 'block' : 'none'">
+    <a routerLink="/codex" class="dropdown-item">Codex</a>
+    <a routerLink="/logistics" class="dropdown-item">Logistics</a>
+    <a routerLink="/engineering" class="dropdown-item">Engineering</a>
+  </div>
+</div>
+
+<div class="dropdown-wrapper dropdown-community" (mouseenter)="openCommunityDropdown()" (mouseleave)="closeCommunityDropdown()">
+  <div class="dropdown" [style.display]="communityOpen() ? 'block' : 'none'">
+    <a routerLink="/media" class="dropdown-item">Media</a>
+    <a routerLink="/updates" class="dropdown-item">Updates</a>
+    <a routerLink="/contact" class="dropdown-item">Contact</a>
+    <a routerLink="/star-map" class="dropdown-item">Star Map</a>
+  </div>
+</div>
