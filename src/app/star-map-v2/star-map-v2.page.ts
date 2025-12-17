@@ -130,6 +130,7 @@ export class StarMapV2Page implements OnInit, OnDestroy {
   private cometHead: any = null;
   private cometGlow: any = null;
   private cometTrail: any = null;
+  private cometHistory: any[] = []; // Store previous comet positions for trail
 
   constructor(
     private http: HttpClient,
@@ -241,6 +242,7 @@ export class StarMapV2Page implements OnInit, OnDestroy {
     this.controls.dampingFactor = 0.05;
     this.controls.minDistance = 1000;
     this.controls.maxDistance = 100000;
+    this.controls.maxPolarAngle = Math.PI / 2; // Prevent camera from going below the galaxy plane
     this.controls.target.set(galaxyCenterX, 0, galaxyCenterZ);
     this.controls.update();
 
@@ -872,7 +874,7 @@ export class StarMapV2Page implements OnInit, OnDestroy {
 
   private createCometTrail() {
     // Create particle trail for FIREBALL sparks behind comet
-    const particleCount = 150;
+    const particleCount = 120;
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
     const sizes = new Float32Array(particleCount);
@@ -885,24 +887,30 @@ export class StarMapV2Page implements OnInit, OnDestroy {
 
       // Fireball colors - orange/red/yellow gradient based on position in trail
       const t = i / particleCount;
-      if (t < 0.3) {
-        // Front of trail - bright yellow/white
+      if (t < 0.25) {
+        // Front of trail - bright yellow/white (hottest)
         colors[i * 3] = 1.0;                           // R
-        colors[i * 3 + 1] = 0.9 + Math.random() * 0.1; // G
-        colors[i * 3 + 2] = 0.5 + Math.random() * 0.3; // B
-      } else if (t < 0.6) {
-        // Middle - orange
+        colors[i * 3 + 1] = 0.95 + Math.random() * 0.05; // G
+        colors[i * 3 + 2] = 0.6 + Math.random() * 0.2; // B
+      } else if (t < 0.5) {
+        // Mid-front - bright orange/yellow
         colors[i * 3] = 1.0;                           // R
-        colors[i * 3 + 1] = 0.4 + Math.random() * 0.3; // G
-        colors[i * 3 + 2] = 0.1 * Math.random();       // B
+        colors[i * 3 + 1] = 0.65 + Math.random() * 0.2; // G
+        colors[i * 3 + 2] = 0.2 + Math.random() * 0.2; // B
+      } else if (t < 0.75) {
+        // Mid-back - orange
+        colors[i * 3] = 1.0;                           // R
+        colors[i * 3 + 1] = 0.4 + Math.random() * 0.2; // G
+        colors[i * 3 + 2] = 0 + Math.random() * 0.1;   // B
       } else {
-        // Back of trail - red/dark orange
-        colors[i * 3] = 0.8 + Math.random() * 0.2;     // R
-        colors[i * 3 + 1] = 0.1 + Math.random() * 0.2; // G
+        // Back of trail - red/dark red (coolest)
+        colors[i * 3] = 0.9 + Math.random() * 0.1;     // R
+        colors[i * 3 + 1] = 0.05 + Math.random() * 0.1; // G
         colors[i * 3 + 2] = 0;                          // B
       }
 
-      sizes[i] = 30 + Math.random() * 50;
+      // Vary sizes - larger in front, smaller in back
+      sizes[i] = (1 - t) * 50 + 20;
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -912,13 +920,14 @@ export class StarMapV2Page implements OnInit, OnDestroy {
 
     const trailTexture = this.createStarTexture();
     const material = new THREE.PointsMaterial({
-      size: 40,
+      size: 50,
       map: trailTexture,
       vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.75,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
+      sizeAttenuation: true,
     });
 
     this.cometTrail = new THREE.Points(geometry, material);
@@ -953,6 +962,12 @@ export class StarMapV2Page implements OnInit, OnDestroy {
         this.drawRoute(result);
         // Don't call fitToRoute here - the fly-through animation handles camera positioning
         this.animateRouteDrawing();
+
+        // On mobile, collapse the control panel and start route panel collapsed
+        if (window.innerWidth <= 768) {
+          this.panelCollapsed.set(true);
+          this.routePanelCollapsed.set(true);
+        }
       }
     } catch (e: any) {
       this.error.set(e?.message || 'Network error');
@@ -993,6 +1008,7 @@ export class StarMapV2Page implements OnInit, OnDestroy {
     this.isAnimatingRoute = false;
     this.routeCurve = null;
     this.routeWaypoints = [];
+    this.cometHistory = [];
   }
 
   private drawRoute(result: RouteResponse) {
@@ -1195,7 +1211,8 @@ export class StarMapV2Page implements OnInit, OnDestroy {
     this.controls.target.copy(startPoint);
     this.controls.update();
 
-    // Position comet at start
+    // Clear comet history and position comet at start
+    this.cometHistory = [];
     if (this.cometHead) {
       this.cometHead.position.copy(startPoint);
       this.cometHead.visible = true;
@@ -1376,24 +1393,52 @@ export class StarMapV2Page implements OnInit, OnDestroy {
   }
 
   private updateCometTrail(cometPos: any, t: number) {
-    if (!this.cometTrail || !this.routeCurve) return;
+    if (!this.cometTrail) return;
 
-    const positions = this.cometTrail.geometry.attributes.position.array;
-    const particleCount = positions.length / 3;
+    // Add current position to history (store copies, not references)
+    this.cometHistory.unshift({ x: cometPos.x, y: cometPos.y, z: cometPos.z });
 
-    for (let i = 0; i < particleCount; i++) {
-      // Each particle is at a slightly earlier point on the curve
-      const trailT = Math.max(0, t - (i / particleCount) * 0.05);
-      const trailPos = this.routeCurve.getPoint(trailT);
-
-      // Add some random scatter for spark effect
-      const scatter = 50 * (i / particleCount);
-      positions[i * 3] = trailPos.x + (Math.random() - 0.5) * scatter;
-      positions[i * 3 + 1] = trailPos.y + (Math.random() - 0.5) * scatter;
-      positions[i * 3 + 2] = trailPos.z + (Math.random() - 0.5) * scatter;
+    // Keep history limited to trail length - use splice to maintain proper array
+    const maxHistory = 120;
+    if (this.cometHistory.length > maxHistory) {
+      this.cometHistory.splice(maxHistory);
     }
 
-    this.cometTrail.geometry.attributes.position.needsUpdate = true;
+    const positionAttr = this.cometTrail.geometry.attributes.position;
+    const positions = positionAttr.array as Float32Array;
+    const particleCount = positions.length / 3;
+    const time = performance.now() * 0.003;
+    const historyLen = this.cometHistory.length;
+
+    for (let i = 0; i < particleCount; i++) {
+      // Map particle i to a position in history
+      // Particle 0 = most recent (front of trail), higher i = older (back of trail)
+      const particleRatio = historyLen > 1 ? (i / (particleCount - 1)) : 0;
+      const historyIdx = Math.floor(particleRatio * (historyLen - 1));
+      const clampedIdx = Math.max(0, Math.min(historyIdx, historyLen - 1));
+      const historyPos = this.cometHistory[clampedIdx];
+
+      // Fallback to comet position if no history
+      const baseX = historyPos ? historyPos.x : cometPos.x;
+      const baseY = historyPos ? historyPos.y : cometPos.y;
+      const baseZ = historyPos ? historyPos.z : cometPos.z;
+
+      // Flame spread increases toward tail (more spread at back)
+      const particleProgress = i / particleCount;
+      const spread = particleProgress * 80;
+      const angle = i * 0.3 + time;
+
+      // Flickering offset for fireball effect
+      const flickerX = Math.sin(angle) * spread;
+      const flickerY = Math.cos(angle * 1.3) * spread * 0.7 + particleProgress * 60; // Rise upward
+      const flickerZ = Math.sin(angle * 0.7) * spread;
+
+      positions[i * 3] = baseX + flickerX;
+      positions[i * 3 + 1] = baseY + flickerY;
+      positions[i * 3 + 2] = baseZ + flickerZ;
+    }
+
+    positionAttr.needsUpdate = true;
   }
 
   // Easing function for smooth animation

@@ -32,25 +32,25 @@
 <!-- Dropdowns OUTSIDE header completely -->
 <div class="dropdown-wrapper dropdown-fleet" (mouseenter)="openFleetDropdown()" (mouseleave)="closeFleetDropdown()">
   <div class="dropdown" [style.display]="fleetOpen() ? 'block' : 'none'">
-    <a routerLink="/ships" class="dropdown-item">Ships</a>
-    <a routerLink="/stations" class="dropdown-item">Stations</a>
+    <a routerLink="/ships" class="dropdown-item" (click)="closeFleetDropdown()">Ships</a>
+    <a routerLink="/stations" class="dropdown-item" (click)="closeFleetDropdown()">Stations</a>
   </div>
 </div>
 
 <div class="dropdown-wrapper dropdown-codex" (mouseenter)="openCodexDropdown()" (mouseleave)="closeCodexDropdown()">
   <div class="dropdown" [style.display]="codexOpen() ? 'block' : 'none'">
-    <a routerLink="/codex" class="dropdown-item">Codex</a>
-    <a routerLink="/logistics" class="dropdown-item">Logistics</a>
-    <a routerLink="/engineering" class="dropdown-item">Engineering</a>
+    <a routerLink="/codex" class="dropdown-item" (click)="closeCodexDropdown()">Codex</a>
+    <a routerLink="/logistics" class="dropdown-item" (click)="closeCodexDropdown()">Logistics</a>
+    <a routerLink="/engineering" class="dropdown-item" (click)="closeCodexDropdown()">Engineering</a>
   </div>
 </div>
 
 <div class="dropdown-wrapper dropdown-community" (mouseenter)="openCommunityDropdown()" (mouseleave)="closeCommunityDropdown()">
   <div class="dropdown" [style.display]="communityOpen() ? 'block' : 'none'">
-    <a routerLink="/media" class="dropdown-item">Media</a>
-    <a routerLink="/updates" class="dropdown-item">Updates</a>
-    <a routerLink="/contact" class="dropdown-item">Contact</a>
-    <a routerLink="/star-map" class="dropdown-item">Star Map</a>
-    <a routerLink="/star-map-v2" class="dropdown-item">Star Map v2</a>
+    <a routerLink="/media" class="dropdown-item" (click)="closeCommunityDropdown()">Media</a>
+    <a routerLink="/updates" class="dropdown-item" (click)="closeCommunityDropdown()">Updates</a>
+    <a routerLink="/contact" class="dropdown-item" (click)="closeCommunityDropdown()">Contact</a>
+    <a routerLink="/star-map" class="dropdown-item" (click)="closeCommunityDropdown()">Star Map</a>
+    <a routerLink="/star-map-v2" class="dropdown-item" (click)="closeCommunityDropdown()">Star Map v2</a>
   </div>
 </div>
