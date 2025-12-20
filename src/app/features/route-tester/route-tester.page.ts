@@ -1,7 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { RoutingService, RouteResponse } from '../services/routing.service';
+import { RoutingService, RouteResponse } from '../../services/routing.service';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent,
   IonGrid, IonRow, IonCol,
