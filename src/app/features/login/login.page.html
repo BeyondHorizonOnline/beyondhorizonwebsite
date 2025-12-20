@@ -13,14 +13,14 @@
   <section class="section">
     <div class="section-container">
       <form (submit)="submit($event)" class="login-form">
-        <!-- Email Input -->
+        <!-- Email or Username Input -->
         <div class="form-group" [class.error]="emailError()">
-          <label for="email">Email Address</label>
+          <label for="email">Email or Username</label>
           <ion-input
             id="email"
             name="email"
-            type="email"
-            placeholder="pilot@beyondhorizon.com"
+            type="text"
+            placeholder="your-email@example.com or username"
             [(ngModel)]="email"
             (change)="onEmailChange()"
             required

@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { eye, eyeOff } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { AuthService } from '../../services/auth.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -26,7 +28,8 @@ export class LoginPage {
 
   constructor(
     private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private authService: AuthService
   ) {
     addIcons({ eye, eyeOff });
   }
@@ -46,19 +49,19 @@ export class LoginPage {
   async submit(event: Event) {
     event.preventDefault();
 
-    const email = this.email().trim();
+    const credential = this.email().trim();
     const password = this.password().trim();
 
     // Clear previous errors
     this.emailError.set(null);
     this.passwordError.set(null);
 
-    // Validate email
-    if (!email) {
-      this.emailError.set('Email is required');
+    // Validate credential (email or username)
+    if (!credential) {
+      this.emailError.set('Email or username is required');
       return;
     }
-    if (!this.isValidEmail(email)) {
+    if (credential.includes('@') && !this.isValidEmail(credential)) {
       this.emailError.set('Invalid email format');
       return;
     }
@@ -77,15 +80,23 @@ export class LoginPage {
     this.isSubmitting.set(true);
 
     try {
-      // Simulate async operation with small delay
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Call auth API with email or username
+      const response = await firstValueFrom(this.authService.login(credential, password));
 
-      // Show success toast
-      await this.showToast('Logged in successfully!');
+      if (response?.success && response?.token) {
+        // Show success toast
+        await this.showToast('Logged in successfully!');
 
-      // Navigate to dashboard
-      await this.router.navigate(['/dashboard']);
-    } catch (error) {
+        // Navigate to dashboard
+        await this.router.navigate(['/dashboard']);
+      } else {
+        // Show server error
+        this.emailError.set(response?.error || 'Login failed');
+      }
+    } catch (error: any) {
+      // Handle HTTP errors
+      const errorMessage = error?.error?.error || 'Invalid credentials';
+      this.emailError.set(errorMessage);
       console.error('Login error:', error);
     } finally {
       this.isSubmitting.set(false);
