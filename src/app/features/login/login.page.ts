@@ -71,8 +71,8 @@ export class LoginPage {
       this.passwordError.set('Password is required');
       return;
     }
-    if (password.length < 6) {
-      this.passwordError.set('Password must be at least 6 characters');
+    if (password.length < 5) {
+      this.passwordError.set('Password must be at least 5 characters');
       return;
     }
 
