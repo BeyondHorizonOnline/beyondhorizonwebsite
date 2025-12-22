@@ -83,7 +83,16 @@ export class LoginPage {
       // Call auth API with email or username
       const response = await firstValueFrom(this.authService.login(credential, password));
 
-      if (response?.success && response?.token) {
+      if (response?.success && response?.token && response?.player) {
+        // Store auth data
+        this.authService.storeAuth(response.token, {
+          id: response.player.id,
+          username: response.player.username,
+          email: response.player.email,
+          player_name: response.player.player_name,
+          credits: response.player.credits
+        });
+
         // Show success toast
         await this.showToast('Logged in successfully!');
 
