@@ -4,6 +4,7 @@ import {
   IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonIcon
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { logOut } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -11,7 +12,7 @@ import { addIcons } from 'ionicons';
 @Component({
   selector: 'vds-header',
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, RouterLink, IonIcon],
+  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, RouterLink, IonIcon, CommonModule],
   templateUrl: './vds-header.component.html',
   styleUrls: ['./vds-header.component.scss']
 })
