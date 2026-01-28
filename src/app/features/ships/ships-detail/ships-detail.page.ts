@@ -9,7 +9,7 @@ import { ShipDisplay, CatalogEntityStats } from '../../../models/catalog.models'
 import { VdsBadgeComponent } from '../../../components/vds-badge/vds-badge.component';
 import { VdsQuickFactsComponent, QuickFact } from '../../../components/vds-quick-facts/vds-quick-facts.component';
 import { VdsSystemCardComponent } from '../../../components/vds-system-card/vds-system-card.component';
-import { ModelViewerComponent } from 'src/app/component/model-viewer/model-viewer.component';
+import { ModelViewerComponent } from '../../../components/bh-model-viewer/model-viewer.component';
 import { UnitStatsService } from '../../../services/unit-stats/unit-stats';
 import { getSystemsForEntity, SystemCard } from '../../../data/mock-systems';
 

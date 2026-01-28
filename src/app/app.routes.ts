@@ -2,10 +2,6 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./features/home/home.page').then((m) => m.HomePage),
-  },
-  {
     path: 'home-v2',
     loadComponent: () => import('./features/home-v2/home-v2.page').then((m) => m.HomeV2Page),
   },
@@ -25,11 +21,11 @@ export const routes: Routes = [
   },
   {
     path: 'route-tester',
-    loadComponent: () => import('./route-tester/route-tester.page').then( m => m.RouteTesterPage)
+    loadComponent: () => import('./features/route-tester/route-tester.page').then( m => m.RouteTesterPage)
   },
   {
     path: 'star-map',
-    loadComponent: () => import('./star-map/star-map.page').then( m => m.StarMapPage)
+    loadComponent: () => import('./features/star-map/star-map.page').then( m => m.StarMapPage)
   },
   {
     path: 'star-map-v2',
