@@ -1,0 +1,27 @@
+<vds-header></vds-header>
+
+<ion-content fullscreen class="guide-overview">
+  <section class="hero">
+    <div class="hero-inner">
+      <h1 class="hero-title">Player Guide</h1>
+      <p class="hero-subtitle">Everything you need to conquer the frontier</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-container">
+      <div class="guide-grid">
+        @for (guide of guides; track guide.title) {
+          <a [routerLink]="guide.link" class="guide-card">
+            <span class="guide-icon">{{ guide.icon }}</span>
+            <h3 class="guide-title">{{ guide.title }}</h3>
+            <p class="guide-desc">{{ guide.description }}</p>
+            <span class="guide-cta">Explore →</span>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+</ion-content>
+
+<vds-footer></vds-footer>

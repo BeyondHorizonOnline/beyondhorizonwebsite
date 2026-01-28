@@ -1,61 +1,53 @@
 // File: src/app/components/vds-header/vds-header.component.ts
-import { Component, Input, OnDestroy, signal } from '@angular/core';
+import { Component, Input, OnDestroy, signal, ElementRef } from '@angular/core';
 import {
   IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'vds-header',
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, RouterLink],
+  imports: [IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, RouterLink, NgStyle],
   templateUrl: './vds-header.component.html',
   styleUrls: ['./vds-header.component.scss']
 })
 export class VdsHeaderComponent implements OnDestroy {
   @Input() variant: 'default' | 'hero' = 'default';
 
-  // Dropdown state management
-  fleetOpen = signal(false);
-  codexOpen = signal(false);
-  communityOpen = signal(false);
+  activeDropdown = signal<string | null>(null);
+  dropdownStyle = signal<{ top: string; left: string }>({ top: '0', left: '0' });
 
-  private closeTimeouts: { [key: string]: any } = {};
+  private closeTimeout: any = null;
 
-  openFleetDropdown() {
-    clearTimeout(this.closeTimeouts['fleet']);
-    this.fleetOpen.set(true);
+  openDropdown(name: string, event: MouseEvent) {
+    clearTimeout(this.closeTimeout);
+
+    // Get trigger button position
+    const trigger = event.currentTarget as HTMLElement;
+    const rect = trigger.getBoundingClientRect();
+
+    // Position dropdown below trigger, centered
+    this.dropdownStyle.set({
+      top: `${rect.bottom + 8}px`,
+      left: `${rect.left + rect.width / 2}px`
+    });
+
+    this.activeDropdown.set(name);
   }
 
-  closeFleetDropdown() {
-    this.closeTimeouts['fleet'] = setTimeout(() => {
-      this.fleetOpen.set(false);
-    }, 150);
+  closeDropdown() {
+    this.closeTimeout = setTimeout(() => {
+      this.activeDropdown.set(null);
+    }, 120);
   }
 
-  openCodexDropdown() {
-    clearTimeout(this.closeTimeouts['codex']);
-    this.codexOpen.set(true);
-  }
-
-  closeCodexDropdown() {
-    this.closeTimeouts['codex'] = setTimeout(() => {
-      this.codexOpen.set(false);
-    }, 150);
-  }
-
-  openCommunityDropdown() {
-    clearTimeout(this.closeTimeouts['community']);
-    this.communityOpen.set(true);
-  }
-
-  closeCommunityDropdown() {
-    this.closeTimeouts['community'] = setTimeout(() => {
-      this.communityOpen.set(false);
-    }, 150);
+  keepOpen() {
+    clearTimeout(this.closeTimeout);
   }
 
   ngOnDestroy() {
-    Object.values(this.closeTimeouts).forEach(timeout => clearTimeout(timeout));
+    clearTimeout(this.closeTimeout);
   }
 }

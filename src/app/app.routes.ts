@@ -36,6 +36,8 @@ export const routes: Routes = [
     loadComponent: () => import('./star-map-v2/star-map-v2.page').then( m => m.StarMapV2Page)
   },
   { path: 'lore', loadComponent: () => import('./features/lore/lore.page').then(m => m.LorePage) },
+  { path: 'guide', loadComponent: () => import('./features/guide/guide-overview/guide-overview.page').then(m => m.GuideOverviewPage) },
+  { path: 'guide/getting-started', loadComponent: () => import('./features/guide/getting-started/getting-started.page').then(m => m.GettingStartedPage) },
   { path: 'ships', loadComponent: () => import('./features/ships/ships-list/ships-list.page').then(m => m.ShipsListPage) },
   { path: 'ships/:id', loadComponent: () => import('./features/ships/ships-detail/ships-detail.page').then(m => m.ShipDetailPage) },
   { path: 'logistics', loadComponent: () => import('./features/logistics/logistics.page').then(m => m.LogisticsPage) },

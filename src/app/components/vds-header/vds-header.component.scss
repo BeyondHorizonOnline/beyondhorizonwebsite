@@ -2,10 +2,6 @@
 /* Override global Ionic CSS variables for this component */
 ion-header {
   --ion-toolbar-background: transparent !important;
-  overflow: visible !important;
-  clip-path: none !important;
-  clip: unset !important;
-  -webkit-clip-path: none !important;
 }
 
 /* Default variant styling */
@@ -17,12 +13,6 @@ ion-toolbar {
     0 8px 32px rgba(0, 0, 0, 0.5),
     0 0 20px rgba(0, 255, 255, 0.05);
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  z-index: 100;
-  overflow: visible !important;
-  clip-path: none !important;
-  clip: unset !important;
-  -webkit-clip-path: none !important;
 }
 
 .brand {
@@ -70,22 +60,12 @@ ion-toolbar {
   display: flex !important;
   gap: 12px;
   align-items: center;
-  overflow: visible !important;
-  position: relative;
-  z-index: 100;
   flex-direction: row;
-  clip-path: unset;
-  clip: unset;
 }
 
 ion-buttons.nav {
   --padding-start: 0;
   --padding-end: 0;
-  overflow: visible !important;
-  clip-path: none !important;
-  clip: unset !important;
-  -webkit-mask-image: none !important;
-  contain: none !important;
 }
 
 .nav ion-button:hover,
@@ -124,63 +104,36 @@ ion-header.hero-variant {
   }
 
   ion-toolbar {
-    /* Lighter background to let starfield bleed through */
-    /* Tinted overlay feel: top slightly visible, bottom nearly transparent */
     background: linear-gradient(
       180deg,
-      rgba(13, 20, 37, 0.35) 0%,       /* Top: 35% opaque - more starfield visible */
-      rgba(10, 14, 26, 0.15) 100%      /* Bottom: 15% opaque - mostly transparent fade */
+      rgba(13, 20, 37, 0.35) 0%,
+      rgba(10, 14, 26, 0.15) 100%
     ) !important;
-    backdrop-filter: blur(10px);        /* Lighter blur to let starfield show through */
-
-    /* Soft gradient fade instead of hard cutoff */
+    backdrop-filter: blur(10px);
     border-bottom: none;
-    background-image:
-      linear-gradient(
-        180deg,
-        rgba(13, 20, 37, 0.35) 0%,
-        rgba(10, 14, 26, 0.15) 80%,    /* Fade zone in lower 20% */
-        transparent 100%                /* Transparent fade - soft edge */
-      ),
-      /* Tier 1 ambient glow: extremely subtle, barely perceptible */
-      linear-gradient(
-        135deg,
-        rgba(0, 255, 255, 0.015) 0%,   /* Almost invisible teal hint */
-        transparent 50%
-      );
-
-    /* No shadow - completely transparent to starfield */
     box-shadow: none;
-
-    /* Slightly more vertical padding for premium feel */
     padding-block: 18px;
-
     transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .brand {
-    /* Anchor the top visually - bold weight to ground the eye */
     color: var(--color-text-light);
-    font-weight: 800;  /* Bold anchor weight */
-    letter-spacing: 0.12em;  /* More spacing for premium, readable feel */
-    /* No text-shadow - hero title is the only element with dramatic glow */
+    font-weight: 800;
+    letter-spacing: 0.12em;
   }
 
   .nav ion-button {
-    /* Reduced brightness vs hero title - let eye focus on hero */
-    color: rgba(255, 255, 255, 0.75);  /* More muted - definite reduction */
-    font-weight: 400;  /* Lighter weight vs brand (800) - clear hierarchy */
-    opacity: 0.8;      /* Subtle reduction - stays background, not competitor */
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 400;
+    opacity: 0.8;
   }
 
   .nav ion-button:hover,
   .nav ion-button.router-link-active {
-    /* Keep Tier 2 hover feedback - this is allowed on interactive elements */
     color: var(--color-cyan);
-    opacity: 1;        /* Full opacity on hover for clarity */
-    background: color-mix(in oklab, rgba(0, 255, 255, 0.08) 20%, transparent);  /* Subtle bg */
-    box-shadow:
-      0 0 10px rgba(0, 255, 255, 0.15);  /* Minimal glow - stays Tier-2 feedback */
+    opacity: 1;
+    background: color-mix(in oklab, rgba(0, 255, 255, 0.08) 20%, transparent);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.15);
   }
 
   .nav ion-button:focus-visible {
@@ -193,14 +146,11 @@ ion-header.hero-variant {
 @media (max-width: 1024px) {
   ion-header.hero-variant {
     ion-toolbar {
-      /* Tablet: Slightly increased opacity for small screen readability */
       background: linear-gradient(
         180deg,
-        rgba(13, 20, 37, 0.5) 0%,       /* Increased from 0.4 */
-        rgba(10, 14, 26, 0.3) 100%      /* Increased from 0.2 */
+        rgba(13, 20, 37, 0.5) 0%,
+        rgba(10, 14, 26, 0.3) 100%
       ) !important;
-
-      /* Keep blur strong */
       backdrop-filter: blur(16px);
     }
   }
@@ -209,51 +159,21 @@ ion-header.hero-variant {
 @media (max-width: 768px) {
   ion-header.hero-variant {
     ion-toolbar {
-      /* Mobile: More opaque for small text legibility while still blending */
       background: linear-gradient(
         180deg,
-        rgba(13, 20, 37, 0.6) 0%,       /* Increased from 0.5 */
-        rgba(10, 14, 26, 0.4) 100%      /* Increased from 0.3 */
+        rgba(13, 20, 37, 0.6) 0%,
+        rgba(10, 14, 26, 0.4) 100%
       ) !important;
-
-      /* Slightly reduced blur on mobile for performance */
       backdrop-filter: blur(14px);
     }
   }
 }
 
-/* Dropdown Menu Styling */
-.dropdown-wrapper {
-  position: fixed;
-  top: 60px;
-  z-index: 1001;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:has(> .dropdown[style*="block"]) {
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-.dropdown-fleet {
-  right: 320px;
-}
-
-.dropdown-codex {
-  right: 235px;
-}
-
-.dropdown-community {
-  right: 100px;
-}
-
+/* Dropdown trigger arrow */
 .dropdown-trigger {
   display: flex;
   align-items: center;
   gap: 6px;
-  position: relative;
   font-weight: 500;
   letter-spacing: 0.02em;
 
@@ -271,88 +191,36 @@ ion-header.hero-variant {
   }
 }
 
-.dropdown {
-  background: linear-gradient(
-    135deg,
-    rgba(5, 8, 16, 0.98) 0%,
-    rgba(10, 14, 26, 0.96) 100%
-  );
+/* Fixed-position dropdown menu */
+.dropdown-menu {
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 10000;
+  min-width: 160px;
+  padding: 8px 0;
+  background: linear-gradient(135deg, rgba(5, 8, 16, 0.98), rgba(10, 14, 26, 0.96));
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 255, 255, 0.25);
-  border-radius: 10px;
-  min-width: 240px;
-  padding: 10px 4px;
-  z-index: 10002;
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.6),
-    0 0 1px rgba(0, 255, 255, 0.3) inset,
-    0 0 30px rgba(0, 255, 255, 0.08);
-  pointer-events: auto;
-  will-change: transform;
-  animation: dropdownSlideDown 200ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  transform-origin: top;
-
-  .dropdown-item {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 14px 18px;
-    text-align: left;
-    font-size: 13px;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.75);
-    text-decoration: none;
-    transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 6px;
-    margin: 4px 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 3px;
-      height: 0;
-      background: var(--color-cyan);
-      transform: translateY(-50%);
-      transition: height 200ms cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 1px;
-    }
-
-    &:hover {
-      background: rgba(0, 255, 255, 0.12);
-      color: var(--color-cyan);
-      transform: translateX(4px);
-
-      &::before {
-        height: 16px;
-      }
-    }
-
-    &.router-link-active {
-      color: var(--color-cyan);
-      background: rgba(0, 255, 255, 0.15);
-      box-shadow: 0 0 16px rgba(0, 255, 255, 0.15) inset;
-
-      &::before {
-        height: 24px;
-      }
-    }
-  }
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 255, 0.06);
 }
 
-@keyframes dropdownSlideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+.dropdown-item {
+  display: block;
+  padding: 10px 16px;
+  margin: 2px 6px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
+  border-radius: 4px;
+  transition: all 150ms ease;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 255, 255, 0.1);
+    color: var(--color-cyan);
   }
 }
 
