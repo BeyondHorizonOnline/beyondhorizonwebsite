@@ -112,8 +112,8 @@ export class LoginPage {
     }
   }
 
-  async createAccount() {
-    await this.showToast('Feature coming soon');
+  createAccount() {
+    this.router.navigate(['/register']);
   }
 
   async forgotPassword() {

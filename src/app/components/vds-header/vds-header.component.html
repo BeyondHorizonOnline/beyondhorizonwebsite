@@ -47,18 +47,14 @@
       >
         Community <span class="arrow">▼</span>
       </ion-button>
-<<<<<<< HEAD
 
-      <ion-button routerLink="/login" class="login-button">Login</ion-button>
-=======
       @if (authService.isLoggedIn()) {
         <ion-button class="profile-button" (mouseenter)="openProfileDropdown()" (mouseleave)="closeProfileDropdown()">
-          <div class="avatar">{{ authService.currentUser()?.username.charAt(0).toUpperCase() }}</div>
+          <div class="avatar">{{ authService.currentUser()?.username?.charAt(0)?.toUpperCase() }}</div>
         </ion-button>
       } @else {
         <ion-button routerLink="/login" class="login-button">Login</ion-button>
       }
->>>>>>> 1e722f820696f2f59a555f377cb2b1839a9cc94f
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -102,7 +98,6 @@
     <a routerLink="/logistics" class="dropdown-item">Logistics</a>
     <a routerLink="/engineering" class="dropdown-item">Engineering</a>
   </div>
-<<<<<<< HEAD
 }
 
 @if (activeDropdown() === 'community') {
@@ -119,9 +114,8 @@
     <a routerLink="/star-map-v2" class="dropdown-item">Star Map v2</a>
   </div>
 }
-=======
-</div>
 
+<!-- Profile dropdown -->
 <div class="dropdown-wrapper dropdown-profile" (mouseenter)="openProfileDropdown()" (mouseleave)="closeProfileDropdown()">
   <div class="dropdown" [style.display]="profileOpen() ? 'block' : 'none'">
     <button class="dropdown-item logout-item" (click)="logout()">
@@ -130,4 +124,3 @@
     </button>
   </div>
 </div>
->>>>>>> 1e722f820696f2f59a555f377cb2b1839a9cc94f

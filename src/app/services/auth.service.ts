@@ -24,6 +24,24 @@ export interface LoginResponse {
   };
 }
 
+export interface RegisterRequest {
+  username: string;
+  email: string;
+  password: string;
+  player_name: string;
+}
+
+export interface RegisterResponse {
+  success: boolean;
+  error?: string;
+  player?: {
+    id: number;
+    username: string;
+    email: string;
+    player_name: string;
+  };
+}
+
 export interface UserData {
   id: number;
   username: string;
@@ -44,6 +62,11 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {
     this.loadStoredAuth();
+  }
+
+  register(username: string, email: string, password: string, playerName: string) {
+    const request: RegisterRequest = { username, email, password, player_name: playerName };
+    return this.http.post<RegisterResponse>(`${environment.authApiUrl}/auth/signup`, request);
   }
 
   login(emailOrUsername: string, password: string) {

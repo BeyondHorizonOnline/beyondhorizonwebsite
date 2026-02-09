@@ -1,0 +1,122 @@
+<ion-content>
+  <!-- Hero Section -->
+  <section class="hero">
+    <app-starfield-background></app-starfield-background>
+    <div class="hero-inner">
+      <h1 class="hero-title">CREATE ACCOUNT</h1>
+      <p class="hero-subtitle">Join the Beyond Horizon universe</p>
+    </div>
+  </section>
+
+  <!-- Register Form Section -->
+  <section class="section">
+    <div class="section-container">
+      <form (submit)="submit($event)" class="register-form">
+
+        <!-- Server Error -->
+        @if (serverError()) {
+          <div class="server-error">{{ serverError() }}</div>
+        }
+
+        <!-- Username -->
+        <div class="form-group" [class.error]="usernameError()">
+          <label for="username">Username</label>
+          <ion-input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="Choose a username"
+            [(ngModel)]="username"
+            (ionInput)="clearError('username')"
+          ></ion-input>
+          @if (usernameError()) {
+            <span class="error-message">{{ usernameError() }}</span>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="form-group" [class.error]="emailError()">
+          <label for="email">Email</label>
+          <ion-input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            [(ngModel)]="email"
+            (ionInput)="clearError('email')"
+          ></ion-input>
+          @if (emailError()) {
+            <span class="error-message">{{ emailError() }}</span>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="form-group" [class.error]="passwordError()">
+          <label for="password">Password</label>
+          <div class="password-input-wrapper">
+            <ion-input
+              id="password"
+              name="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              placeholder="Minimum 6 characters"
+              [(ngModel)]="password"
+              (ionInput)="clearError('password')"
+            ></ion-input>
+            <button
+              type="button"
+              class="toggle-password"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+            >
+              <ion-icon [icon]="showPassword() ? 'eye' : 'eyeOff'"></ion-icon>
+            </button>
+          </div>
+          @if (passwordError()) {
+            <span class="error-message">{{ passwordError() }}</span>
+          }
+        </div>
+
+        <!-- Player Name -->
+        <div class="form-group" [class.error]="playerNameError()">
+          <label for="playerName">Player Name</label>
+          <ion-input
+            id="playerName"
+            name="playerName"
+            type="text"
+            placeholder="Your in-game display name"
+            [(ngModel)]="playerName"
+            (ionInput)="clearError('playerName')"
+          ></ion-input>
+          @if (playerNameError()) {
+            <span class="error-message">{{ playerNameError() }}</span>
+          }
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="isSubmitting()"
+          [attr.aria-busy]="isSubmitting()"
+        >
+          @if (isSubmitting()) {
+            <ion-spinner name="crescent"></ion-spinner>
+            <span>Creating account...</span>
+          } @else {
+            Create Account
+          }
+        </button>
+
+        <!-- Divider -->
+        <div class="divider">
+          <span>─── OR ───</span>
+        </div>
+
+        <!-- Sign In Link -->
+        <button type="button" class="btn btn-secondary" routerLink="/login">
+          Already have an account? Sign In
+        </button>
+      </form>
+    </div>
+  </section>
+</ion-content>
