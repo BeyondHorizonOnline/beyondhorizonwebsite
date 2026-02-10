@@ -6,7 +6,7 @@ import { VdsCardComponent } from '../../../components/vds-card/vds-card.componen
 import { StarfieldBackgroundComponent } from '../../../components/starfield-background/starfield-background.component';
 import { SHIPS } from '../../../data/seed-ships';
 import { FACILITIES } from '../../../data/seed-facilities';
-import { CX_ASSETS } from '../../../data/seed-cx';
+import { VEHICLES } from '../../../data/seed-vehicles';
 import { matchesFilter } from '../../../utils/format-utils';
 
 
@@ -19,10 +19,18 @@ import { matchesFilter } from '../../../utils/format-utils';
 })
 export class CodexPage {
   q = signal('');
-  all = [...SHIPS, ...FACILITIES, ...CX_ASSETS];
+
+  // Track ship IDs for routing (ships → /ships/:id, others → /codex/:id)
+  private shipIds = new Set(SHIPS.map(s => s.id));
+
+  all = [...SHIPS, ...FACILITIES, ...VEHICLES];
   list = computed(() => {
     const v = this.q().trim();
     return v ? this.all.filter(e => matchesFilter(`${e.code} ${e.name} ${e.summary} ${(e.tags||[]).join(' ')}`, v))
              : this.all;
   });
+
+  getRoute(id: string): string {
+    return this.shipIds.has(id) ? '/ships/' + id : '/codex/' + id;
+  }
 }

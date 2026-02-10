@@ -37,6 +37,6 @@ export class EngineeringPage {
 
   tagsOf(f: Facility): string[] {
     const type = f.unitType || f.subtype;
-    return [type, ...(f.tags || [])].filter(Boolean) as string[];
+    return Array.from(new Set([type, ...(f.tags || [])].filter(Boolean) as string[]));
   }
 }

@@ -1,15 +1,401 @@
 <!-- File: src/app/features/lore/lore.page.html -->
 <ion-content>
-  <section class="vds-section vds-card">
-    <h1 class="vds-h1">Corporate Profile</h1>
-    <p>Voran Defense Systems (VDS) is a corporate–military industrial empire that dominates interstellar warfare and infrastructure.</p>
-    <div class="series">
-      <vds-badge series="VX">VX Warships</vds-badge>
-      <vds-badge series="CX">CX Cargo</vds-badge>
-      <vds-badge series="BX">BX Bases</vds-badge>
-      <vds-badge series="EX">EX Engineering</vds-badge>
-      <vds-badge series="MX">MX Medical</vds-badge>
-      <vds-badge series="HX">HX Habitation</vds-badge>
+  <!-- Hero Section -->
+  <section class="hero">
+    <app-starfield-background></app-starfield-background>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Classified // Black Codex Access</p>
+      <h1 class="hero-title">Voran Defense Systems</h1>
+      <p class="hero-subtitle">High Doctrine & Division Lore Codex</p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section">
+    <div class="section-container">
+      <div class="intro-panel">
+        <p>Voran Defense Systems (VDS) is a corporate-military industrial empire that dominates interstellar warfare, logistics, and planetary colonization across the Beyond Horizon frontier. What follows is the internal doctrine — the version that exists inside the empire, not the sanitized one civilians see.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divisions -->
+  <section class="section">
+    <div class="section-container">
+
+      <!-- Frontline Military Fleet -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Frontline Military Fleet</h2>
+            <div class="badge-row">
+              <vds-badge series="VX">VX</vds-badge>
+              <vds-badge series="KX">KX</vds-badge>
+              <vds-badge series="KC">KC</vds-badge>
+            </div>
+          </div>
+          <p>Voran naval doctrine begins with a single axiom: <em>Space is sovereignty</em>. The Frontline Fleet exists not to defend territory, but to <strong>define it</strong>. VX fleets are structured around overwhelming forward pressure — command ships are mobile capitals of law, issuing binding authority across entire systems. KX and KC tiers represent escalation states, where war ceases to be tactical and becomes historical.</p>
+          <p>Fleets are engineered for intimidation as much as combat; hull silhouettes, engine resonance, and formation geometry are deliberately designed to project inevitability. Within Voran culture, naval officers are not warriors but arbiters of fate — chosen to decide which civilizations persist and which are erased from records entirely.</p>
+        </div>
+      </div>
+
+      <!-- Autonomous Military Forces -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Autonomous Military Forces</h2>
+            <div class="badge-row">
+              <vds-badge series="AX">AX</vds-badge>
+            </div>
+          </div>
+          <p>AX divisions are Voran's answer to emotional limitation. Developed after early campaigns revealed inefficiencies in organic command hesitation, AX assets are governed by adaptive war intelligences bound only by outcome constraints. These forces are often deployed without warning, without negotiation, and without survivors.</p>
+          <p>AX units are not considered soldiers; they are <strong>events</strong> — controlled disasters unleashed to alter strategic equations instantly. Even within Voran command, AX deployment requires special authorization, as their logic cores will sacrifice anything — including Voran assets — if it increases long-term dominance probability.</p>
+        </div>
+      </div>
+
+      <!-- Planetary Ground Warfare -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Planetary Ground Warfare</h2>
+            <div class="badge-row">
+              <vds-badge series="TX">TX</vds-badge>
+              <vds-badge series="GX">GX</vds-badge>
+            </div>
+          </div>
+          <p>Voran does not wage "ground wars." It conducts <strong>planetary corrections</strong>. TX and GX divisions exist to dismantle resistance at the structural level — cities, terrain, climate systems, and population distribution. Their vehicles are designed for relentless forward motion, operating weeks without resupply in hostile environments.</p>
+          <p>Voran ground doctrine favors psychological collapse over attrition: visible armor columns, seismic bombardment, and controlled environmental devastation. Once deployed, TX forces do not retreat. If resistance continues, escalation is automatic.</p>
+        </div>
+      </div>
+
+      <!-- Planetary Support & Vehicles -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Planetary Support & Vehicles</h2>
+            <div class="badge-row">
+              <vds-badge series="PX">PX</vds-badge>
+            </div>
+          </div>
+          <p>PX units represent Voran's belief that wars are won long before the first shot. These vehicles ensure that nothing slows Voran momentum — repairs happen immediately, supply lines never break, and terrain obstacles are rendered irrelevant.</p>
+          <p>PX crews are trained to operate under fire without engaging emotionally in combat; their purpose is continuity. Within Voran military academies, PX doctrine is taught as the purest form of warfare: victory through inevitability rather than destruction.</p>
+        </div>
+      </div>
+
+      <!-- Orbital & Atmospheric Strike Craft -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Orbital & Atmospheric Strike Craft</h2>
+            <div class="badge-row">
+              <vds-badge series="BX">BX</vds-badge>
+            </div>
+          </div>
+          <p>BX wings are designed as instruments of fear. Their doctrine centers on <em>selective annihilation</em>: demonstrating total capability while applying minimal force. BX bombers are frequently used to remove leadership centers, power grids, and cultural symbols, leaving populations intact but directionless.</p>
+          <p>Voran records show entire planetary governments surrendering after a single BX strike cycle. Pilots are conditioned to view themselves as messengers of consequence, not combatants.</p>
+        </div>
+      </div>
+
+      <!-- Cargo & Logistics -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Cargo & Logistics</h2>
+            <div class="badge-row">
+              <vds-badge series="CX">CX</vds-badge>
+              <vds-badge series="CGX">CGX</vds-badge>
+            </div>
+          </div>
+          <p>Voran logistics vessels are deliberately indistinguishable from warships at long range. CX doctrine treats supply as a strategic weapon — if Voran supplies flow freely, the war is already over. These fleets are automated, redundant, and capable of self-defense far beyond civilian standards.</p>
+          <p>In Voran culture, logistics commanders outrank many combat officers; starvation, not firepower, is considered the ultimate enforcement tool.</p>
+        </div>
+      </div>
+
+      <!-- Shuttle & Personnel Transport -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Shuttle & Personnel Transport</h2>
+            <div class="badge-row">
+              <vds-badge series="SX">SX</vds-badge>
+            </div>
+          </div>
+          <p>SX craft are tightly regulated symbols of trust. Movement within Voran-controlled space is permission-based, logged, and analyzed. Shuttles transport not just personnel, but authority — inspectors, commanders, and political overseers. Their routes are often classified, and interference with SX traffic is treated as sedition.</p>
+        </div>
+      </div>
+
+      <!-- Base & Station Infrastructure -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Base & Station Infrastructure</h2>
+            <div class="badge-row">
+              <vds-badge series="BSX">BSX</vds-badge>
+              <vds-badge series="BGX">BGX</vds-badge>
+              <vds-badge series="BPX">BPX</vds-badge>
+            </div>
+          </div>
+          <p>Voran stations are not infrastructure — they are <strong>jurisdiction</strong>. Each station enforces Voran law across vast regions, controlling traffic, communications, and military response. Once constructed, stations serve as permanent reminders that resistance is obsolete.</p>
+          <p>Many are built directly over conquered population centers or resource nexuses, making their destruction strategically unacceptable to defenders.</p>
+        </div>
+      </div>
+
+      <!-- Colonization Authority -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Colonization Authority</h2>
+            <div class="badge-row">
+              <vds-badge series="COL">COL</vds-badge>
+            </div>
+          </div>
+          <p>Colonization is Voran's quietest weapon. COL divisions do not arrive until rebellion is mathematically impossible. Their mandate is cultural replacement: restructuring education, labor, architecture, and population flow to align with Voran values.</p>
+          <p>Colonies are engineered for loyalty through dependency, opportunity stratification, and surveillance normalization. Rebellion becomes socially unthinkable long before it becomes militarily impossible.</p>
+        </div>
+      </div>
+
+      <!-- Housing & Civil Infrastructure -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Housing & Civil Infrastructure</h2>
+            <div class="badge-row">
+              <vds-badge series="HX">HX</vds-badge>
+              <vds-badge series="HBP">HBP</vds-badge>
+              <vds-badge series="HBX">HBX</vds-badge>
+            </div>
+          </div>
+          <p>Voran housing reflects its worldview: order produces stability, stability produces obedience. Residential blocks are modular, monitored, and designed to discourage congregation without purpose. Military barracks double as rapid deployment centers and internal security hubs.</p>
+          <p>Civilians raised in Voran housing develop an intuitive understanding of authority through environmental design alone.</p>
+        </div>
+      </div>
+
+      <!-- Medical & Population Services -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Medical & Population Services</h2>
+            <div class="badge-row">
+              <vds-badge series="MX">MX</vds-badge>
+            </div>
+          </div>
+          <p>Voran medicine was never intended to be compassionate — it was designed to be <strong>reliable</strong>. The MX division emerged during the early expansion era, when Voran command realized that uncontrolled population loss weakened long-term industrial and military output. As a result, medical doctrine was rewritten around preservation of function, not individual well-being. Pain, psychological distress, and long recovery cycles are considered inefficiencies to be engineered out of the system.</p>
+          <p>MX facilities specialize in accelerated recovery, neural stabilization, genetic correction, and long-duration survivability under hostile planetary conditions. Treatment protocols are standardized across Voran space, ensuring populations remain productive regardless of environment, war status, or occupation level. Psychological conditioning is not considered a separate discipline but a continuation of care — patients leaving MX facilities are healthier, calmer, and more compliant than when they entered.</p>
+          <p>Within Voran society, MX is quietly feared and deeply respected. Survival is guaranteed under Voran rule, but the shape of that survival is decided elsewhere. MX ensures the population endures — not that it chooses its future.</p>
+        </div>
+      </div>
+
+      <!-- Manufacturing & Industry -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Manufacturing & Industry</h2>
+            <div class="badge-row">
+              <vds-badge series="PF">PF</vds-badge>
+              <vds-badge series="SF">SF</vds-badge>
+            </div>
+          </div>
+          <p>Voran factories are not businesses; they are <strong>instruments of continuity</strong>. From their earliest designs, PF and SF facilities were engineered to eliminate the concept of peacetime production. Every manufacturing complex exists in a constant state of readiness, capable of shifting output from civilian goods to war materiel within hours — sometimes minutes.</p>
+          <p>Industrial oversight is largely automated, with AI systems monitoring supply flow, battlefield telemetry, and strategic forecasts in real time. Production quotas adjust dynamically, prioritizing whichever asset class increases system dominance probability. Civilian output is tolerated only when it stabilizes workforce efficiency or population morale.</p>
+          <p>Culturally, Voran citizens are raised to see factories as civic monuments. To work within a PF or SF complex is considered a form of service, whether the product is a housing module or a battleship hull. Industry is not a means to war — <em>industry is war</em>, expressed through scale, precision, and permanence.</p>
+        </div>
+      </div>
+
+      <!-- Refining & Processing -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Refining & Processing</h2>
+            <div class="badge-row">
+              <vds-badge series="RSX">RSX</vds-badge>
+            </div>
+          </div>
+          <p>RSX facilities represent the moment when a planet stops being a world and becomes a <strong>resource</strong>. These refineries are among the most fortified structures in Voran territory, as they transform raw extraction into usable strategic material. Their placement is calculated for efficiency, not habitability — many operate in toxic atmospheres, high-gravity zones, or unstable crust regions.</p>
+          <p>Voran refining doctrine places no value on long-term planetary sustainability. Resource throughput and conversion efficiency are the only metrics that matter. Waste byproducts are either repurposed for secondary industrial use or discarded without remediation. Environmental collapse is acceptable if it occurs after yield targets are met.</p>
+          <p>RSX structures are typically the first major installations deployed during annexation and the last removed during withdrawal. A functioning RSX refinery is a declaration: <em>the planet has already been claimed</em>.</p>
+        </div>
+      </div>
+
+      <!-- Resource Extraction Division -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Resource Extraction Division</h2>
+            <div class="badge-row">
+              <vds-badge series="HRX">HRX</vds-badge>
+              <vds-badge series="GEX">GEX</vds-badge>
+            </div>
+          </div>
+          <p>The HRX and GEX divisions exist to answer a single question: <em>What is this world worth?</em> Voran extraction units deploy with exhaustive geological and ecological modeling, identifying exploitable materials before the first drill is activated. Entire ecosystems are evaluated solely on their contribution to extraction efficiency.</p>
+          <p>Extraction operations proceed aggressively, often destabilizing planetary crusts, atmospheres, or hydrospheres. This is not considered collateral damage — it is calculated attrition. Once extraction efficiency falls below acceptable thresholds, operations cease immediately. No effort is made to restore planetary viability.</p>
+          <p>Abandoned extraction worlds are intentionally left scarred. In Voran strategic psychology, these dead or dying planets serve as warnings to neighboring systems: cooperation ensures survival; resistance ensures consumption.</p>
+        </div>
+      </div>
+
+      <!-- Storage & Warehousing -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Storage & Warehousing</h2>
+            <div class="badge-row">
+              <vds-badge series="WSX">WSX</vds-badge>
+              <vds-badge series="WPX">WPX</vds-badge>
+            </div>
+          </div>
+          <p>Voran warehousing doctrine treats supply as <strong>inevitability insurance</strong>. WSX and WPX facilities are distributed, hardened, and autonomous, capable of functioning in isolation for extended periods. Each warehouse is designed to survive sieges, orbital bombardment, and internal sabotage without compromising inventory integrity.</p>
+          <p>Stockpiles are intentionally redundant. Voran logistics planners assume loss is inevitable — preparedness lies in excess. Supplies are tracked not just by quantity, but by strategic potential: how quickly stored materials can become weapons, infrastructure, or leverage.</p>
+          <p>To Voran command, a full warehouse is not reassurance — it is <em>leverage made physical</em>. Campaigns fail not because Voran runs out of resources, but because enemies run out first.</p>
+        </div>
+      </div>
+
+      <!-- Power & Energy Systems -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Power & Energy Systems</h2>
+            <div class="badge-row">
+              <vds-badge series="PSG">PSG</vds-badge>
+              <vds-badge series="PPG">PPG</vds-badge>
+            </div>
+          </div>
+          <p>Energy is the foundation of Voran authority. PSG and PPG divisions exist to ensure that power generation and distribution remain centralized, monitored, and controllable at all times. Voran grids are designed with layered redundancy, heavy shielding, and rapid isolation capabilities, allowing command to selectively deny power to regions, cities, or installations.</p>
+          <p>Invasion doctrine prioritizes generator capture over population centers. <strong>Darkness</strong> is one of Voran's most effective tools — disabling infrastructure collapses resistance faster than open warfare. Many planetary capitulations have occurred without a single bombardment, simply through prolonged energy denial.</p>
+          <p>Culturally, Voran citizens understand that power is conditional. Lights stay on because the system permits it.</p>
+        </div>
+      </div>
+
+      <!-- Engineering & Construction -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Engineering & Construction</h2>
+            <div class="badge-row">
+              <vds-badge series="EX">EX</vds-badge>
+            </div>
+          </div>
+          <p>EX divisions embody the Voran belief that <strong>occupation begins immediately</strong>. Engineering units deploy alongside fleets and ground forces, constructing fortifications, power relays, and logistics hubs even as fighting continues. Retreat is not planned for — every structure is assumed permanent.</p>
+          <p>EX assets are modular, scalable, and designed for hostile environments. Construction often begins before planetary pacification is complete, reinforcing the psychological message that resistance will not alter the outcome.</p>
+          <p>Within Voran doctrine, building is an act of dominance. Where EX operates, Voran intends to remain.</p>
+        </div>
+      </div>
+
+      <!-- Jump & Transit Authority -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Jump & Transit Authority</h2>
+            <div class="badge-row">
+              <vds-badge series="JX">JX</vds-badge>
+            </div>
+          </div>
+          <p>JX divisions do not merely manage travel — they regulate <strong>access to existence</strong> beyond a system. Jumpgates, transit nexuses, and routing authorities allow Voran to control trade flows, military movement, and population migration at a strategic level.</p>
+          <p>By opening or closing routes, JX can elevate a system into prosperity or isolate it into irrelevance. Entire economies have collapsed or flourished based solely on JX policy adjustments. Military force is often unnecessary once transit control is established.</p>
+          <p>Among Voran elites, JX authority is considered one of the highest strategic instruments available. <em>Control the paths between stars, and wars resolve themselves.</em></p>
+        </div>
+      </div>
+
+      <!-- Detection & Sensor Systems -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Detection & Sensor Systems</h2>
+            <div class="badge-row">
+              <vds-badge series="RDP">RDP</vds-badge>
+              <vds-badge series="RDX">RDX</vds-badge>
+            </div>
+          </div>
+          <p>Voran surveillance doctrine rejects secrecy as an acceptable state. RDP and RDX arrays monitor space traffic, communications, energy usage, and population movement patterns continuously. Detection is layered, overlapping, and predictive — hostile action is often identified before intent is consciously formed.</p>
+          <p>Privacy is officially categorized as a destabilizing variable. Monitoring is not hidden; it is normalized. Citizens raised under Voran oversight rarely attempt concealment because it has never existed for them.</p>
+          <p>In Voran space, <em>to be unseen is to be suspicious</em>.</p>
+        </div>
+      </div>
+
+      <!-- Strategic Defense Systems -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Strategic Defense Systems</h2>
+            <div class="badge-row">
+              <vds-badge series="SDX">SDX</vds-badge>
+              <vds-badge series="SDP">SDP</vds-badge>
+            </div>
+          </div>
+          <p>Strategic Defense platforms are built to make rebellion <strong>mathematically unviable</strong>. Integrated directly with fleet AI, sensor arrays, and planetary power grids, these systems respond at speeds no organic command structure can match.</p>
+          <p>Defensive doctrine emphasizes preemption. Threats are neutralized during formation, not execution. Once SDX systems are fully active, traditional warfare becomes irrelevant — hostile action becomes a statistical anomaly.</p>
+          <p>The presence of an SDX platform is considered the final phase of system pacification.</p>
+        </div>
+      </div>
+
+      <!-- Hangars & Docking Control -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Hangars & Docking Control</h2>
+            <div class="badge-row">
+              <vds-badge series="HPX">HPX</vds-badge>
+              <vds-badge series="HSX">HSX</vds-badge>
+            </div>
+          </div>
+          <p>Hangars are treated as <strong>force accelerators</strong> rather than storage facilities. HPX and HSX complexes emphasize rapid deployment, automated repair, and strict asset accounting. Ships are rotated continuously to maintain operational pressure.</p>
+          <p>Personalization and long-term habitation are discouraged. Voran doctrine views emotional attachment to vessels as a liability. Ships exist to sortie, strike, recover, and redeploy — nothing more.</p>
+          <p><em>A silent hangar is a failure condition.</em></p>
+        </div>
+      </div>
+
+      <!-- Defense Control Arrays -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Defense Control Arrays</h2>
+            <div class="badge-row">
+              <vds-badge series="DPX">DPX</vds-badge>
+              <vds-badge series="DSX">DSX</vds-badge>
+            </div>
+          </div>
+          <p>Defense Control Arrays unify all weapons, sensors, and response systems within their jurisdiction into a <strong>single strategic intelligence</strong>. When activated, DCAs override local command authority in favor of system survival logic.</p>
+          <p>This centralization allows Voran to respond instantly to threats without debate or delay. Individual commanders are expected to defer — hesitation is treated as insubordination.</p>
+          <p>DCAs embody the Voran ideal of unity: <em>many weapons, one will</em>.</p>
+        </div>
+      </div>
+
+      <!-- Guild & Faction Structures -->
+      <div class="division-card">
+        <div class="division-accent"></div>
+        <div class="division-body">
+          <div class="division-head">
+            <h2>Guild & Faction Structures</h2>
+            <div class="badge-row">
+              <vds-badge series="GLD">GLD</vds-badge>
+            </div>
+          </div>
+          <p>Voran permits factions only when they serve stability. Guild Towers exist as controlled autonomy zones, granting limited self-governance while embedding surveillance, economic dependency, and compliance systems directly into their infrastructure.</p>
+          <p>Guild leadership operates under constant oversight, incentivized through privileges rather than fear. This creates the illusion of freedom while ensuring strategic alignment.</p>
+          <p>In Voran philosophy, independence is dangerous — but <em>useful autonomy is efficient</em>.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 </ion-content>

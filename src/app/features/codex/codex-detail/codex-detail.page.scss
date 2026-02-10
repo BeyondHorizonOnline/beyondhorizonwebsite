@@ -125,6 +125,47 @@ $border-subtle: rgba(255, 255, 255, 0.08);
   to { transform: rotate(360deg); }
 }
 
+// Color variant swatches
+.variant-swatches {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  gap: 4px;
+  background: rgba(10, 14, 26, 0.85);
+  border-radius: 6px;
+  padding: 4px;
+  border: 1px solid $border-subtle;
+  flex-wrap: wrap;
+  max-width: 60%;
+}
+
+.swatch-btn {
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid $border-subtle;
+  border-radius: 4px;
+  color: $text-muted;
+  font-size: 0.65rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $text-light;
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &.active {
+    color: $cyan-primary;
+    border-color: $cyan-muted;
+    background: rgba(95, 255, 255, 0.1);
+  }
+}
+
 .view-toggle {
   position: absolute;
   bottom: 12px;

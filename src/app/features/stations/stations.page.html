@@ -30,7 +30,7 @@
       </div>
 
       <div class="grid">
-        @for (f of list(); track f) {
+        @for (f of list(); track f.id) {
           <vds-card
             [title]="f.name"
             [code]="f.code"

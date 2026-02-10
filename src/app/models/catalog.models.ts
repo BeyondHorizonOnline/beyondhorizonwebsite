@@ -7,7 +7,43 @@ export type SeriesCode =
   | 'EX'
   | 'MX'
   | 'HX'
-  | 'DR';
+  | 'DR'
+  | 'KX'
+  | 'KC'
+  | 'SX'
+  | 'CGX'
+  | 'COL'
+  | 'HRX'
+  | 'WSX'
+  | 'PSG'
+  | 'SF'
+  | 'BSX'
+  | 'WPX'
+  | 'BPX'
+  | 'PPG'
+  | 'PF'
+  | 'JX'
+  | 'RLP'
+  | 'DPX'
+  | 'DSX'
+  | 'HSX'
+  | 'HBX'
+  | 'RLX'
+  | 'RDX'
+  | 'SDX'
+  | 'RSX'
+  | 'GLD'
+  | 'HPT'
+  | 'BGX'
+  | 'GEX'
+  | 'RDP'
+  | 'HBP'
+  | 'SDP'
+  | 'HPX'
+  | 'TX'
+  | 'PX'
+  | 'GX'
+  | 'AX';
 
 // Matches UnitType from the DB
 export type UnitTypeCode =
@@ -32,7 +68,58 @@ export type UnitTypeCode =
   | 'CityHall'
   | 'Dreadnought'
   | 'Housing'
-  | 'Jumpgate';
+  | 'Jumpgate'
+  | 'Station'
+  | 'Lab'
+  | 'Medical'
+  | 'Barrack'
+  | 'StratDefense'
+  | 'Hangar'
+  | 'DCA'
+  | 'Radar'
+  | 'Refinery'
+  | 'GuildTower'
+  | 'HPTank'
+  | 'Extractor'
+  | 'Super Battleship'
+  | 'Heavy Battle Cruiser'
+  | 'Heavy Battleship'
+  | 'Heavy Destroyer'
+  | 'Frigate Mk.II'
+  | 'Dreadnaught'
+  | 'Light Fighter'
+  | 'Fighter'
+  | 'Heavy Fighter'
+  | 'Nuke Fighter'
+  | 'Heavy Nuke Fighter'
+  | 'Heavy Frigate'
+  | 'Assault Frigate'
+  | 'Destroyer Leader'
+  | 'Light Cruiser'
+  | 'Cruiser'
+  | 'Heavy Cruiser'
+  | 'Strike Cruiser'
+  | 'Battle Cruiser'
+  | 'Explorer'
+  | 'Heavy Dreadnaught'
+  | 'Super Dreadnaught'
+  | 'Auxiliary'
+  | 'Light Bomber'
+  | 'Bomber'
+  | 'Heavy Bomber'
+  | 'Strategic Bomber'
+  | 'Super Bomber'
+  | 'Shuttle'
+  | 'Colony'
+  | 'Interceptor'
+  | 'Scout Tank'
+  | 'LightVehicle'
+  | 'Combat Tank'
+  | 'Ion Tank'
+  | 'SupportTruck'
+  | 'Landforce'
+  | 'HeavyGround'
+  | 'Heavy Tank';
 
 export type ShieldTypeCode = 'Light' | 'Medium' | 'Heavy' | 'Super' | 'None';
 
@@ -147,6 +234,7 @@ export interface CatalogEntityBase {
   media?: { poster?: string; icon?: string };
   thumbnail?: string;
   heroImage?: string;
+  heroVariants?: { color: string; path: string }[];
 }
 
 // Ships now carry all DB fields directly on the entity
@@ -161,6 +249,7 @@ export interface ShipDisplay extends CatalogEntityDisplay {
   line?: string;
   thumbnail?: string;
   heroImage?: string;
+  heroVariants?: { color: string; path: string }[];
 }
 
 // Facilities with DB-backed stats + DB subtype mapping

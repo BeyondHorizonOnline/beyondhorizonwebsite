@@ -8,6 +8,7 @@ import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { ShipDisplayData, SHIPS } from '../../../data/seed-ships';
 import { FACILITIES } from '../../../data/seed-facilities';
 import { CX_ASSETS } from '../../../data/seed-cx';
+import { VEHICLES } from '../../../data/seed-vehicles';
 
 import { CatalogEntityBase } from '../../../models/catalog.models';
 
@@ -55,6 +56,7 @@ export class CodexDetailPage {
   specsExpanded = false;
   viewMode = signal<'image' | '3d'>('image');
   imageLoading = signal<boolean>(true);
+  selectedVariant = signal<string | null>(null);
 
   entity = computed<CodexEntity | undefined>(() => {
     const targetId = this.id();
@@ -63,7 +65,8 @@ export class CodexDetailPage {
     return (
       SHIPS.find(s => s.id === targetId) ||
       FACILITIES.find(f => f.id === targetId) ||
-      CX_ASSETS.find(c => c.id === targetId)
+      CX_ASSETS.find(c => c.id === targetId) ||
+      VEHICLES.find(v => v.id === targetId)
     ) as CodexEntity | undefined;
   });
 
@@ -75,10 +78,21 @@ export class CodexDetailPage {
     return MODEL_PATHS[targetId] || null;
   });
 
-  // Hero image path
+  // Hero image path (uses selected variant if set)
   heroImage = computed<string | null>(() => {
     const e = this.entity();
+    const variant = this.selectedVariant();
+    if (variant && e?.heroVariants) {
+      const found = e.heroVariants.find(v => v.color === variant);
+      if (found) return found.path;
+    }
     return e?.heroImage || null;
+  });
+
+  // Available color variants
+  heroVariants = computed(() => {
+    const e = this.entity();
+    return e?.heroVariants || [];
   });
 
   // Thumbnail fallback
@@ -86,6 +100,11 @@ export class CodexDetailPage {
     const e = this.entity();
     return e?.thumbnail || null;
   });
+
+  selectVariant(color: string) {
+    this.selectedVariant.set(color);
+    this.imageLoading.set(true);
+  }
 
   onImageLoad() {
     this.imageLoading.set(false);

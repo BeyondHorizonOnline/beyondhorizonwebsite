@@ -25,7 +25,7 @@
     </div>
     <p class="summary">{{summary}}</p>
     <div class="tags">
-      @for (t of tags; track t) {
+      @for (t of tags; track $index) {
         <span class="vds-chip">{{t}}</span>
       }
     </div>

@@ -29,6 +29,6 @@ export class LogisticsPage {
   );
 
   tagsOf(a: CatalogEntityBase): string[] {
-    return [a.unitType, ...(a.tags || [])].filter(Boolean) as string[];
+    return Array.from(new Set([a.unitType, ...(a.tags || [])].filter(Boolean) as string[]));
   }
 }

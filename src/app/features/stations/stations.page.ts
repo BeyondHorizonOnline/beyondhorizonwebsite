@@ -29,6 +29,6 @@ export class StationsPage {
   );
 
   tagsOf(f: Facility): string[] {
-    return [String(f.subtype), ...(f.tags || [])];
+    return Array.from(new Set([String(f.subtype), ...(f.tags || [])]));
   }
 }

@@ -30,14 +30,14 @@
       </div>
 
       <div class="grid">
-        @for (a of list(); track a) {
+        @for (a of list(); track a.id) {
           <vds-card
             [title]="a.name"
             [code]="a.code"
             [series]="a.series"
             [summary]="a.summary"
             [tags]="tagsOf(a)"
-            [thumbnail]="a.thumbnail"
+            [thumbnail]="a.thumbnail || a.heroImage"
             [to]="'/codex/'+a.id">
           </vds-card>
         }

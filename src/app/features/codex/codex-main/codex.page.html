@@ -17,15 +17,15 @@
       <vds-search-bar (change)="q.set($event)"></vds-search-bar>
 
       <div class="grid">
-        @for (e of list(); track e) {
+        @for (e of list(); track e.id) {
           <vds-card
             [title]="e.name"
             [code]="e.code"
             [series]="e.series"
             [summary]="e.summary"
             [tags]="e.tags"
-            [thumbnail]="e.thumbnail"
-            [to]="e.id.startsWith('vx-')?('/ships/'+e.id):('/codex?focus='+e.id)">
+            [thumbnail]="e.thumbnail || e.heroImage"
+            [to]="getRoute(e.id)">
           </vds-card>
         }
       </div>

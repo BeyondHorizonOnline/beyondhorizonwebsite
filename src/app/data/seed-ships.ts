@@ -1,93 +1,110 @@
 // File: src/app/data/seed-ships.ts
 // Stripped version - only display data for lists/cards
 // Stats are loaded from API on demand using templateId
-
+// Auto-generated from unit_templates CSV - 2026-02-10
 
 import { ShipDisplay } from '../models/catalog.models';
 
-// Optional alias if you still want the old name
 export type ShipDisplayData = ShipDisplay;
 
 export const SHIPS: ShipDisplay[] = [
   {
-    id: 'ex-1-vibz',
-    templateId: 6,
-    series: 'EX',
-    code: 'EX-1',
-    name: 'EX-1 Vibz',
-    role: 'Mobile construction and deployment ship',
-    summary: `The EX-1 Vibz is the smallest member of the EX lineup "" a rapid-deployment builder drone designed for tight construction spaces and quick assembly tasks.`,
-    description: `The EX-1 Vibz is the smallest member of the EX lineup "" a rapid-deployment builder drone designed for tight construction spaces and quick assembly tasks. Where larger yardships cannot safely maneuver, Vibz units swarm in through access shafts, fractured hull ribs, and half-pressurized corridors to weld new structure over old scars. Each chassis mounts dual plasma welders, magnetic manipulators, and a modular tool cradle that can be refit for lattice-printing, shielding node emplacement, or precision hull scoring. Voran site foremen deploy Vibz clouds ahead of full-scale construction groups to lay calibration anchors, diagnostic beacons, and foundation scaffolds across raw rock or derelict stations. On the frontier, the arrival of a Vibz swarm in orbit is often the first visible sign that a barren grid square has been marked for transformation into a Beyond Horizon staging point.`,
-    tags: ['logistics', 'other'],
-    class: 'other',
-    thumbnail: 'assets/thumbnails/Vibz.png',
-    heroImage: 'assets/heroImages/Vibz.png'
+    id: 'cx-3a-hauler',
+    templateId: 5,
+    series: 'CX',
+    code: 'CX-3A',
+    name: 'CX-3A Hauler',
+    role: 'Cargo',
+    summary: `The Hauler is a rugged, mid-capacity vessel optimized for planetary transfer routes and station-to-station cargo movement.`,
+    description: `The Hauler is a rugged, mid-capacity vessel optimized for planetary transfer routes and station-to-station cargo movement. Built for durability over aesthetics, it features triple-redundant mag-clamps and reinforced docking frameworks. Often found moving between mining colonies or shipyards, Haulers are the unsung workhorses of Voran’s economy — simple, unbreakable, and indispensable.`,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Hauler_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Hauler_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Hauler_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Hauler_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Hauler_Yellow.png' }
+    ]
   },
   {
-    id: 'vx-6-apex',
+    id: 'vx-6c-apex',
     templateId: 14,
     series: 'VX',
-    code: 'VX-6',
-    name: 'VX-6 Apex',
-    role: 'Capital line battleship',
+    code: 'VX-6C',
+    name: 'VX-6C Apex',
+    role: 'Super Battleship',
     summary: `The Apex stands as the pinnacle of Voran's VX-Series design philosophy "" a warship engineered not merely for combat, but for domination through precision.`,
-    description: 'The VX-6 Apex stands as the pinnacle of Voran\'s VX-Series design philosophy "" a warship engineered not merely for combat, but for domination through precision. Its elongated tritanium spine houses a phased mass-driver array tuned to punch clean corridors through enemy formations, allowing Voran fleets to carve the battlespace into controllable lanes. Multi-layered shield lattices cycle frequencies on predictive combat algorithms, shrugging off return fire that lesser vessels cannot even track. Within its strategic CIC, lattice-map projectors and quantum-linked fire control weave data from every hull in the task force, turning the Apex into a thinking engine of war. In the Beyond Horizon frontier campaigns, the silhouette of an Apex on long-range scans has become shorthand across the Rim for a simple truth: negotiation has already failed.',
+    description: `The VX-6 Apex stands as the pinnacle of Voran\'s VX-Series design philosophy "" a warship engineered not merely for combat, but for domination through precision. Its elongated tritanium spine houses a phased mass-driver array tuned to punch clean corridors through enemy formations, allowing Voran fleets to carve the battlespace into controllable lanes. Multi-layered shield lattices cycle frequencies on predictive combat algorithms, shrugging off return fire that lesser vessels cannot even track. Within its strategic CIC, lattice-map projectors and quantum-linked fire control weave data from every hull in the task force, turning the Apex into a thinking engine of war. In the Beyond Horizon frontier campaigns, the silhouette of an Apex on long-range scans has become shorthand across the Rim for a simple truth: negotiation has already failed.`,
     tags: ['warship', 'battleship'],
     class: 'battleship',
     thumbnail: 'assets/thumbnails/Apex.png',
-    heroImage: 'assets/heroImages/Apex.png'
+    heroImage: 'assets/heroImages/Apex_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Apex_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Apex_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Apex_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Apex_Yellow.png' }
+    ]
   },
   {
-    id: 'drx-500-oretrain',
-    templateId: 16,
-    series: 'DR',
-    code: 'DRX-500',
-    name: 'DRX-500 Oretrain',
-    role: 'Standard cargo transport',
-    summary: `Built to move what the Drillhound and Deepcore dig out, the DRX-500 is a heavy-haul transport optimized for massive payloads.`,
-    description: `Built to move what the Drillhound and Deepcore dig out, the DRX-500 Oretrain is a heavy-haul transport optimized for massive payloads across unforgiving routes. Its segmented cargo spine can be reconfigured in orbit, swapping out ore canisters, volatile-gas tanks, and shielded exotic-material caskets without ever touching atmosphere. Reinforced haul-frame plating and shock-isolated mag-clamps keep megaton loads stable even when hyperspace currents shear and twist. Automated load-balancing subroutines constantly recalculate vector stress, venting micro-thrust corrections through the triple-engine drive array to prevent catastrophic torsion failures. In the Beyond Horizon expansion zones, DRX-500 convoys are the lifeline of new colonies "" their arrival signals not just profit for Voran, but fuel, alloy, and hope for any habitat clinging to a freshly claimed rock.`,
-    tags: ['logistics', 'cargo'],
-    class: 'cargo'
-  },
-  {
-    id: 'drx-210-drillhound',
+    id: 'hrx-2a-drillhound',
     templateId: 15,
-    series: 'DR',
-    code: 'DRX-210',
-    name: 'DRX-210 DrillHound',
-    role: 'Resource extraction platform',
+    series: 'HRX',
+    code: 'HRX-2A',
+    name: 'HRX-2A Drillhound',
+    role: 'Harvester',
     summary: `An agile extraction rig that sniffs out shallow veins and tears them free before rival claims solidify.`,
     description: `The DRX-210 DrillHound is the nimble scout of the Deep Reach Xtraction fleet, a mobile resource platform built to hit promising sites fast and move on even faster. Multi-phase drill clusters extend from articulated booms, their adaptive cutting heads shifting geometry as they encounter different densities of regolith, ice, and ore. A web of ground-penetrating sensors and microseismic sniffers lets the DrillHound "smell" valuable veins close to the surface, transmitting real-time mapping data back to Voran survey networks. Once a site is stripped, the rig retracts its equipment, seals its holds, and races for the next claim—often leaving only scarred soil and the faint heat-signature of spent reactors behind. In the wider Beyond Horizon expansion, DRX-210 packs are the first tangible sign that a region has been targeted for exploitation, arriving quietly ahead of armies and administrators alike.`,
     tags: ['logistics', 'mining', 'extraction'],
     class: 'cargo',
     thumbnail: 'assets/thumbnails/Drillhound.png',
-    heroImage: 'assets/heroImages/Drillhound.png'
+    heroImage: 'assets/heroImages/Drillhound_Yellow.png'
   },
   {
-    id: 'drx-340-deepcore',
+    id: 'cx-6a-oretrain',
+    templateId: 16,
+    series: 'CX',
+    code: 'CX-6A',
+    name: 'CX-6A Oretrain',
+    role: 'Cargo',
+    summary: `Built to move what the Drillhound and Deepcore dig out, the DRX-500 is a heavy-haul transport optimized for massive payloads.`,
+    description: `Built to move what the Drillhound and Deepcore dig out, the DRX-500 Oretrain is a heavy-haul transport optimized for massive payloads across unforgiving routes. Its segmented cargo spine can be reconfigured in orbit, swapping out ore canisters, volatile-gas tanks, and shielded exotic-material caskets without ever touching atmosphere. Reinforced haul-frame plating and shock-isolated mag-clamps keep megaton loads stable even when hyperspace currents shear and twist. Automated load-balancing subroutines constantly recalculate vector stress, venting micro-thrust corrections through the triple-engine drive array to prevent catastrophic torsion failures. In the Beyond Horizon expansion zones, DRX-500 convoys are the lifeline of new colonies "" their arrival signals not just profit for Voran, but fuel, alloy, and hope for any habitat clinging to a freshly claimed rock.`,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Oretrain_Yellow.png'
+  },
+  {
+    id: 'hrx-3a-deepcore',
     templateId: 17,
-    series: 'DR',
-    code: 'DRX-340',
-    name: 'DRX-340 Deepcore',
-    role: 'Resource extraction platform',
+    series: 'HRX',
+    code: 'HRX-3A',
+    name: 'HRX-3A Deepcore',
+    role: 'Harvester',
     summary: `A flagship deep-mining behemoth that tunnels into asteroid hearts and drags out the rarest core elements.`,
     description: `The DRX-340 Deepcore is the crown jewel of Orbis Robotics' DRX line, a colossal extraction platform engineered to crack open the densest asteroid hearts and coax out the rarest minerals sleeping inside. Reinforced fusion drills spear deep into rock strata while seismic destabilizers pre-fracture surrounding material, turning entire planetoids into manageable rubble over months-long campaigns. High-capacity power cells and redundant reactor stacks grant the Deepcore a level of autonomy most mining rigs can only envy; once deployed into a belt, it may not see a drydock for years. Its modular drill assemblies can be swapped or reconfigured mid-mission, allowing Voran planners to pivot from bulk metals to exotic cores as market demands shift. In the mythos of Beyond Horizon's working crews, serving on a Deepcore is a strange honor: you are as far from civilization as it is possible to be, but you are literally standing on the fortune that fuels it.`,
     tags: ['logistics', 'mining', 'extraction'],
-    class: 'cargo'
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Deepcore_Yellow.png'
   },
   {
-    id: 'vx-2-valkyrie',
+    id: 'kx-4a-valkyrie',
     templateId: 18,
-    series: 'VX',
-    code: 'VX-7',
-    name: 'VX-7 Valkyrie',
-    role: 'Fast attack frigate',
+    series: 'KX',
+    code: 'KX-4A',
+    name: 'KX-4A Valkyrie',
+    role: 'Carrier',
     summary: `The Valkyrie represents the cutting edge of Voran's electronic warfare and reconnaissance technology.`,
-    description: 'The VX-7 Valkyrie represents the cutting edge of Voran\'s electronic warfare and reconnaissance technology, a knife-edge silhouette that rarely appears on sensors before it is already departing. Adaptive stealth plating modulates albedo and EM bleed to match local conditions, while pulse-masking systems fold its emissions into background noise. Its internal bays release recon drones and rail-linked strike pods that ride in the Valkyrie\'s wake, using its sensor-shadow as a corridor straight into enemy formations. Once in position, the frigate can unleash precision barrages, cripple key systems, and vanish into a dead vector before retaliation can lock on. Across the Beyond Horizon frontier, pirate syndicates and rival houses trade ghost stories of a nameless shadow that marks the moment a battle shifted "" Voran captains simply call it their Valkyrie.',
-    tags: ['warship', 'frigate'],
-    class: 'frigate',
+    description: `The VX-7 Valkyrie represents the cutting edge of Voran\'s electronic warfare and reconnaissance technology, a knife-edge silhouette that rarely appears on sensors before it is already departing. Adaptive stealth plating modulates albedo and EM bleed to match local conditions, while pulse-masking systems fold its emissions into background noise. Its internal bays release recon drones and rail-linked strike pods that ride in the Valkyrie\'s wake, using its sensor-shadow as a corridor straight into enemy formations. Once in position, the frigate can unleash precision barrages, cripple key systems, and vanish into a dead vector before retaliation can lock on. Across the Beyond Horizon frontier, pirate syndicates and rival houses trade ghost stories of a nameless shadow that marks the moment a battle shifted "" Voran captains simply call it their Valkyrie.`,
+    tags: ['warship', 'carrier'],
+    class: 'carrier',
     thumbnail: 'assets/thumbnails/Valkyrie.png',
-    heroImage: 'assets/heroImages/Valkyrie_Blue.png'
+    heroImage: 'assets/heroImages/Valkyrie_Blue.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Valkyrie_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Valkyrie_Green.png' },
+      { color: 'Orange', path: 'assets/heroImages/Valkyrie_Orange.png' }
+    ]
   },
   {
     id: 'vx-4a-viper',
@@ -95,27 +112,31 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-4A',
     name: 'VX-4A Viper',
-    role: 'Escort and line destroyer',
+    role: 'Destroyer',
     summary: `Optimized for stealth and strike missions in nebular or atmospheric zones.`,
-    description: 'The VX-4A Viper is optimized for stealth and strike missions in nebular or atmospheric zones, where conventional targeting systems falter and visibility dissolves into static. Its hull geometry channels ionized gases along embedded vanes, diffusing drive signatures into the turbulence of nebulae or cloud layers. A low-EM output profile and insulated weapon housings allow the Viper to lurk within storm fronts, emerging only long enough to deliver crippling volleys at close range. Many of Voran\'s most decisive convoy ambushes along the Beyond Horizon trade lanes began with a single encrypted whisper on fleet comms: "Viper has eyes." By the time the enemy realized the weather itself was hostile, the escort screen was already in pieces.',
+    description: `The VX-4A Viper is optimized for stealth and strike missions in nebular or atmospheric zones, where conventional targeting systems falter and visibility dissolves into static. Its hull geometry channels ionized gases along embedded vanes, diffusing drive signatures into the turbulence of nebulae or cloud layers. A low-EM output profile and insulated weapon housings allow the Viper to lurk within storm fronts, emerging only long enough to deliver crippling volleys at close range. Many of Voran\'s most decisive convoy ambushes along the Beyond Horizon trade lanes began with a single encrypted whisper on fleet comms: "Viper has eyes." By the time the enemy realized the weather itself was hostile, the escort screen was already in pieces.`,
     tags: ['warship', 'destroyer'],
     class: 'destroyer',
-    thumbnail: 'assets/thumbnails/VX4-Viper.png',
-    heroImage: 'assets/heroImages/Viper.png'
+    thumbnail: 'assets/thumbnails/VX4-Viper.png'
   },
   {
-    id: 'vx-6-omen',
+    id: 'vx-5f-omen',
     templateId: 20,
     series: 'VX',
-    code: 'VX-6',
-    name: 'VX-6 Omen',
-    role: 'Capital line battleship',
+    code: 'VX-5F',
+    name: 'VX-5F Omen',
+    role: 'Heavy Battle Cruiser',
     summary: `The Omen embodies Voran's doctrine of "precision intimidation." Equipped with dual spinal mass cannons and adaptive energy shielding, it can annihilate targets before they breach effective counter-...`,
-    description: 'The VX-6 Omen embodies Voran\'s doctrine of "precision intimidation," a battleship whose presence is engineered to erode enemy morale before the first shot is fired. Twin spinal mass cannons run the length of its reinforced keel, each capable of firing slugs large enough to crater a city block from orbit. Adaptive energy shielding wraps the hull in cascading layers that flare with controlled brilliance when struck, turning incoming fire into a spectacle of futility. The Omen\'s targeting suites specialize in long-range threat elimination, prioritizing command ships, shield generators, and escape vectors before an opposing fleet can properly form a response. In the Beyond Horizon conflicts, entire sectors learned to read its arrival as a sign that negotiations had reached their final chapter "" and Voran had already written the ending.',
-    tags: ['warship', 'battleship'],
-    class: 'battleship',
+    description: `The VX-6 Omen embodies Voran\'s doctrine of "precision intimidation," a battleship whose presence is engineered to erode enemy morale before the first shot is fired. Twin spinal mass cannons run the length of its reinforced keel, each capable of firing slugs large enough to crater a city block from orbit. Adaptive energy shielding wraps the hull in cascading layers that flare with controlled brilliance when struck, turning incoming fire into a spectacle of futility. The Omen\'s targeting suites specialize in long-range threat elimination, prioritizing command ships, shield generators, and escape vectors before an opposing fleet can properly form a response. In the Beyond Horizon conflicts, entire sectors learned to read its arrival as a sign that negotiations had reached their final chapter "" and Voran had already written the ending.`,
+    tags: ['warship', 'cruiser'],
+    class: 'destroyer',
     thumbnail: 'assets/thumbnails/Omen.png',
-    heroImage: 'assets/heroImages/Omen.png'
+    heroImage: 'assets/heroImages/Omen_Blue.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Omen_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Omen_Green.png' },
+      { color: 'Orange', path: 'assets/heroImages/Omen_Orange.png' }
+    ]
   },
   {
     id: 'vx-9-vanguard',
@@ -123,13 +144,36 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-9',
     name: 'VX-9 Vanguard',
-    role: 'Fleet command vessel',
+    role: 'Command Ship',
     summary: `Designed as the strategic nerve center of Voran's fleets, the Vanguard fuses advanced tactical computation with heavy carrier capacity.`,
-    description: 'Designed as the strategic nerve center of Voran\'s fleets, the VX-9 Vanguard fuses advanced tactical computation with heavy carrier capacity to dominate the operational layer of any engagement. Its multi-tiered bridge architecture isolates strategic command, real-time analytics, and flight operations into separate hardened cores, all linked through quantum-synced data trunks. From this nexus, Voran admirals can coordinate dozens of wings, carriers, and capital hulls, adapting formations to shifting conditions in seconds. Beneath its armored dorsal spine, recessed hangar bays launch interceptors, VX-2 strike elements, and recon drones that extend the Vanguard\'s eyes and claws deep into contested space. During the early Beyond Horizon campaigns, systems that saw a Vanguard in high orbit understood at once: they were not facing a task group, but the fully awakened will of Voran Defense shaped into steel.',
+    description: `Designed as the strategic nerve center of Voran\'s fleets, the VX-9 Vanguard fuses advanced tactical computation with heavy carrier capacity to dominate the operational layer of any engagement. Its multi-tiered bridge architecture isolates strategic command, real-time analytics, and flight operations into separate hardened cores, all linked through quantum-synced data trunks. From this nexus, Voran admirals can coordinate dozens of wings, carriers, and capital hulls, adapting formations to shifting conditions in seconds. Beneath its armored dorsal spine, recessed hangar bays launch interceptors, VX-2 strike elements, and recon drones that extend the Vanguard\'s eyes and claws deep into contested space. During the early Beyond Horizon campaigns, systems that saw a Vanguard in high orbit understood at once: they were not facing a task group, but the fully awakened will of Voran Defense shaped into steel.`,
     tags: ['warship', 'command'],
     class: 'command',
     thumbnail: 'assets/thumbnails/Vanguard.png',
-    heroImage: 'assets/heroImages/Vanguard.png'
+    heroImage: 'assets/heroImages/Vanguard_Blue.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Vanguard_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Vanguard_Green.png' },
+      { color: 'Orange', path: 'assets/heroImages/Vanguard_Orange.png' }
+    ]
+  },
+  {
+    id: 'cx-5a-atlas',
+    templateId: 22,
+    series: 'CX',
+    code: 'CX-5A',
+    name: 'CX-5A Atlas',
+    role: 'Cargo',
+    summary: `The Atlas is the backbone of Voran’s cargo operations.`,
+    description: `The Atlas is the backbone of Voran’s cargo operations. Its modular superstructure allows it to reconfigure bays for ore, fuel, or armament logistics. Despite its civilian classification, the Atlas carries defensive hardpoints and can operate alongside VX escorts in active warzones. Its hallmark is endurance — the Atlas can sustain continuous deep-space haulage without resupply for cycles at a time.`,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Atlas_Blue.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Atlas_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Atlas_Green.png' },
+      { color: 'Orange', path: 'assets/heroImages/Atlas_Orange.png' }
+    ]
   },
   {
     id: 'vx-10-sharknado',
@@ -137,7 +181,7 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-10',
     name: 'VX-10 Sharknado',
-    role: 'Fleet command vessel',
+    role: 'Command Ship',
     summary: `A hyper-agile dreadnought engineered for orbital annihilation; where it strikes, space itself recoils.`,
     description: `The VX-10 Sharknado is a paradox made metal: a hyper-agile dreadnought engineered for orbital annihilation. Voran designers stripped mass from non-essential structures and rebuilt the frame around gimbal-mounted drive clusters, allowing the behemoth to pivot and roll with terrifying speed for its size. Its ventral bombardment grid can redraw the surface profile of a continent in a single sustained pass, turning fortresses, shipyards, and cities alike into molten geometry. Above, directional shield projectors ripple like predatory fins, angling protection exactly where opposing fire briefly spikes. Command crews speak of riding the Sharknado as "surfing the edge of extinction," for when it commits to a strike, space itself seems to lurch in its wake "" and everything below simply ceases to be a problem.`,
     tags: ['warship', 'command'],
@@ -149,11 +193,18 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-4B',
     name: 'VX-4B Falchion',
-    role: 'Escort and line destroyer',
+    role: 'Heavy Destroyer',
     summary: `Standard fleet destroyer configuration "" balanced armor and firepower.`,
-    description: 'The VX-4B Falchion is Voran\'s standard fleet destroyer configuration "" a balanced blend of armor, speed, and configurable firepower that forms the backbone of many midline squadrons. Its modular hardpoints allow commanders to refit the ship as a point-defense escort, line-brawler, or long-range fire support platform without altering core systems. Robust plating and redundant field generators give the Falchion surprising resilience for its class, enabling it to hold the line while heavier hulls maneuver into position. In the Beyond Horizon frontier, Falchions are often the first warships colonists see flying Voran colors, escorting convoys and imposing the corporation\'s claims with calm, methodical discipline. Unremarkable at a glance, they are the dependable edge of the blade that makes spectacular victories possible.',
+    description: `The VX-4B Falchion is Voran\'s standard fleet destroyer configuration "" a balanced blend of armor, speed, and configurable firepower that forms the backbone of many midline squadrons. Its modular hardpoints allow commanders to refit the ship as a point-defense escort, line-brawler, or long-range fire support platform without altering core systems. Robust plating and redundant field generators give the Falchion surprising resilience for its class, enabling it to hold the line while heavier hulls maneuver into position. In the Beyond Horizon frontier, Falchions are often the first warships colonists see flying Voran colors, escorting convoys and imposing the corporation\'s claims with calm, methodical discipline. Unremarkable at a glance, they are the dependable edge of the blade that makes spectacular victories possible.`,
     tags: ['warship', 'destroyer'],
-    class: 'destroyer'
+    class: 'destroyer',
+    heroImage: 'assets/heroImages/Falchion_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Falchion_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Falchion_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Falchion_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Falchion_Yellow.png' }
+    ]
   },
   {
     id: 'vx-4c-reaver',
@@ -161,7 +212,7 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-4C',
     name: 'VX-4C Reaver',
-    role: 'Escort and line destroyer',
+    role: 'Destroyer',
     summary: `Assault refit equipped with overcharged plasma batteries and reduced armor for increased speed and damage output.`,
     description: `The VX-4C Reaver is an assault refit of the VX-4 frame, trading armor mass for aggression. Overcharged plasma batteries dominate its flanks, fed by capacitors that burn hot and fast to deliver brutal alpha strikes. With stripped-down external plating and reinforced internal braces, the Reaver accelerates harder and turns sharper than its siblings, darting into gaps torn open by heavier Voran guns. Doctrine pairs Reavers with ECM frigates, sending them to slip past faltering shields and rip open the vulnerable guts of carriers and cruisers. On the Beyond Horizon rim, surviving crews tell of Reavers as "smiling knives" "" destroyers that seem to enjoy closing the distance, even as their own hulls flare and melt under return fire.`,
     tags: ['warship', 'destroyer'],
@@ -173,9 +224,9 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-4D',
     name: 'VX-4D Maelstrom',
-    role: 'Escort and line destroyer',
+    role: 'Destroyer',
     summary: `Experimental variant with energy redirection systems and burst propulsion.`,
-    description: 'The VX-4D Maelstrom is an experimental VX-4 variant, a testbed for Voran\'s next-generation energy redirection systems and burst-propulsion technology. Its core is wrapped in a halo of variable-geometry field projectors that can shunt incoming kinetic and thermal loads along pre-calculated paths, turning raw punishment into power for its own drives and weapons. When the Maelstrom triggers a full redirect-and-burn cycle, shields flare inward, reactors spike, and the ship lunges forward on a surge of stolen momentum. Pilots describe the maneuver as "riding an explosion you never quite have," and only the most disciplined crews are cleared to run it in live combat. In the shifting battles of the Beyond Horizon frontier, a single Maelstrom can turn a collapsing flank into a sudden counter-charge, rewriting the trajectory of an entire engagement.',
+    description: `The VX-4D Maelstrom is an experimental VX-4 variant, a testbed for Voran\'s next-generation energy redirection systems and burst-propulsion technology. Its core is wrapped in a halo of variable-geometry field projectors that can shunt incoming kinetic and thermal loads along pre-calculated paths, turning raw punishment into power for its own drives and weapons. When the Maelstrom triggers a full redirect-and-burn cycle, shields flare inward, reactors spike, and the ship lunges forward on a surge of stolen momentum. Pilots describe the maneuver as "riding an explosion you never quite have," and only the most disciplined crews are cleared to run it in live combat. In the shifting battles of the Beyond Horizon frontier, a single Maelstrom can turn a collapsing flank into a sudden counter-charge, rewriting the trajectory of an entire engagement.`,
     tags: ['warship', 'destroyer'],
     class: 'destroyer'
   },
@@ -185,13 +236,12 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-2A',
     name: 'VX-2A Wraith',
-    role: 'Fast attack frigate',
+    role: 'Frigate',
     summary: `Designed for infiltration and early strike missions.`,
     description: `The VX-2A Wraith is tailored for infiltration and early strike missions, a frigate built to exist in the blind spots of enemy doctrine. Low-profile hull plating reduces radar and lidar cross-section, while spectral emission dampeners bleed drive and reactor noise into carefully sculpted background static. Wraiths are typically inserted ahead of a fleet, mapping patrol routes, relay nodes, and defense grids before the main engagement even forms. When the signal comes, they strike in perfect synchrony, crippling sensor hubs and fire-control arrays in the same heartbeat that Voran capital guns light up the horizon. In the Beyond Horizon frontier, station commanders whisper about "the minute of silence" "" that dead, terrifying lull between the last normal sensor ping and the first impact, when the Wraiths have already done their work.`,
     tags: ['warship', 'frigate'],
     class: 'frigate',
-    thumbnail: 'assets/thumbnails/Wraith.png',
-    heroImage: 'assets/heroImages/Wraith.png'
+    thumbnail: 'assets/thumbnails/Wraith.png'
   },
   {
     id: 'vx-2b-specter',
@@ -199,13 +249,18 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-2B',
     name: 'VX-2B Specter',
-    role: 'Fast attack frigate',
+    role: 'Frigate Mk.II',
     summary: `Fast and elusive; optimized for hit-and-run warfare.`,
     description: `The VX-2B Specter is fast, elusive, and optimized for hit-and-run warfare along stretched supply lines and fractured frontiers. Its engines are tuned for brutal short-burst acceleration, allowing it to slam into an engagement, unleash focused salvos, and vanish along pre-mapped escape vectors before enemy guns can traverse. Hull-mounted decoy racks and flare-drones flood local space with false signatures, leaving targeting suites chasing ghosts while the real Specter is already repositioning. Voran task forces commonly deploy Specters in "wolfpacks," small coordinated cells that isolate stragglers, strip escorts from convoys, and bleed an enemy fleet long before a decisive battle. In the Beyond Horizon rim wars, entire campaigns were lost not to grand armadas, but to the slow, relentless attrition dictated by Specter packs.`,
     tags: ['warship', 'frigate'],
     class: 'frigate',
     thumbnail: 'assets/thumbnails/Specter.png',
-    heroImage: 'assets/heroImages/Specter.png'
+    heroImage: 'assets/heroImages/Specter_Blue.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Specter_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Specter_Green.png' },
+      { color: 'Orange', path: 'assets/heroImages/Specter_Orange.png' }
+    ]
   },
   {
     id: 'vx-2c-phantom',
@@ -213,13 +268,13 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-2C',
     name: 'VX-2C Phantom',
-    role: 'Fast attack frigate',
+    role: 'Frigate',
     summary: `Equipped with interference arrays and sensor ghosts to scramble targeting systems and shield networks across entire battle zones.`,
-    description: 'The VX-2C Phantom is the VX-2 line\'s electronic phantasm, built around interference arrays and sensor ghost projectors that can scramble targeting systems and shield networks across entire battle zones. Rather than hiding itself, the Phantom floods local space with echoes "" false ships, phantom barrages, and spurious telemetry that coax enemy fire toward empty coordinates. Specialized emitters can desynchronize opposing shield harmonics, opening brief, lethal windows for Voran gunnery to punch through. Fleet doctrine often assigns Phantoms to shadow dreadnoughts and carriers, twisting the sensor picture until those massive hulls seem to be everywhere and nowhere at once. Across the Beyond Horizon conflicts, few ships have reshaped the intangible war for information as radically as the Phantom, proving that sometimes the deadliest weapon is simply confusion.',
+    description: `The VX-2C Phantom is the VX-2 line\'s electronic phantasm, built around interference arrays and sensor ghost projectors that can scramble targeting systems and shield networks across entire battle zones. Rather than hiding itself, the Phantom floods local space with echoes "" false ships, phantom barrages, and spurious telemetry that coax enemy fire toward empty coordinates. Specialized emitters can desynchronize opposing shield harmonics, opening brief, lethal windows for Voran gunnery to punch through. Fleet doctrine often assigns Phantoms to shadow dreadnoughts and carriers, twisting the sensor picture until those massive hulls seem to be everywhere and nowhere at once. Across the Beyond Horizon conflicts, few ships have reshaped the intangible war for information as radically as the Phantom, proving that sometimes the deadliest weapon is simply confusion.`,
     tags: ['warship', 'frigate'],
     class: 'frigate',
     thumbnail: 'assets/thumbnails/Phantom.png',
-    heroImage: 'assets/heroImages/Phantom.png'
+    heroImage: 'assets/heroImages/Phantom_Orange.png'
   },
   {
     id: 'vx-8a-juggernaut',
@@ -227,11 +282,21 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-8A',
     name: 'VX-8A Juggernaut',
-    role: 'Super-heavy capital dreadnought',
+    role: 'Dreadnaught',
     summary: `The armored spearhead of the Voran fleets.`,
     description: `The VX-8A Juggernaut is the armored spearhead of Voran fleets, a super-heavy dreadnought designed to smash through fortified lines and keep going. Its hull is layered in interlocking tritanium slabs and ablative ceramic composites, forming a moving fortress that absorbs entire salvoes with contemptuous ease. Reactor-fed kinetic cannons run along its flanks, calibrated for siege warfare against stations, planetary shield nodes, and entrenched orbital defenses. In fleet actions, the Juggernaut advances at the slow, implacable pace of corporate will, drawing enemy fire onto itself while lighter VX elements maneuver and strike. Within the Beyond Horizon frontier chronicles, there are sieges remembered only by a simple phrase: "The Juggernaut arrived, and then the war ended."`,
-    tags: ['warship', 'dreadnought', 'command'],
-    class: 'dreadnought'
+    tags: ['warship', 'dreadnought'],
+    class: 'dreadnought',
+    heroImage: 'assets/heroImages/Juggernaut_Grey.png',
+    heroVariants: [
+      { color: 'Cyan', path: 'assets/heroImages/Juggernaut_Cyan.png' },
+      { color: 'Darkred', path: 'assets/heroImages/Juggernaut_Darkred.png' },
+      { color: 'Green', path: 'assets/heroImages/Juggernaut_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Juggernaut_Grey.png' },
+      { color: 'Purple', path: 'assets/heroImages/Juggernaut_Purple.png' },
+      { color: 'Red', path: 'assets/heroImages/Juggernaut_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Juggernaut_Yellow.png' }
+    ]
   },
   {
     id: 'vx-8b-inferno',
@@ -239,11 +304,18 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-8B',
     name: 'VX-8B Inferno',
-    role: 'Super-heavy capital dreadnought',
+    role: 'Dreadnought',
     summary: `A thermal assault dreadnought built around a volatile plasma core.`,
     description: `The VX-8B Inferno is a thermal assault dreadnought built around a volatile plasma core that blurs the line between engine and weapon. Its broadside emitters vent caged stellar fire along controlled magnetic rails, immolating entire ship formations and stripping defensive platforms down to molten slag. Heat blooms from an Inferno strike can linger in low orbit for hours, disrupting rescue efforts and reinforcing the psychological message Voran intends: resistance burns. Because of the catastrophic potential of a core breach, crews undergo rigorous training in containment protocols and are drilled to treat the ship as both a temple and a bomb. In the darkest chapters of the Beyond Horizon expansion, the term "Hellstorm" became synonymous not with a tactic, but with the arrival of an Inferno on the field.`,
-    tags: ['warship', 'dreadnought', 'command'],
-    class: 'dreadnought'
+    tags: ['warship', 'dreadnought'],
+    class: 'dreadnought',
+    heroImage: 'assets/heroImages/Inferno_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Inferno_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Inferno_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Inferno_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Inferno_Yellow.png' }
+    ]
   },
   {
     id: 'vx-8c-leviathan',
@@ -251,10 +323,10 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-8C',
     name: 'VX-8C Leviathan',
-    role: 'Super-heavy capital dreadnought',
+    role: 'Dreadnought',
     summary: `The flagship configuration "" immense, balanced, and terrifyingly efficient.`,
     description: `The VX-8C Leviathan is the flagship configuration of the VX-8 line "" immense, balanced, and terrifyingly efficient in every role demanded of a super-heavy dreadnought. Its long-range mass drivers can pummel targets from beyond conventional engagement envelopes, while layered shield harmonics allow it to weather sustained fire over protracted sieges. Internally, the Leviathan carries expanded command suites, diplomatic compartments, and hardened data-cores that turn it into a roaming seat of Voran authority. Fleets organized around a Leviathan become more than military assets; they are mobile capitals, dragging the center of political gravity with them wherever they jump. In the Beyond Horizon era, entire sectors define their history as "before the Leviathan arrived" and "after it left," measuring time by the shadow of its passage.`,
-    tags: ['warship', 'dreadnought', 'command'],
+    tags: ['warship', 'dreadnought'],
     class: 'dreadnought'
   },
   {
@@ -263,23 +335,84 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-8D',
     name: 'VX-8D Nemesis',
-    role: 'Super-heavy capital dreadnought',
+    role: 'Dreadnought',
     summary: `A strategic strike dreadnought fitted with EMP disruption grids and target-tracking AI.`,
     description: `The VX-8D Nemesis is a strategic strike dreadnought, a hunter built to dismantle the nervous system of enemy fleets. EMP disruption grids are woven into its superstructure, allowing it to emit controlled pulses that fry comm relays, sensor nets, and unshielded reactors across vast volumes of space. Its target-tracking AI suite specializes in pattern recognition, identifying likely command hulls, coordination nodes, and fallback routes even as the battle unfolds. Once marked, those targets rarely survive past the third firing solution. The Nemesis rarely leads charges; instead, it appears on the flank or at the edge of the grid, quietly tearing out the brain and spine of an opposing force. In the Beyond Horizon conflicts, admirals learned to fear not the ships they could see, but the Nemesis they could not yet locate.`,
-    tags: ['warship', 'dreadnought', 'command'],
+    tags: ['warship', 'dreadnought'],
     class: 'dreadnought'
   },
   {
-    id: 'vx-5a-warlord',
+    id: 'cx-7a-haulbreaker',
+    templateId: 40,
+    series: 'CX',
+    code: 'CX-7A',
+    name: 'CX-7A Haulbreaker',
+    role: 'HeavyCargo',
+    summary: `Rugged freighter optimized for long-range operations across uncharted sectors.`,
+    description: `Rugged freighter optimized for long-range operations across uncharted sectors. Reinforced hull plating and autonomous maintenance drones allow it to operate without dock support for months.`,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo'
+  },
+  {
+    id: 'cx-7b-loadstar',
+    templateId: 41,
+    series: 'CX',
+    code: 'CX-7B',
+    name: 'CX-7B Loadstar',
+    role: 'HeavyCargo',
+    summary: `Standardized heavy transport vessel used throughout Voran’s inner logistics network.`,
+    description: `Standardized heavy transport vessel used throughout Voran’s inner logistics network. Known for reliability and modular cargo bays adaptable to any payload type.`,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo'
+  },
+  {
+    id: 'cx-7c-torchline',
+    templateId: 42,
+    series: 'CX',
+    code: 'CX-7C',
+    name: 'CX-7C Torchline',
+    role: 'HeavyCargo',
+    summary: `Specialized containment freighter for high-risk energy or chemical cargo.`,
+    description: `Specialized containment freighter for high-risk energy or chemical cargo. Equipped with layered radiation barriers and emergency jettison systems.`,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo'
+  },
+  {
+    id: 'cx-7a-goldreach',
+    templateId: 43,
+    series: 'CX',
+    code: 'CX-7A',
+    name: 'CX-7A Goldreach',
+    role: 'Cargo',
+    summary: `Premium-grade hauler used for critical or strategic materials.`,
+    description: `Premium-grade hauler used for critical or strategic materials. Features enhanced ECM arrays, redundant shielding, and autonomous escort drone integration.`,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Goldreach_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Goldreach_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Goldreach_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Goldreach_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Goldreach_Yellow.png' }
+    ]
+  },
+  {
+    id: 'kx-5a-warlord',
     templateId: 44,
-    series: 'VX',
-    code: 'VX-5A',
-    name: 'VX-5A Warlord',
-    role: 'Strike carrier and hangar platform',
+    series: 'KX',
+    code: 'KX-5A',
+    name: 'KX-5A Warlord',
+    role: 'Carrier',
     summary: `Designed for offensive fleet projection, the Warlord serves as a mobile siege platform and fighter deployment center.`,
     description: `The VX-5A Warlord is designed for offensive fleet projection, a strike carrier that functions as both mobile siege platform and fighter deployment nexus. Its cavernous hangars house full VX-2 strike wings, bomber groups, and dropship elements, all fed to the battlespace via plasma-assisted catapults that can launch craft under heavy fire without compromising shield integrity. Armored flight decks double as bombardment platforms, mounting heavy batteries that soften planetary and orbital defenses ahead of atmospheric insertions. In Voran doctrine, a Warlord is the heart of any major offensive push, pumping out wave after wave of sorties until local resistance collapses. Throughout the Beyond Horizon campaigns, the sudden arrival of a Warlord in high orbit often marked the moment a regional dispute escalated into a full-scale war.`,
     tags: ['warship', 'carrier'],
-    class: 'carrier'
+    class: 'carrier',
+    heroImage: 'assets/heroImages/Warlord_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Warlord_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Warlord_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Warlord_Red.png' }
+    ]
   },
   {
     id: 'vx-5b-atlas-prime',
@@ -287,9 +420,9 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-5B',
     name: 'VX-5B Atlas Prime',
-    role: 'Strike carrier and hangar platform',
+    role: 'Carrier',
     summary: `The Atlas Prime acts as a mobile dockyard, resupplying and repairing deployed vessels.`,
-    description: 'The VX-5B Atlas Prime acts as a mobile dockyard, the logistical spine that keeps Voran task forces fighting far beyond conventional supply lines. Its reinforced hangars and external cargo spines are fitted with modular bays that can be reconfigured as repair slips, fabrication lines, or bulk storage in a matter of hours. EX-3 Spanner drones swarm over damaged hulls under the Atlas Prime\'s direction, knitting armor, replacing modules, and recharging shield lattices without the need for a friendly port. Entire strike groups have survived grueling Beyond Horizon campaigns solely because an Atlas Prime remained intact, quietly turning wrecks back into warships between jumps. For Voran crews, seeing its massive frame slide out of hyperspace is less like the arrival of a carrier and more like the appearance of a lifeline.',
+    description: `The VX-5B Atlas Prime acts as a mobile dockyard, the logistical spine that keeps Voran task forces fighting far beyond conventional supply lines. Its reinforced hangars and external cargo spines are fitted with modular bays that can be reconfigured as repair slips, fabrication lines, or bulk storage in a matter of hours. EX-3 Spanner drones swarm over damaged hulls under the Atlas Prime\'s direction, knitting armor, replacing modules, and recharging shield lattices without the need for a friendly port. Entire strike groups have survived grueling Beyond Horizon campaigns solely because an Atlas Prime remained intact, quietly turning wrecks back into warships between jumps. For Voran crews, seeing its massive frame slide out of hyperspace is less like the arrival of a carrier and more like the appearance of a lifeline.`,
     tags: ['warship', 'carrier'],
     class: 'carrier',
     thumbnail: 'assets/thumbnails/Atlas.png'
@@ -300,12 +433,32 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-5C',
     name: 'VX-5C Bastion',
-    role: 'Strike carrier and hangar platform',
+    role: 'Carrier',
     summary: `Built to protect critical fleets or stations, the Bastion prioritizes shield arrays, defensive batteries, and interceptor squadrons.`,
     description: `The VX-5C Bastion is built to protect what Voran values most "" critical fleets, corporate capitals, and irreplaceable infrastructure. Unlike its more aggressive siblings, the Bastion prioritizes layered shield arrays, overlapping defensive batteries, and dense interceptor squadrons over raw offensive power. When it transitions from carrier to fortress mid-battle, its projectors expand to cast protective fields across an entire task group, blunting incoming ordnance and sheltering damaged hulls. At close range, point-defense storms and interceptor meshes turn the surrounding volume into a kill box where hostile missiles and strike craft rarely survive more than a few seconds. In the Beyond Horizon frontier, the surest sign that Voran has no intention of relinquishing a position is the arrival of a Bastion to sit in orbit and simply refuse to fall.`,
     tags: ['warship', 'carrier'],
     class: 'carrier',
-    thumbnail: 'assets/thumbnails/VX5.png'
+    thumbnail: 'assets/thumbnails/VX5.png',
+    heroImage: 'assets/heroImages/Bastion_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Bastion_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Bastion_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Bastion_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Bastion_Yellow.png' }
+    ]
+  },
+  {
+    id: 'cx-4a-trailblazer',
+    templateId: 47,
+    series: 'CX',
+    code: 'CX-4A',
+    name: 'CX-4A Trailblazer',
+    role: 'Cargo',
+    summary: `Designed for first-wave logistics in new sectors.`,
+    description: `Designed for first-wave logistics in new sectors. Rugged, fast, and equipped with adaptive cargo frames for any environment.`,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Trailblazer_Color.png'
   },
   {
     id: 'vx-6a-tyrant',
@@ -313,13 +466,20 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-6A',
     name: 'VX-6A Tyrant',
-    role: 'Capital line battleship',
+    role: 'Battleship',
     summary: `Dominance embodied.`,
     description: `The VX-6A Tyrant is dominance embodied, a capital line battleship built to be seen as much as it is meant to be feared. Its command spire rises above the primary hull like a crown, housing fleet coordination suites that synchronize every gun, fighter wing, and escort within its sphere of influence. Advanced fire-control networks allow the Tyrant to orchestrate overlapping fields of fire, turning a loose formation into a precise, merciless machine. While its armor and shields rival any VX-6 variant, what truly sets the Tyrant apart is its role as a symbol: wherever it appears, Voran commanders expect obedience "" from allies, subjects, and enemies alike. In the Beyond Horizon expansion, entire planetary councils capitulated upon first sight of a Tyrant in high orbit, choosing vassalage over the certainty of ruin.`,
     tags: ['warship', 'battleship'],
     class: 'battleship',
     thumbnail: 'assets/thumbnails/Tyrant.png',
-    heroImage: 'assets/heroImages/Tyrant.png'
+    heroImage: 'assets/heroImages/Tyrant_Grey.png',
+    heroVariants: [
+      { color: 'Cyan', path: 'assets/heroImages/Tyrant_Cyan.png' },
+      { color: 'Green', path: 'assets/heroImages/Tyrant_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Tyrant_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Tyrant_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Tyrant_Yellow.png' }
+    ]
   },
   {
     id: 'vx-6b-onyx',
@@ -327,13 +487,12 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-6B',
     name: 'VX-6B Onyx',
-    role: 'Capital line battleship',
+    role: 'Battleship',
     summary: `A sleek, high-density hull designed for resilience and accuracy.`,
     description: `The VX-6B Onyx is a sleek, high-density battleship whose primary virtue is stubborn, unshakeable resilience. Its hull is forged from compressed tritanium composites that grant exceptional structural integrity without compromising profile or maneuverability. The Onyx typically takes up position at the center of Voran battle groups, anchoring formations and holding the line where lesser ships would crack. Precision gunnery suites favor accurate, sustained fire over dramatic alpha strikes, slowly and methodically dismantling whatever dares to close. In the tumult of Beyond Horizon engagements, Onyx crews pride themselves on a simple creed: when the dust settles and the wreckage cools, the Onyx will still be there "" shields dimmed, guns cycling, waiting for the next order.`,
     tags: ['warship', 'battleship'],
     class: 'battleship',
-    thumbnail: 'assets/thumbnails/Onyx.png',
-    heroImage: 'assets/heroImages/Onyx.png'
+    thumbnail: 'assets/thumbnails/Onyx.png'
   },
   {
     id: 'vx-6c-vulcan',
@@ -341,13 +500,12 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-6C',
     name: 'VX-6C Vulcan',
-    role: 'Capital line battleship',
+    role: 'Battleship',
     summary: `Powered by twin plasma cores, the Vulcan channels devastating heat-based weaponry through forward-mounted cannon arrays.`,
-    description: 'The VX-6C Vulcan is a heat-borne nightmare, powered by twin plasma cores that transform the vessel into a forward-thrust furnace. Those cores feed massive cannon arrays along the ship\'s prow, each shot disgorging focused thermal lances capable of burning through capital-grade armor in seconds. Thermal bleed is captured and redirected through secondary emitters, turning even the Vulcan\'s waste heat into a short-range hazard for anything reckless enough to close. When it opens fire in earnest, ships on the receiving end report sensor feeds dissolving into white, hull plating bubbling away, and the sudden, horrid realization that space itself seems to be burning. In the Beyond Horizon record, systems scarred by Vulcan bombardments are easy to recognize: their orbital lanes glitter with glassed debris.',
+    description: `The VX-6C Vulcan is a heat-borne nightmare, powered by twin plasma cores that transform the vessel into a forward-thrust furnace. Those cores feed massive cannon arrays along the ship\'s prow, each shot disgorging focused thermal lances capable of burning through capital-grade armor in seconds. Thermal bleed is captured and redirected through secondary emitters, turning even the Vulcan\'s waste heat into a short-range hazard for anything reckless enough to close. When it opens fire in earnest, ships on the receiving end report sensor feeds dissolving into white, hull plating bubbling away, and the sudden, horrid realization that space itself seems to be burning. In the Beyond Horizon record, systems scarred by Vulcan bombardments are easy to recognize: their orbital lanes glitter with glassed debris.`,
     tags: ['warship', 'battleship'],
     class: 'battleship',
-    thumbnail: 'assets/thumbnails/Vulcan.png',
-    heroImage: 'assets/heroImages/Vulcan.png'
+    thumbnail: 'assets/thumbnails/Vulcan.png'
   },
   {
     id: 'vx-6d-helios',
@@ -355,27 +513,26 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-6D',
     name: 'VX-6D Helios',
-    role: 'Capital line battleship',
+    role: 'Battleship',
     summary: `Using a solar-fusion drive and high-energy focusing lenses, the Helios delivers radiant lances that vaporize targets from orbit.`,
-    description: 'The VX-6D Helios wields light itself as a weapon, coupling a solar-fusion drive with high-energy focusing lenses to project radiant lances across orbital distances. Its reactors feed artificial micro-stars that are then shaped and released as coherent beams, slicing through warships, defense grids, and hardened bunkers with surgical finality. Because its primary weapons favor extreme range and line-of-sight corridors, Helios captains often operate from the periphery of engagements, acting as celestial executioners while VX frigates and destroyers herd targets into clean firing arcs. Even when idle, the vessel\'s lens arrays glow with caged radiance, earning it a reputation as a second sun hanging in hostile skies. On worlds touched by the Beyond Horizon conflict, the phrase "Daylight is here" carries a new, uneasy meaning "" it might simply mean a Helios has taken station overhead.',
+    description: `The VX-6D Helios wields light itself as a weapon, coupling a solar-fusion drive with high-energy focusing lenses to project radiant lances across orbital distances. Its reactors feed artificial micro-stars that are then shaped and released as coherent beams, slicing through warships, defense grids, and hardened bunkers with surgical finality. Because its primary weapons favor extreme range and line-of-sight corridors, Helios captains often operate from the periphery of engagements, acting as celestial executioners while VX frigates and destroyers herd targets into clean firing arcs. Even when idle, the vessel\'s lens arrays glow with caged radiance, earning it a reputation as a second sun hanging in hostile skies. On worlds touched by the Beyond Horizon conflict, the phrase "Daylight is here" carries a new, uneasy meaning "" it might simply mean a Helios has taken station overhead.`,
     tags: ['warship', 'battleship'],
     class: 'battleship',
-    thumbnail: 'assets/thumbnails/Helios.png',
-    heroImage: 'assets/heroImages/Helios.png'
+    thumbnail: 'assets/thumbnails/Helios.png'
   },
   {
-    id: 'ex-2-rivvox',
+    id: 'ex-2a-rivvox',
     templateId: 53,
     series: 'EX',
-    code: 'EX-2',
-    name: 'EX-2 Rivvox',
-    role: 'Second-generation extreme-construction platform',
+    code: 'EX-2A',
+    name: 'EX-2A Rivvox',
+    role: 'Builder',
     summary: `The Rivvox is the Empire's second-generation extreme-construction platform, engineered to do what earlier builders could not: bind, anchor, and reinforce megastructures under impossible stress conditions.`,
     description: `The Rivvox is the Empire's second-generation extreme-construction platform, engineered to do what earlier builders could not: bind, anchor, and reinforce megastructures under impossible stress conditions. Where Vibz specializes in rapid modular assembly, Rivvox serves as the "iron spine" that locks those structures into permanence.`,
     tags: ['logistics', 'construction'],
     class: 'other',
     thumbnail: 'assets/thumbnails/Rivvox.png',
-    heroImage: 'assets/heroImages/Rivvox.png'
+    heroImage: 'assets/heroImages/Rivvox_Color.png'
   },
   {
     id: 'vx-8e-nightfall',
@@ -383,10 +540,10 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-8E',
     name: 'VX-8E Nightfall',
-    role: 'System-wide blackout dreadnought',
+    role: 'Dreadnought',
     summary: `The VX-8 Nightfall is pure strategic annihilation, designed as a system-wide blackout platform that disrupts all long-range communications, sensor arrays, and energy distribution networks.`,
     description: `Where the Obsidian is a relic-carrier, the VX-8 Nightfall is pure strategic annihilation. Designed as a system-wide blackout platform, the Nightfall generates an expanding gravitational umbra that disrupts all long-range communications, sensor arrays, and energy distribution networks within its operational radius. Entire planetary grids have collapsed simply from its arrival.`,
-    tags: ['warship', 'dreadnought', 'command'],
+    tags: ['warship', 'dreadnought'],
     class: 'dreadnought'
   },
   {
@@ -395,10 +552,10 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-8F',
     name: 'VX-8F Obsidian',
-    role: 'Durability-engineered dreadnought',
+    role: 'Dreadnought',
     summary: `The Voran engineered this ship to be impossibly durable—a vessel that would endure even if the empire that created it did not.`,
     description: `The Voran engineered this ship to be impossibly durable—a vessel that would endure even if the empire that created it did not. Its hull plating is a next-generation Voidglass Alloy, a pitch-black composite that absorbs incoming energy and radiates it outward as a corrosive ripple-field. When struck, the ship's silhouette appears to "fracture" like volcanic glass, a psychological terror effect praised by Voran strategists.`,
-    tags: ['warship', 'dreadnought', 'command'],
+    tags: ['warship', 'dreadnought'],
     class: 'dreadnought'
   },
   {
@@ -407,38 +564,766 @@ export const SHIPS: ShipDisplay[] = [
     series: 'VX',
     code: 'VX-6',
     name: 'VX-6 Ruinweaver',
-    role: 'Tactical disassembler battleship',
+    role: 'Battleship',
     summary: `The VX-6 Ruinweaver is a dedicated tactical disassembler, engineered to pick apart enemy fleets piece by piece.`,
     description: `The VX-6 Ruinweaver is a dedicated tactical disassembler, engineered by the Voran to pick apart enemy fleets piece by piece. While it lacks the overwhelming presence of the VX-8 capitals, the Ruinweaver is feared for an entirely different reason: it never attacks the strongest target first—only the most important.`,
     tags: ['warship', 'battleship'],
     class: 'battleship',
-    thumbnail: 'assets/thumbnails/Ruinweaver.png',
-    heroImage: 'assets/heroImages/Ruinweaver.png'
+    thumbnail: 'assets/thumbnails/Ruinweaver.png'
   },
   {
-    id: 'vx-1-black-stinger',
+    id: 'vx-1c-black-stinger',
     templateId: 57,
     series: 'VX',
-    code: 'VX-1',
-    name: 'VX-1 Black Stinger',
-    role: 'Void-Vector Interceptor',
+    code: 'VX-1C',
+    name: 'VX-1C Black Stinger',
+    role: 'Interceptor',
     summary: `The VX-1 Black Stinger is the Voran Empire's premier Void-Vector Interceptor, engineered to puncture the enemy line before they know it's been breached.`,
     description: `The VX-1 Black Stinger is the Voran Empire's premier Void-Vector Interceptor, a micro-capital strike craft engineered for one purpose: to puncture the enemy line before the enemy even knows it's been breached.`,
-    tags: ['warship', 'frigate'],
+    tags: ['warship', 'fighter'],
     class: 'frigate',
-    thumbnail: 'assets/thumbnails/Black Stinger.png'
+    thumbnail: 'assets/thumbnails/Black Stinger.png',
+    heroImage: 'assets/heroImages/Black Stinger_Yellow.png'
   },
   {
-    id: 'vx-6-cylb2000',
+    id: 'vx-6b-cylb2000',
     templateId: 58,
     series: 'VX',
-    code: 'VX-6',
-    name: 'VX-6 Cylb2000',
-    role: 'Tactical disassembler battleship',
+    code: 'VX-6B',
+    name: 'VX-6B Cylb2000',
+    role: 'Heavy Battleship',
     summary: `The VX-6 Cylb2000 is a dedicated tactical disassembler, engineered to pick apart enemy fleets piece by piece.`,
     description: `The VX-6 Cylb2000 is a dedicated tactical disassembler, engineered by the Voran to pick apart enemy fleets piece by piece. While it lacks the overwhelming presence of the VX-8 capitals, the Ruinweaver is feared for an entirely different reason: it never attacks the strongest target first—only the most important.`,
     tags: ['warship', 'battleship'],
     class: 'battleship',
-    thumbnail: 'assets/thumbnails/Cybl2000.png'
+    thumbnail: 'assets/thumbnails/Cybl2000.png',
+    heroImage: 'assets/heroImages/Cybl2000_Gray.png'
+  },
+  {
+    id: 'vx-1a-dart',
+    templateId: 82,
+    series: 'VX',
+    code: 'VX-1A',
+    name: 'VX-1A Dart',
+    role: 'Light Fighter',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'fighter'],
+    class: 'frigate',
+    heroImage: 'assets/heroImages/Dart_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Dart_Blue.png' },
+      { color: 'Grey', path: 'assets/heroImages/Dart_Grey.png' },
+      { color: 'Orange', path: 'assets/heroImages/Dart_Orange.png' }
+    ]
+  },
+  {
+    id: 'vx-1b-talon',
+    templateId: 83,
+    series: 'VX',
+    code: 'VX-1B',
+    name: 'VX-1B Talon',
+    role: 'Fighter',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'fighter'],
+    class: 'frigate',
+    heroImage: 'assets/heroImages/Talon_Grey.png'
+  },
+  {
+    id: 'vx-1d-phantom',
+    templateId: 84,
+    series: 'VX',
+    code: 'VX-1D',
+    name: 'VX-1D Phantom',
+    role: 'Heavy Fighter',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'fighter'],
+    class: 'frigate',
+    heroImage: 'assets/heroImages/Phantom_Orange.png'
+  },
+  {
+    id: 'vx-1n-firebolt',
+    templateId: 85,
+    series: 'VX',
+    code: 'VX-1N',
+    name: 'VX-1N Firebolt',
+    role: 'Nuke Fighter',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'fighter'],
+    class: 'frigate',
+    heroImage: 'assets/heroImages/Firebolt_Grey.png',
+    heroVariants: [
+      { color: 'Black', path: 'assets/heroImages/Firebolt_Black.png' },
+      { color: 'Blue', path: 'assets/heroImages/Firebolt_Blue.png' },
+      { color: 'Grey', path: 'assets/heroImages/Firebolt_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Firebolt_Red.png' },
+      { color: 'White', path: 'assets/heroImages/Firebolt_White.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Firebolt_Yellow.png' }
+    ]
+  },
+  {
+    id: 'vx-1x-hellfire',
+    templateId: 86,
+    series: 'VX',
+    code: 'VX-1X',
+    name: 'VX-1X Hellfire',
+    role: 'Heavy Nuke Fighter',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'fighter'],
+    class: 'frigate',
+    heroImage: 'assets/heroImages/Hellfire_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Hellfire_Blue.png' },
+      { color: 'Grey', path: 'assets/heroImages/Hellfire_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Hellfire_Red.png' }
+    ]
+  },
+  {
+    id: 'vx-2c-dread',
+    templateId: 87,
+    series: 'VX',
+    code: 'VX-2C',
+    name: 'VX-2C Dread',
+    role: 'Heavy Frigate',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'frigate'],
+    class: 'frigate',
+    heroImage: 'assets/heroImages/Dread_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Dread_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Dread_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Dread_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Dread_Yellow.png' }
+    ]
+  },
+  {
+    id: 'vx-2d-reaper',
+    templateId: 88,
+    series: 'VX',
+    code: 'VX-2D',
+    name: 'VX-2D Reaper',
+    role: 'Assault Frigate',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'frigate'],
+    class: 'frigate',
+    heroImage: 'assets/heroImages/Reaper_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Reaper_Blue.png' },
+      { color: 'Grey', path: 'assets/heroImages/Reaper_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Reaper_Red.png' }
+    ]
+  },
+  {
+    id: 'vx-4c-warden',
+    templateId: 89,
+    series: 'VX',
+    code: 'VX-4C',
+    name: 'VX-4C Warden',
+    role: 'Destroyer Leader',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'destroyer'],
+    class: 'destroyer',
+    heroImage: 'assets/heroImages/Warden_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Warden_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Warden_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Warden_Grey.png' },
+      { color: 'Orange', path: 'assets/heroImages/Warden_Orange.png' }
+    ]
+  },
+  {
+    id: 'vx-5a-bloodwake',
+    templateId: 90,
+    series: 'VX',
+    code: 'VX-5A',
+    name: 'VX-5A Bloodwake',
+    role: 'Light Cruiser',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'cruiser'],
+    class: 'destroyer',
+    heroImage: 'assets/heroImages/Bloodwake_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Bloodwake_Blue.png' },
+      { color: 'Grey', path: 'assets/heroImages/Bloodwake_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Bloodwake_Red.png' }
+    ]
+  },
+  {
+    id: 'vx-5b-vindicator',
+    templateId: 91,
+    series: 'VX',
+    code: 'VX-5B',
+    name: 'VX-5B Vindicator',
+    role: 'Cruiser',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'cruiser'],
+    class: 'destroyer',
+    heroImage: 'assets/heroImages/Vindicator_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Vindicator_Blue.png' },
+      { color: 'Grey', path: 'assets/heroImages/Vindicator_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Vindicator_Red.png' }
+    ]
+  },
+  {
+    id: 'vx-5c-tempest',
+    templateId: 92,
+    series: 'VX',
+    code: 'VX-5C',
+    name: 'VX-5C Tempest',
+    role: 'Heavy Cruiser',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'cruiser'],
+    class: 'destroyer',
+    heroImage: 'assets/heroImages/Tempest_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Tempest_Blue.png' },
+      { color: 'Color', path: 'assets/heroImages/Tempest_Color.png' },
+      { color: 'Grey', path: 'assets/heroImages/Tempest_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Tempest_Red.png' }
+    ]
+  },
+  {
+    id: 'vx-5d-ravager',
+    templateId: 93,
+    series: 'VX',
+    code: 'VX-5D',
+    name: 'VX-5D Ravager',
+    role: 'Strike Cruiser',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'cruiser'],
+    class: 'destroyer',
+    heroImage: 'assets/heroImages/Ravager_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Ravager_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Ravager_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Ravager_Grey.png' },
+      { color: 'Orange', path: 'assets/heroImages/Ravager_Orange.png' }
+    ]
+  },
+  {
+    id: 'vx-5e-black-marrow',
+    templateId: 94,
+    series: 'VX',
+    code: 'VX-5E',
+    name: 'VX-5E Black Marrow',
+    role: 'Battle Cruiser',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'cruiser'],
+    class: 'destroyer',
+    heroImage: 'assets/heroImages/Black Marrow_Grey.png'
+  },
+  {
+    id: 'vx-3a-horizon',
+    templateId: 95,
+    series: 'VX',
+    code: 'VX-3A',
+    name: 'VX-3A Horizon',
+    role: 'Explorer',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'explorer'],
+    class: 'other',
+    heroImage: 'assets/heroImages/Horizon_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Horizon_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Horizon_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Horizon_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Horizon_Yellow.png' }
+    ]
+  },
+  {
+    id: 'vx-8b-voidwalker',
+    templateId: 96,
+    series: 'VX',
+    code: 'VX-8B',
+    name: 'VX-8B Voidwalker',
+    role: 'Heavy Dreadnaught',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'dreadnought'],
+    class: 'dreadnought',
+    heroImage: 'assets/heroImages/Voidwalker_Blue.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Voidwalker_Blue.png' },
+      { color: 'Diffuse', path: 'assets/heroImages/Voidwalker_Diffuse.png' },
+      { color: 'Green', path: 'assets/heroImages/Voidwalker_Green.png' },
+      { color: 'Red', path: 'assets/heroImages/Voidwalker_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Voidwalker_Yellow.png' }
+    ]
+  },
+  {
+    id: 'vx-8c-oblivion',
+    templateId: 97,
+    series: 'VX',
+    code: 'VX-8C',
+    name: 'VX-8C Oblivion',
+    role: 'Super Dreadnaught',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'dreadnought'],
+    class: 'dreadnought'
+  },
+  {
+    id: 'vx-7a-supporter',
+    templateId: 98,
+    series: 'VX',
+    code: 'VX-7A',
+    name: 'VX-7A Supporter',
+    role: 'Auxiliary',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'support'],
+    class: 'other',
+    heroImage: 'assets/heroImages/Supporter_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Supporter_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Supporter_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Supporter_Grey.png' },
+      { color: 'Orange', path: 'assets/heroImages/Supporter_Orange.png' },
+      { color: 'White', path: 'assets/heroImages/Supporter_White.png' }
+    ]
+  },
+  {
+    id: 'bx-1a-scorch',
+    templateId: 99,
+    series: 'BX',
+    code: 'BX-1A',
+    name: 'BX-1A Scorch',
+    role: 'Light Bomber',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'bomber'],
+    class: 'other',
+    heroImage: 'assets/heroImages/Scorch_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Scorch_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Scorch_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Scorch_Grey.png' },
+      { color: 'Orange', path: 'assets/heroImages/Scorch_Orange.png' }
+    ]
+  },
+  {
+    id: 'bx-2a-inferno',
+    templateId: 100,
+    series: 'BX',
+    code: 'BX-2A',
+    name: 'BX-2A Inferno',
+    role: 'Bomber',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'bomber'],
+    class: 'other',
+    heroImage: 'assets/heroImages/Inferno_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Inferno_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Inferno_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Inferno_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Inferno_Yellow.png' }
+    ]
+  },
+  {
+    id: 'bx-3a-havoc',
+    templateId: 101,
+    series: 'BX',
+    code: 'BX-3A',
+    name: 'BX-3A Havoc',
+    role: 'Heavy Bomber',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'bomber'],
+    class: 'other',
+    heroImage: 'assets/heroImages/Havoc_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Havoc_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Havoc_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Havoc_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Havoc_Yellow.png' }
+    ]
+  },
+  {
+    id: 'bx-4a-annihilator',
+    templateId: 102,
+    series: 'BX',
+    code: 'BX-4A',
+    name: 'BX-4A Annihilator',
+    role: 'Strategic Bomber',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'bomber'],
+    class: 'other',
+    heroImage: 'assets/heroImages/Annihilator_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Annihilator_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Annihilator_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Annihilator_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Annihilator_Yellow.png' }
+    ]
+  },
+  {
+    id: 'bx-5a-extinction',
+    templateId: 103,
+    series: 'BX',
+    code: 'BX-5A',
+    name: 'BX-5A Extinction',
+    role: 'Super Bomber',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'bomber'],
+    class: 'other',
+    heroImage: 'assets/heroImages/Extinction_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Extinction_Blue.png' },
+      { color: 'Diffuse', path: 'assets/heroImages/Extinction_Diffuse.png' },
+      { color: 'Grey', path: 'assets/heroImages/Extinction_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Extinction_Red.png' }
+    ]
+  },
+  {
+    id: 'kx-1a-mule',
+    templateId: 104,
+    series: 'KX',
+    code: 'KX-1A',
+    name: 'KX-1A Mule',
+    role: 'Carrier',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'carrier'],
+    class: 'carrier'
+  },
+  {
+    id: 'kx-2a-treadcarrier',
+    templateId: 105,
+    series: 'KX',
+    code: 'KX-2A',
+    name: 'KX-2A Treadcarrier',
+    role: 'Carrier',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'carrier'],
+    class: 'carrier'
+  },
+  {
+    id: 'kx-3a-dark-nest',
+    templateId: 106,
+    series: 'KX',
+    code: 'KX-3A',
+    name: 'KX-3A Dark Nest',
+    role: 'Carrier',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'carrier'],
+    class: 'carrier',
+    heroImage: 'assets/heroImages/Dark Nest_Grey.png'
+  },
+  {
+    id: 'kx-6a-bastion',
+    templateId: 107,
+    series: 'KX',
+    code: 'KX-6A',
+    name: 'KX-6A Bastion',
+    role: 'Carrier',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'carrier'],
+    class: 'carrier',
+    heroImage: 'assets/heroImages/Bastion_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Bastion_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Bastion_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Bastion_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Bastion_Yellow.png' }
+    ]
+  },
+  {
+    id: 'kx-7a-colossus',
+    templateId: 108,
+    series: 'KX',
+    code: 'KX-7A',
+    name: 'KX-7A Colossus',
+    role: 'Carrier',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'carrier'],
+    class: 'carrier',
+    heroImage: 'assets/heroImages/Colossus_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Colossus_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Colossus_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Colossus_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Colossus_Yellow.png' }
+    ]
+  },
+  {
+    id: 'kc-1a-nomad',
+    templateId: 109,
+    series: 'KC',
+    code: 'KC-1A',
+    name: 'KC-1A Nomad',
+    role: 'Carrier',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'carrier'],
+    class: 'carrier',
+    heroImage: 'assets/heroImages/Nomad_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Nomad_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Nomad_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Nomad_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Nomad_Yellow.png' }
+    ]
+  },
+  {
+    id: 'kc-2a-pilgrim',
+    templateId: 110,
+    series: 'KC',
+    code: 'KC-2A',
+    name: 'KC-2A Pilgrim',
+    role: 'Carrier',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'carrier'],
+    class: 'carrier',
+    heroImage: 'assets/heroImages/Pilgrim_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Pilgrim_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Pilgrim_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Pilgrim_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Pilgrim_Yellow.png' }
+    ]
+  },
+  {
+    id: 'kc-3a-argos',
+    templateId: 111,
+    series: 'KC',
+    code: 'KC-3A',
+    name: 'KC-3A Argos',
+    role: 'Carrier',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'carrier'],
+    class: 'carrier',
+    heroImage: 'assets/heroImages/Argos_Albedo.png'
+  },
+  {
+    id: 'kc-4a-exodus',
+    templateId: 112,
+    series: 'KC',
+    code: 'KC-4A',
+    name: 'KC-4A Exodus',
+    role: 'Carrier',
+    summary: ``,
+    description: ``,
+    tags: ['warship', 'carrier'],
+    class: 'carrier',
+    heroImage: 'assets/heroImages/Exodus_Grey.png',
+    heroVariants: [
+      { color: 'Green', path: 'assets/heroImages/Exodus_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Exodus_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Exodus_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Exodus_Yellow.png' }
+    ]
+  },
+  {
+    id: 'cx-1a-skiff',
+    templateId: 113,
+    series: 'CX',
+    code: 'CX-1A',
+    name: 'CX-1A Skiff',
+    role: 'Cargo',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Skiff.png'
+  },
+  {
+    id: 'cx-2a-trotter',
+    templateId: 114,
+    series: 'CX',
+    code: 'CX-2A',
+    name: 'CX-2A Trotter',
+    role: 'Cargo',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Trotter_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Trotter_Blue.png' },
+      { color: 'Grey', path: 'assets/heroImages/Trotter_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Trotter_Red.png' }
+    ]
+  },
+  {
+    id: 'cgx-1a-siphon',
+    templateId: 115,
+    series: 'CGX',
+    code: 'CGX-1A',
+    name: 'CGX-1A Siphon',
+    role: 'Cargo',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo'
+  },
+  {
+    id: 'cgx-2a-pressureline',
+    templateId: 116,
+    series: 'CGX',
+    code: 'CGX-2A',
+    name: 'CGX-2A Pressureline',
+    role: 'Cargo',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Pressureline_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Pressureline_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Pressureline_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Pressureline_Grey.png' },
+      { color: 'Orange', path: 'assets/heroImages/Pressureline_Orange.png' }
+    ]
+  },
+  {
+    id: 'cgx-3a-vaultrunner',
+    templateId: 117,
+    series: 'CGX',
+    code: 'CGX-3A',
+    name: 'CGX-3A Vaultrunner',
+    role: 'Cargo',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Vaultrunner_Grey.png',
+    heroVariants: [
+      { color: 'Blue', path: 'assets/heroImages/Vaultrunner_Blue.png' },
+      { color: 'Grey', path: 'assets/heroImages/Vaultrunner_Grey.png' },
+      { color: 'Red', path: 'assets/heroImages/Vaultrunner_Red.png' },
+      { color: 'Yellow', path: 'assets/heroImages/Vaultrunner_Yellow.png' }
+    ]
+  },
+  {
+    id: 'cgx-4a-deepwell',
+    templateId: 118,
+    series: 'CGX',
+    code: 'CGX-4A',
+    name: 'CGX-4A Deepwell',
+    role: 'Cargo',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'cargo'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Deepwell_Base.png'
+  },
+  {
+    id: 'sx-1a-skipper',
+    templateId: 119,
+    series: 'SX',
+    code: 'SX-1A',
+    name: 'SX-1A Skipper',
+    role: 'Shuttle',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'shuttle'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Skipper_Red.png'
+  },
+  {
+    id: 'sx-2a-transit',
+    templateId: 120,
+    series: 'SX',
+    code: 'SX-2A',
+    name: 'SX-2A Transit',
+    role: 'Shuttle',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'shuttle'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Transit_Grey.png',
+    heroVariants: [
+      { color: 'Albedo', path: 'assets/heroImages/Transit_Albedo.png' },
+      { color: 'Blue', path: 'assets/heroImages/Transit_Blue.png' },
+      { color: 'Green', path: 'assets/heroImages/Transit_Green.png' },
+      { color: 'Grey', path: 'assets/heroImages/Transit_Grey.png' },
+      { color: 'Orange', path: 'assets/heroImages/Transit_Orange.png' }
+    ]
+  },
+  {
+    id: 'sx-3a-caravan',
+    templateId: 121,
+    series: 'SX',
+    code: 'SX-3A',
+    name: 'SX-3A Caravan',
+    role: 'Shuttle',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'shuttle'],
+    class: 'cargo'
+  },
+  {
+    id: 'sx-4a-ark',
+    templateId: 122,
+    series: 'SX',
+    code: 'SX-4A',
+    name: 'SX-4A Ark',
+    role: 'Shuttle',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'shuttle'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Ark_Orange.png'
+  },
+  {
+    id: 'hrx-1a-scraper',
+    templateId: 123,
+    series: 'HRX',
+    code: 'HRX-1A',
+    name: 'HRX-1A Scraper',
+    role: 'Harvester',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'mining', 'extraction'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Scraper_Base.png'
+  },
+  {
+    id: 'col-1a-ascendant',
+    templateId: 124,
+    series: 'COL',
+    code: 'COL-1A',
+    name: 'COL-1A Ascendant',
+    role: 'Colony',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'colony'],
+    class: 'cargo',
+    heroImage: 'assets/heroImages/Ascendant_Grey.png'
+  },
+  {
+    id: 'col-2a-genesis',
+    templateId: 125,
+    series: 'COL',
+    code: 'COL-2A',
+    name: 'COL-2A Genesis',
+    role: 'Colony',
+    summary: ``,
+    description: ``,
+    tags: ['logistics', 'colony'],
+    class: 'cargo'
   }
 ];

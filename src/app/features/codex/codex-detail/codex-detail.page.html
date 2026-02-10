@@ -19,7 +19,7 @@
             }
           </h2>
           <div class="role-badges">
-            @for (tag of e.tags; track tag) {
+            @for (tag of e.tags; track $index) {
               <span class="role-badge">{{ tag | uppercase }}</span>
             }
           </div>
@@ -63,6 +63,19 @@
                   <span>3D Model Coming Soon</span>
                 </div>
               }
+            }
+            @if (heroVariants().length > 1) {
+              <div class="variant-swatches">
+                @for (v of heroVariants(); track v.color) {
+                  <button
+                    class="swatch-btn"
+                    [class.active]="selectedVariant() === v.color || (!selectedVariant() && heroImage() === v.path)"
+                    [title]="v.color"
+                    (click)="selectVariant(v.color)">
+                    {{ v.color }}
+                  </button>
+                }
+              </div>
             }
             <div class="view-toggle">
               <button

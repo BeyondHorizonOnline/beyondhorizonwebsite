@@ -40,6 +40,7 @@ export class ShipDetailPage {
   specsExpanded = false;
   viewMode = signal<'image' | '3d'>('image');
   imageLoading = signal<boolean>(true);
+  selectedVariant = signal<string | null>(null);
 
   // Stats from API
   stats = signal<CatalogEntityStats | null>(null);
@@ -56,14 +57,30 @@ export class ShipDetailPage {
     return MODEL_PATHS[this.id()] || null;
   });
 
-  // Hero image path
+  // Hero image path (uses selected variant if set)
   heroImage = computed<string | null>(() => {
     const s = this.ship();
+    const variant = this.selectedVariant();
+    if (variant && s?.heroVariants) {
+      const found = s.heroVariants.find(v => v.color === variant);
+      if (found) return found.path;
+    }
     return s?.heroImage || null;
+  });
+
+  // Available color variants
+  heroVariants = computed(() => {
+    const s = this.ship();
+    return s?.heroVariants || [];
   });
 
   toggleViewMode() {
     this.viewMode.set(this.viewMode() === 'image' ? '3d' : 'image');
+  }
+
+  selectVariant(color: string) {
+    this.selectedVariant.set(color);
+    this.imageLoading.set(true);
   }
 
   onImageLoad() {

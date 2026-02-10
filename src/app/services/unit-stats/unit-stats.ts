@@ -41,10 +41,11 @@ export class UnitStatsService {
       return this.cache.get(templateId)!;
     }
 
-    // Make API call
-    const request$ = this.http.get<CatalogEntityStats>(
+    // Make API call - map snake_case API response to PascalCase interface
+    const request$ = this.http.get<any>(
       `${this.apiUrl}/units/template/${templateId}`
     ).pipe(
+      map(raw => this.mapToStats(raw)),
       tap(stats => console.log(`Loaded stats for template ${templateId}`)),
       catchError(this.handleError),
       shareReplay(1) // Cache the result
@@ -150,6 +151,56 @@ export class UnitStatsService {
         this.getUnitStats(id).subscribe(); // Fire and forget
       }
     });
+  }
+
+  /**
+   * Map API response (snake_case or any casing) to PascalCase CatalogEntityStats.
+   * Handles snake_case, camelCase, and PascalCase responses gracefully.
+   */
+  private mapToStats(raw: any): CatalogEntityStats {
+    // If already PascalCase (e.g. BaseHealth exists), return as-is
+    if (raw.BaseHealth !== undefined || raw.TemplateID !== undefined) {
+      return raw as CatalogEntityStats;
+    }
+
+    // Map from snake_case (or camelCase) API response
+    return {
+      TemplateID: raw.template_id ?? raw.templateId ?? raw.TemplateID ?? 0,
+      Name: raw.name ?? raw.Name ?? '',
+      UnitType: raw.unit_type ?? raw.unitType ?? raw.UnitType ?? '',
+      Size: raw.size ?? raw.Size ?? 0,
+      BaseHealth: raw.base_health ?? raw.baseHealth ?? raw.BaseHealth ?? 0,
+      BaseShield: raw.base_shield ?? raw.baseShield ?? raw.BaseShield ?? 0,
+      BaseEnergyProduced: raw.base_energy_produced ?? raw.baseEnergyProduced ?? raw.BaseEnergyProduced ?? 0,
+      BaseEnergyUsed: raw.base_energy_used ?? raw.baseEnergyUsed ?? raw.BaseEnergyUsed ?? 0,
+      WeaponSlots: raw.weapon_slots ?? raw.weaponSlots ?? raw.WeaponSlots ?? 0,
+      StaffRequired: raw.staff_required ?? raw.staffRequired ?? raw.StaffRequired ?? 0,
+      TotalHousing: raw.total_housing ?? raw.totalHousing ?? raw.TotalHousing ?? 0,
+      Speed: raw.speed ?? raw.Speed ?? 0,
+      Atmospheric: raw.atmospheric ?? raw.Atmospheric ?? false,
+      Hyperspace: raw.hyperspace ?? raw.Hyperspace ?? 0,
+      SellPrice: raw.sell_price ?? raw.sellPrice ?? raw.SellPrice ?? 0,
+      ShieldType: raw.shield_type ?? raw.shieldType ?? raw.ShieldType ?? '',
+      TechTier: raw.tech_tier ?? raw.techTier ?? raw.TechTier ?? '',
+      MinShipSize: raw.min_ship_size ?? raw.minShipSize ?? raw.MinShipSize ?? 0,
+      MaxShipSize: raw.max_ship_size ?? raw.maxShipSize ?? raw.MaxShipSize ?? 0,
+      Views: raw.views ?? raw.Views ?? 0,
+      Blurring: raw.blurring ?? raw.Blurring ?? 0,
+      PrefabPath: raw.prefab_path ?? raw.prefabPath ?? raw.PrefabPath ?? '',
+      Description: raw.description ?? raw.Description ?? '',
+      DevelopmentTime: raw.development_time ?? raw.developmentTime ?? raw.DevelopmentTime ?? 0,
+      ConstructionTime: raw.construction_time ?? raw.constructionTime ?? raw.ConstructionTime ?? 0,
+      ConstructionCost: raw.construction_cost ?? raw.constructionCost ?? raw.ConstructionCost ?? 0,
+      DevelopmentCost: raw.development_cost ?? raw.developmentCost ?? raw.DevelopmentCost ?? 0,
+      Category: raw.category ?? raw.Category ?? '',
+      RequiresPower: raw.requires_power ?? raw.requiresPower ?? raw.RequiresPower ?? false,
+      ProvidesPower: raw.provides_power ?? raw.providesPower ?? raw.ProvidesPower ?? false,
+      AllowsStockLink: raw.allows_stock_link ?? raw.allowsStockLink ?? raw.AllowsStockLink ?? false,
+      ProvidesStorage: raw.provides_storage ?? raw.providesStorage ?? raw.ProvidesStorage ?? false,
+      IsShip: raw.is_ship ?? raw.isShip ?? raw.IsShip ?? false,
+      ResourceCapacity: raw.resource_capacity ?? raw.resourceCapacity ?? raw.ResourceCapacity ?? 0,
+      DockCapacity: raw.dock_capacity ?? raw.dockCapacity ?? raw.DockCapacity ?? 0,
+    };
   }
 
   /**

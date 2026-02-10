@@ -29,6 +29,6 @@ export class ShipsListPage {
 
   // Now the parameter type matches what *s* actually is
   tagsOf(s: ShipDisplayData): string[] {
-    return [String(s.class), ...(s.tags || [])];
+    return Array.from(new Set([String(s.class), ...(s.tags || [])]));
   }
 }
