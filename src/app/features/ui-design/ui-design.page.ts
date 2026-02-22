@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ui-design',
@@ -18,5 +19,9 @@ import { CommonModule } from '@angular/common';
   `,
 })
 export class UiDesignPage {
-  sanitizedUrl = 'assets/beyond-horizon-ui-design-system.html';
+  sanitizedUrl: SafeResourceUrl;
+
+  constructor(private sanitizer: DomSanitizer) {
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/beyond-horizon-ui-design-system.html');
+  }
 }
