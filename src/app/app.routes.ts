@@ -50,6 +50,7 @@ export const routes: Routes = [
   { path: 'media', loadComponent: () => import('./features/media/media.page').then(m => m.MediaPage) },
   { path: 'updates', loadComponent: () => import('./features/updates/updates.page').then(m => m.UpdatesPage) },
   { path: 'contact', loadComponent: () => import('./features/contact/contact.page').then(m => m.ContactPage) },
+  { path: 'ui-design', loadComponent: () => import('./features/ui-design/ui-design.page').then(m => m.UiDesignPage) },
   {
     path: 'codex/:id',
     loadComponent: () =>
