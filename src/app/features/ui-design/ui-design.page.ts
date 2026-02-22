@@ -22,6 +22,6 @@ export class UiDesignPage {
   sanitizedUrl: SafeResourceUrl;
 
   constructor(private sanitizer: DomSanitizer) {
-    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/beyond-horizon-ui-design-system.html');
+    this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('assets/Beyond-Horizon-Unified-Design-System-v2.html');
   }
 }

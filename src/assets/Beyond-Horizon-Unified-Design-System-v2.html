@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond Horizon — Unified UI Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Share+Tech+Mono&family=Share+Tech&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════════
+   BEYOND HORIZON — UNIFIED UI DESIGN SYSTEM v2.0
+   Combined Design + Implementation Reference
+   ════════════════════════════════════════════════════════════════ */
+:root {
+  /* === THEMEABLE: PRIMARY (default: Cyan 180°) === */
+  --ph: 180; --ps: 100%;
+  --primary: hsl(var(--ph), var(--ps), 50%);
+  --primary-bright: hsl(var(--ph), var(--ps), 65%);
+  --primary-dim: hsl(var(--ph), var(--ps), 30%);
+  --primary-dark: hsl(var(--ph), var(--ps), 18%);
+  --primary-glow: hsla(var(--ph), var(--ps), 50%, 0.35);
+  --primary-ghost: hsla(var(--ph), var(--ps), 50%, 0.08);
+  --primary-surface: hsla(var(--ph), var(--ps), 50%, 0.04);
+  --primary-10: hsla(var(--ph), var(--ps), 50%, 0.10);
+  --primary-15: hsla(var(--ph), var(--ps), 50%, 0.15);
+  --primary-20: hsla(var(--ph), var(--ps), 50%, 0.20);
+
+  /* === THEMEABLE: SECONDARY === */
+  --sh: 220; --ss: 60%;
+  --secondary: hsl(var(--sh), var(--ss), 55%);
+  --secondary-dim: hsl(var(--sh), var(--ss), 25%);
+
+  /* === THEMEABLE: ACCENT (warm) === */
+  --ah: 35; --as: 100%;
+  --accent: hsl(var(--ah), var(--as), 55%);
+  --accent-dim: hsl(var(--ah), var(--as), 30%);
+  --accent-glow: hsla(var(--ah), var(--as), 50%, 0.3);
+
+  /* === BACKGROUNDS (dark navy, derived from primary hue) === */
+  --bg-deep: hsl(220, 35%, 4%);
+  --bg-base: hsl(220, 30%, 6%);
+  --bg-panel: hsl(218, 28%, 9%);
+  --bg-panel-header: hsl(218, 28%, 7%);
+  --bg-elevated: hsl(216, 25%, 12%);
+  --bg-hover: hsl(214, 22%, 15%);
+  --bg-active: hsl(212, 20%, 18%);
+  --bg-input: hsla(220, 35%, 5%, 0.7);
+  --bg-overlay: rgba(0, 0, 0, 0.70);
+
+  /* === TEXT === */
+  --text-max: hsl(210, 15%, 95%);
+  --text-bright: hsl(210, 12%, 88%);
+  --text-body: hsl(210, 10%, 72%);
+  --text-dim: hsl(210, 10%, 48%);
+  --text-muted: hsl(210, 8%, 32%);
+
+  /* === SEMANTIC (Fixed — never themed) === */
+  --success: #00FF88; --success-dim: #00CC6A; --success-ghost: rgba(0,255,136,0.08); --success-glow: rgba(0,255,136,0.3);
+  --warning: #FFB800; --warning-dim: #CC9300; --warning-ghost: rgba(255,184,0,0.08); --warning-glow: rgba(255,184,0,0.3);
+  --danger: #FF3355; --danger-dim: #CC2944; --danger-ghost: rgba(255,51,85,0.08); --danger-glow: rgba(255,51,85,0.3);
+  --info: #4499FF; --info-dim: #3377CC; --info-ghost: rgba(68,153,255,0.08); --info-glow: rgba(68,153,255,0.3);
+
+  /* === BORDERS === */
+  --border-subtle: hsla(var(--ph), var(--ps), 50%, 0.08);
+  --border-med: hsla(var(--ph), var(--ps), 50%, 0.18);
+  --border-bright: hsla(var(--ph), var(--ps), 50%, 0.45);
+
+  /* === ROW STATES === */
+  --row-alt: rgba(255,255,255,0.01);
+  --row-hover: hsla(var(--ph), var(--ps), 30%, 0.06);
+  --row-selected: hsla(var(--ph), var(--ps), 30%, 0.10);
+
+  /* === SPACING === */
+  --sp-2xs:2px; --sp-xs:4px; --sp-sm:8px; --sp-md:12px; --sp-lg:16px; --sp-xl:24px; --sp-2xl:32px; --sp-3xl:48px; --sp-4xl:64px;
+
+  /* === FONTS === */
+  --f-display: 'Orbitron', sans-serif;
+  --f-body: 'Rajdhani', sans-serif;
+  --f-mono: 'Share Tech Mono', monospace;
+  --f-nav: 'Share Tech', sans-serif;
+
+  /* === TYPE SCALE === */
+  --t-3xs:9px; --t-2xs:10px; --t-xs:11px; --t-sm:13px; --t-base:15px; --t-lg:17px; --t-xl:20px; --t-2xl:24px; --t-3xl:32px; --t-4xl:40px;
+
+  /* === TRANSITIONS === */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-instant: 100ms; --dur-fast: 150ms; --dur-normal: 200ms; --dur-slow: 300ms; --dur-panel: 350ms;
+}
+
+/* === RESET === */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg-deep);color:var(--text-body);font-family:var(--f-body);font-size:var(--t-base);font-weight:500;line-height:1.5;-webkit-font-smoothing:antialiased}
+::selection{background:hsla(var(--ph),var(--ps),50%,0.25);color:#fff}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg-base)}
+::-webkit-scrollbar-thumb{background:var(--primary-dim);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--primary);box-shadow:0 0 8px var(--primary-glow)}
+
+/* === PAGE === */
+.page{max-width:1440px;margin:0 auto;padding:0 var(--sp-2xl)}
+
+/* === HERO === */
+.hero{text-align:center;padding:80px 32px 60px;border-bottom:1px solid var(--border-subtle);margin-bottom:0;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,hsla(var(--ph),var(--ps),50%,0.04) 0%,transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.hero-tag{font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:0.25em;text-transform:uppercase;color:var(--primary);opacity:0.5;margin-bottom:12px}
+.hero h1{font-family:var(--f-display);font-size:clamp(28px,5vw,48px);font-weight:700;color:var(--primary);letter-spacing:6px;text-transform:uppercase;text-shadow:0 0 40px var(--primary-glow),0 0 80px hsla(var(--ph),var(--ps),50%,0.08);margin-bottom:8px}
+.hero-sub{font-family:var(--f-body);font-size:var(--t-base);color:var(--text-dim);max-width:640px;margin:0 auto}
+.hero-ver{font-family:var(--f-mono);font-size:var(--t-2xs);color:var(--text-muted);margin-top:16px;letter-spacing:2px}
+
+/* === NAV === */
+nav{position:sticky;top:0;z-index:200;background:hsla(220,35%,4%,0.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border-subtle);padding:6px var(--sp-2xl);display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{font-family:var(--f-nav);font-size:var(--t-xs);letter-spacing:0.04em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;padding:6px 12px;border:1px solid transparent;white-space:nowrap;transition:all var(--dur-fast) ease}
+nav a:hover{color:var(--primary);background:var(--primary-surface);border-color:var(--primary-ghost);text-shadow:0 0 8px var(--primary-glow)}
+
+/* === SECTION === */
+.sec{padding:var(--sp-4xl) 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.sec-id{font-family:var(--f-mono);font-size:var(--t-2xs);letter-spacing:0.2em;text-transform:uppercase;color:var(--primary);opacity:0.45;display:block;margin-bottom:4px}
+.sec h2{font-family:var(--f-display);font-size:clamp(20px,3vw,28px);font-weight:700;color:var(--text-max);letter-spacing:0.01em}
+.sec-desc{color:var(--text-dim);font-size:14px;margin-top:8px;max-width:720px;line-height:1.7}
+.sec-desc code{font-family:var(--f-mono);font-size:var(--t-sm);color:var(--primary);background:var(--primary-surface);padding:1px 6px}
+.sub{font-family:var(--f-body);font-size:var(--t-base);font-weight:600;color:var(--text-max);margin:32px 0 16px;padding-left:14px;border-left:2px solid var(--primary-dark)}
+
+/* === GRIDS === */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.g-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+@media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* === SWATCHES === */
+.sw{background:var(--bg-panel);border:1px solid rgba(255,255,255,0.04);overflow:hidden}
+.sw-color{height:56px}
+.sw-info{padding:10px 12px}
+.sw-name{font-family:var(--f-display);font-size:var(--t-3xs);letter-spacing:2px;text-transform:uppercase;color:var(--text-bright);margin-bottom:2px}
+.sw-token{font-family:var(--f-mono);font-size:var(--t-3xs);color:var(--primary-dim)}
+.sw-hex{font-family:var(--f-mono);font-size:var(--t-3xs);color:var(--text-muted);margin-top:2px}
+
+/* === TYPE SAMPLES === */
+.tsamp{margin-bottom:20px;padding:20px;background:var(--bg-panel);border:1px solid rgba(255,255,255,0.04)}
+.tsamp-label{font-family:var(--f-mono);font-size:var(--t-3xs);color:var(--primary-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.tsamp-meta{font-family:var(--f-mono);font-size:var(--t-3xs);color:var(--text-muted);margin-top:8px;display:flex;gap:16px;flex-wrap:wrap}
+
+/* === GUIDELINES === */
+.gl{background:var(--bg-panel);border-left:3px solid var(--primary);padding:16px 20px;margin-bottom:16px;position:relative}
+.gl::before{content:'';position:absolute;left:-3px;top:0;bottom:0;width:3px;box-shadow:0 0 8px var(--primary-glow)}
+.gl-t{font-family:var(--f-display);font-size:var(--t-2xs);letter-spacing:2px;text-transform:uppercase;color:var(--primary);margin-bottom:8px}
+.gl p{font-size:var(--t-sm);color:var(--text-body);line-height:1.7}
+.gl code{font-family:var(--f-mono);font-size:var(--t-sm);color:var(--primary);background:var(--primary-surface);padding:1px 6px}
+.gl-do{border-left-color:var(--success)}.gl-do::before{box-shadow:0 0 8px var(--success-glow)}.gl-do .gl-t{color:var(--success)}
+.gl-dn{border-left-color:var(--danger)}.gl-dn::before{box-shadow:0 0 8px var(--danger-glow)}.gl-dn .gl-t{color:var(--danger)}
+
+/* === TABLES === */
+.dtable{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
+.dtable th{font-family:var(--f-mono);font-size:var(--t-3xs);letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.06);font-weight:500}
+.dtable td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.02);color:var(--text-body);vertical-align:top}
+.dtable tr:hover td{background:var(--primary-surface)}
+.dtable code{font-family:var(--f-mono);font-size:var(--t-2xs);color:var(--primary);background:var(--primary-surface);padding:1px 4px}
+
+/* === CODE BLOCKS === */
+.cblock{background:hsla(220,35%,4%,0.9);border:1px solid rgba(255,255,255,0.04);padding:14px;font-family:var(--f-mono);font-size:12px;color:var(--text-dim);line-height:1.65;overflow-x:auto;white-space:pre}
+.cblock .kw{color:#c792ea}.cblock .fn{color:#82aaff}.cblock .str{color:#c3e88d}.cblock .num{color:#f78c6c}.cblock .cm{color:#546e7a}.cblock .ty{color:#ffcb6b}.cblock .acc{color:var(--primary)}
+
+/* === DO / DON'T GRID === */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.dd{grid-template-columns:1fr}}
+.dd-do,.dd-dn{border-radius:3px;padding:16px;font-size:var(--t-sm);line-height:1.7}
+.dd-do{background:rgba(0,255,136,0.02);border:1px solid rgba(0,255,136,0.1)}
+.dd-dn{background:rgba(255,51,85,0.02);border:1px solid rgba(255,51,85,0.1)}
+.dd-label{font-family:var(--f-display);font-size:var(--t-2xs);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.dd-do .dd-label{color:var(--success)}.dd-dn .dd-label{color:var(--danger)}
+
+/* === SPACING DEMOS === */
+.spd{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.spd-l{flex:0 0 50px;font-family:var(--f-mono);font-size:var(--t-2xs);color:var(--text-muted);text-align:right}
+.spd-b{height:20px;background:linear-gradient(90deg,var(--primary-20),var(--primary-surface));border:1px solid var(--primary-10)}
+.spd-v{font-family:var(--f-mono);font-size:var(--t-2xs);color:var(--text-muted)}
+
+/* === PANELS === */
+.pg{background:var(--bg-panel);border:1px solid var(--border-subtle);overflow:hidden;position:relative}
+.pg.glow{border-color:var(--border-med);box-shadow:0 0 12px hsla(var(--ph),var(--ps),50%,0.08),inset 0 0 12px hsla(var(--ph),var(--ps),50%,0.03)}
+.pg-h{background:var(--bg-panel-header);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-subtle)}
+.pg-h-title{font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-max)}
+.pg-h-ctrls{display:flex;gap:6px}
+.pg-h-btn{width:22px;height:22px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-dim);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--dur-fast) ease;font-family:var(--f-nav)}
+.pg-h-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-10)}
+.pg-h-btn.close:hover{border-color:var(--danger);color:var(--danger);background:var(--danger-ghost)}
+.pg-body{padding:16px}
+
+/* Layered header variant */
+.pg-lay{border:1px solid var(--border-med);box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.pg-lay .pg-h{background:linear-gradient(180deg,hsla(var(--ph),var(--ps),50%,0.06),hsla(var(--ph),var(--ps),50%,0.02));position:relative}
+.pg-lay .pg-h::after{content:'';position:absolute;bottom:-1px;left:20px;right:20px;height:1px;background:linear-gradient(90deg,transparent,var(--primary-glow),transparent)}
+
+/* Holographic variant (modals) */
+.pg-holo-w{position:relative;filter:drop-shadow(0 0 15px hsla(var(--ph),var(--ps),50%,0.08))}
+.pg-holo-w::before{content:'';position:absolute;inset:-4px;border:1px solid hsla(var(--ph),var(--ps),50%,0.04);pointer-events:none}
+.pg-holo{background:linear-gradient(135deg,hsla(218,28%,9%,0.98),hsla(218,28%,9%,0.95));border:1px solid var(--border-med);overflow:hidden;position:relative}
+.pg-holo::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 10%,var(--primary) 50%,transparent 90%);box-shadow:0 0 16px var(--primary-glow)}
+.pg-holo::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 20%,hsla(var(--ph),var(--ps),50%,0.3) 50%,transparent 80%)}
+
+/* Double-line frame variant */
+.pg-frame{border:1px solid var(--primary-15);outline:1px solid hsla(var(--ph),var(--ps),50%,0.06);outline-offset:3px}
+.pg-frame::before{content:'';position:absolute;inset:-1px;box-shadow:0 0 16px hsla(var(--ph),var(--ps),50%,0.06),inset 0 0 15px hsla(var(--ph),var(--ps),50%,0.02);pointer-events:none}
+
+/* Side accent variant (HUD) */
+.pg-side{border:1px solid var(--border-subtle);overflow:hidden;position:relative}
+.pg-side::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--primary),hsla(var(--ph),var(--ps),50%,0.2),var(--primary));box-shadow:0 0 12px var(--primary-glow)}
+.pg-side::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,hsla(var(--ph),var(--ps),50%,0.006) 2px,hsla(var(--ph),var(--ps),50%,0.006) 4px);pointer-events:none}
+
+/* === BUTTONS === */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--f-display);font-size:var(--t-2xs);letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all var(--dur-normal) var(--ease-out);border:1px solid;background:transparent;white-space:nowrap;position:relative;overflow:hidden}
+.btn-sm{padding:4px 12px;font-size:var(--t-3xs)}.btn-md{padding:8px 20px}.btn-lg{padding:12px 28px;font-size:var(--t-xs);letter-spacing:3px}
+.btn-p{color:var(--primary);border-color:hsla(var(--ph),var(--ps),50%,0.4)}
+.btn-p:hover{border-color:var(--primary);background:var(--primary-ghost);box-shadow:0 0 8px var(--primary-glow);text-shadow:0 0 8px var(--primary-glow)}
+.btn-s{color:var(--text-dim);border-color:rgba(255,255,255,0.1)}
+.btn-s:hover{color:var(--text-bright);border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.03)}
+.btn-d{color:var(--danger);border-color:rgba(255,51,85,0.3)}
+.btn-d:hover{border-color:var(--danger);background:var(--danger-ghost);box-shadow:0 0 8px var(--danger-glow)}
+.btn-ok{color:var(--success);border-color:rgba(0,255,136,0.3)}
+.btn-ok:hover{border-color:var(--success);background:var(--success-ghost);box-shadow:0 0 8px var(--success-glow)}
+.btn-w{color:var(--warning);border-color:rgba(255,184,0,0.3)}
+.btn-w:hover{border-color:var(--warning);background:var(--warning-ghost);box-shadow:0 0 8px var(--warning-glow)}
+.btn-g{color:var(--text-dim);border-color:transparent}
+.btn-g:hover{color:var(--primary);background:var(--primary-surface)}
+.btn-f{color:var(--bg-deep);background:var(--primary);border-color:var(--primary);font-weight:700}
+.btn-f:hover{background:var(--primary-bright);box-shadow:0 0 16px var(--primary-glow)}
+.btn:disabled,.btn.disabled{opacity:0.3;cursor:not-allowed;pointer-events:none;filter:grayscale(0.5)}
+.btn-icon{width:32px;height:32px;padding:0;justify-content:center;font-size:14px}
+.btn-icon.sm{width:24px;height:24px;font-size:11px}
+
+/* === TABS === */
+.tabs{display:flex;border-bottom:1px solid var(--border-subtle);gap:0}
+.tab{font-family:var(--f-body);font-size:12px;font-weight:500;padding:10px 20px;color:var(--text-dim);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all var(--dur-fast) ease;position:relative}
+.tab:hover{color:var(--text-bright);background:var(--primary-surface)}
+.tab.a{color:var(--primary);border-bottom-color:var(--primary);background:hsla(var(--ph),var(--ps),50%,0.03)}
+.tab.a::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:var(--primary);box-shadow:0 0 8px var(--primary-glow)}
+.tabs-side{display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,0.06)}
+.tab-s{font-family:var(--f-body);font-size:12px;font-weight:500;padding:10px 20px;color:var(--text-dim);background:transparent;border:none;border-left:2px solid transparent;cursor:pointer;transition:all var(--dur-fast) ease;text-align:left}
+.tab-s:hover{color:var(--text-bright);background:var(--primary-surface)}
+.tab-s.a{color:var(--primary);border-left-color:var(--primary);background:var(--primary-surface)}
+
+/* === DATA ROWS === */
+.dr{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.03);transition:background var(--dur-instant) ease}
+.dr:hover{background:var(--primary-surface)}
+.dr-l{font-family:var(--f-body);font-size:var(--t-base);font-weight:500;color:var(--text-body)}
+.dr-v{font-family:var(--f-mono);font-size:var(--t-sm);color:var(--primary)}
+.dr-alt{background:var(--row-alt)}
+
+/* === BARS === */
+.bar{width:100%;height:6px;background:rgba(255,255,255,0.04);overflow:hidden}
+.bar-f{height:100%;position:relative}.bar-f::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.12) 0%,transparent 60%)}
+.bar-h{background:linear-gradient(90deg,var(--success-dim),var(--success));box-shadow:0 0 8px var(--success-glow)}
+.bar-sh{background:linear-gradient(90deg,var(--info-dim),var(--info));box-shadow:0 0 8px var(--info-glow)}
+.bar-dg{background:linear-gradient(90deg,var(--danger-dim),var(--danger));box-shadow:0 0 8px var(--danger-glow)}
+.bar-wn{background:linear-gradient(90deg,var(--warning-dim),var(--warning));box-shadow:0 0 8px var(--warning-glow)}
+.bar-pr{background:linear-gradient(90deg,var(--primary-dim),var(--primary));box-shadow:0 0 8px var(--primary-glow)}
+
+/* HUD bars (with labels inside) */
+.hbar{position:relative;height:18px;background:rgba(0,0,0,0.4);overflow:hidden;border:1px solid rgba(255,255,255,0.04)}
+.hbar-f{height:100%;transition:width 0.4s ease;position:relative}
+.hbar-f::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.12) 0%,transparent 60%)}
+.hbar-val{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--f-mono);font-size:var(--t-2xs);color:var(--text-bright);text-shadow:0 1px 3px rgba(0,0,0,0.8);z-index:1}
+.hbar-name{position:absolute;left:6px;top:50%;transform:translateY(-50%);font-family:var(--f-mono);font-size:var(--t-3xs);color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;z-index:1}
+
+/* === BADGES === */
+.bdg{display:inline-flex;align-items:center;font-family:var(--f-display);font-size:var(--t-3xs);letter-spacing:2px;text-transform:uppercase;padding:2px 8px;border:1px solid}
+.bdg-p{color:var(--primary);border-color:var(--primary-15);background:var(--primary-ghost)}
+.bdg-s{color:var(--success);border-color:rgba(0,255,136,0.3);background:var(--success-ghost)}
+.bdg-w{color:var(--warning);border-color:rgba(255,184,0,0.3);background:var(--warning-ghost)}
+.bdg-d{color:var(--danger);border-color:rgba(255,51,85,0.3);background:var(--danger-ghost)}
+.bdg-i{color:var(--info);border-color:rgba(68,153,255,0.3);background:var(--info-ghost)}
+.bdg-n{color:var(--text-dim);border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.03)}
+
+/* === INPUTS === */
+.inp{font-family:var(--f-mono);font-size:var(--t-sm);color:var(--text-bright);background:var(--bg-input);border:1px solid var(--border-subtle);padding:9px 14px;outline:none;transition:all var(--dur-fast) ease;width:100%}
+.inp::placeholder{color:var(--text-muted)}
+.inp:focus{border-color:var(--primary);box-shadow:0 0 10px hsla(var(--ph),var(--ps),50%,0.12)}
+.inp.error{border-color:rgba(255,51,85,0.4);box-shadow:0 0 10px rgba(255,51,85,0.1)}
+
+/* === LIST ITEMS === */
+.li{display:flex;align-items:center;gap:12px;padding:8px 12px;border:1px solid transparent;transition:all var(--dur-instant) ease;cursor:pointer;position:relative}
+.li:hover{background:var(--row-hover);border-color:hsla(var(--ph),var(--ps),50%,0.04)}
+.li.sel{background:var(--row-selected);border-color:hsla(var(--ph),var(--ps),50%,0.06)}
+.li.sel::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:2px;background:var(--primary);border-radius:1px}
+.li.alt{background:var(--row-alt)}
+.li-icon{width:20px;height:20px;flex-shrink:0}
+.li-pri{font-size:var(--t-sm);color:var(--text-bright);flex:1}
+.li-sec{font-size:var(--t-xs);color:var(--text-dim)}
+
+/* === NOTIFICATIONS === */
+.notif{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid;font-size:var(--t-sm)}
+.notif-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.notif-info{border-color:var(--primary-15);background:var(--primary-surface)}.notif-info .notif-icon{color:var(--primary)}
+.notif-ok{border-color:rgba(0,255,136,0.2);background:rgba(0,255,136,0.03)}.notif-ok .notif-icon{color:var(--success)}
+.notif-warn{border-color:rgba(255,184,0,0.2);background:rgba(255,184,0,0.03)}.notif-warn .notif-icon{color:var(--warning)}
+.notif-err{border-color:rgba(255,51,85,0.2);background:rgba(255,51,85,0.03)}.notif-err .notif-icon{color:var(--danger)}
+
+/* === DROPDOWNS === */
+.dd-menu{background:var(--bg-panel);border:1px solid var(--border-med);padding:4px;min-width:180px;box-shadow:0 8px 32px rgba(0,0,0,0.6)}
+.dd-item{font-family:var(--f-body);font-size:12px;color:var(--text-dim);padding:7px 12px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all var(--dur-instant) ease}
+.dd-item:hover{background:var(--primary-10);color:var(--text-bright)}
+.dd-item .shortcut{margin-left:auto;font-family:var(--f-mono);font-size:var(--t-2xs);color:var(--text-muted)}
+.dd-sep{height:1px;background:rgba(255,255,255,0.04);margin:4px 0}
+
+/* === SPLITTER === */
+.splitter{background:var(--bg-panel-header);width:4px;cursor:col-resize;position:relative;flex-shrink:0;transition:background var(--dur-fast) ease}
+.splitter:hover{background:var(--primary-dim)}
+.splitter:hover::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:2px;height:32px;background:var(--primary);box-shadow:0 0 8px var(--primary-glow);border-radius:1px}
+.splitter-h{height:4px;width:100%;cursor:row-resize}
+
+/* === ICON GRID === */
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px}
+.icon-cell{display:flex;flex-direction:column;align-items:center;padding:12px 8px;background:var(--bg-panel);border:1px solid rgba(255,255,255,0.04);transition:all var(--dur-fast) ease}
+.icon-cell:hover{border-color:var(--border-subtle);background:var(--bg-elevated)}
+.icon-cell-glyph{font-size:24px;color:var(--primary);margin-bottom:6px}
+.icon-cell-name{font-family:var(--f-mono);font-size:var(--t-3xs);color:var(--text-muted);letter-spacing:0.04em}
+
+/* === RESIZE HANDLES === */
+.rh{position:absolute;background:transparent;z-index:10}
+.rh::after{content:'';position:absolute;background:var(--primary-dark);border-radius:1px;transition:background var(--dur-fast)}
+.rh:hover::after{background:var(--primary);box-shadow:0 0 6px var(--primary-glow)}
+.rh-r{right:-3px;top:0;bottom:0;width:6px;cursor:ew-resize}.rh-r::after{width:2px;height:32px;top:50%;transform:translateY(-50%);right:2px}
+.rh-b{bottom:-3px;left:0;right:0;height:6px;cursor:ns-resize}.rh-b::after{height:2px;width:32px;left:50%;transform:translateX(-50%);bottom:2px}
+.rh-c{right:-3px;bottom:-3px;width:14px;height:14px;cursor:nwse-resize}.rh-c::after{width:0;height:0;right:2px;bottom:2px;border-right:2px solid var(--primary-dark);border-bottom:2px solid var(--primary-dark);background:transparent;width:10px;height:10px}
+.rh-c:hover::after{border-color:var(--primary)}
+
+/* === THEME CONTROLS === */
+.tc{display:flex;gap:24px;flex-wrap:wrap;padding:20px;background:var(--bg-panel);border:1px solid rgba(255,255,255,0.04);align-items:flex-end}
+.tci{display:flex;flex-direction:column;gap:6px}
+.tci label{font-family:var(--f-mono);font-size:var(--t-3xs);color:var(--text-muted);letter-spacing:2px;text-transform:uppercase}
+.tci input[type=range]{-webkit-appearance:none;width:180px;height:4px;background:var(--bg-base);outline:none;border-radius:2px}
+.tci input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--primary);border-radius:50%;cursor:pointer;box-shadow:0 0 8px var(--primary-glow)}
+.mono{font-family:var(--f-mono);font-size:var(--t-sm);color:var(--primary)}
+
+/* === ANIM DEMOS === */
+.anim-pulse{width:16px;height:16px;border-radius:50%;background:var(--primary);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 4px var(--primary-glow);opacity:0.7}50%{box-shadow:0 0 16px var(--primary-glow),0 0 32px hsla(var(--ph),var(--ps),50%,0.15);opacity:1}}
+.anim-breathe{width:16px;height:16px;border-radius:50%;border:1px solid var(--primary);animation:breathe 4s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);border-color:var(--primary-dim)}50%{transform:scale(1.2);border-color:var(--primary)}}
+
+/* === SCIFI BUTTONS (mouse-tracking glow) === */
+.flow-panel{display:flex;flex-direction:column;overflow:hidden}
+.scifi-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-normal) var(--ease-out)}
+.scifi-btn:active{transform:scale(0.97)}
+.scifi-btn-glow{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity var(--dur-normal) ease;background:radial-gradient(circle 120px at var(--mx,50%) var(--my,50%),var(--glow-color,hsla(var(--ph),var(--ps),50%,0.4)),transparent 70%)}
+.scifi-btn:hover .scifi-btn-glow{opacity:1}
+.scifi-btn-text{position:relative;z-index:1;font-family:var(--f-display);letter-spacing:2px;text-transform:uppercase;pointer-events:none}
+
+/* Sizes */
+.scifi-sm{height:32px;padding:0 16px}.scifi-sm .scifi-btn-text{font-size:var(--t-3xs)}
+.scifi-md{height:40px;padding:0 24px}.scifi-md .scifi-btn-text{font-size:var(--t-2xs)}
+.scifi-lg{height:48px;padding:0 32px}.scifi-lg .scifi-btn-text{font-size:var(--t-xs);letter-spacing:3px}
+.scifi-icon{width:36px;height:36px;padding:0}.scifi-icon .scifi-btn-text{font-size:16px;letter-spacing:0}
+/* Default wide sizing if no size class */
+.scifi-btn:not(.scifi-sm):not(.scifi-md):not(.scifi-lg):not(.scifi-icon){height:48px;padding:0 32px}
+.scifi-btn:not(.scifi-sm):not(.scifi-md):not(.scifi-lg):not(.scifi-icon) .scifi-btn-text{font-size:var(--t-xs);letter-spacing:3px}
+
+/* Primary (outlined) */
+.scifi-primary{border:1px solid hsla(var(--ph),var(--ps),50%,0.35);background:transparent;color:var(--primary);--glow-color:hsla(var(--ph),var(--ps),50%,0.35)}
+.scifi-primary:hover{border-color:hsla(var(--ph),var(--ps),50%,0.6);box-shadow:0 0 20px hsla(var(--ph),var(--ps),50%,0.12),inset 0 0 20px hsla(var(--ph),var(--ps),50%,0.04)}
+.scifi-primary .scifi-btn-text{text-shadow:0 0 8px hsla(var(--ph),var(--ps),50%,0)}
+.scifi-primary:hover .scifi-btn-text{text-shadow:0 0 12px hsla(var(--ph),var(--ps),50%,0.4)}
+
+/* Filled (critical) */
+.scifi-filled{border:1px solid var(--primary);background:linear-gradient(135deg,hsla(var(--ph),var(--ps),50%,0.18),hsla(var(--ph),var(--ps),50%,0.08));color:var(--text-max);--glow-color:hsla(var(--ph),var(--ps),60%,0.5)}
+.scifi-filled:hover{border-color:var(--primary-bright);box-shadow:0 0 30px hsla(var(--ph),var(--ps),50%,0.2),inset 0 0 25px hsla(var(--ph),var(--ps),50%,0.08)}
+.scifi-filled .scifi-btn-text{font-weight:700}
+
+/* Secondary */
+.scifi-secondary{border:1px solid rgba(255,255,255,0.08);background:transparent;color:var(--text-dim);--glow-color:rgba(255,255,255,0.08)}
+.scifi-secondary:hover{border-color:rgba(255,255,255,0.2);color:var(--text-bright);box-shadow:0 0 12px rgba(255,255,255,0.04)}
+
+/* Danger */
+.scifi-danger{border:1px solid rgba(255,51,85,0.3);background:transparent;color:var(--danger);--glow-color:rgba(255,51,85,0.35)}
+.scifi-danger:hover{border-color:rgba(255,51,85,0.6);box-shadow:0 0 20px rgba(255,51,85,0.12),inset 0 0 20px rgba(255,51,85,0.04)}
+.scifi-danger:hover .scifi-btn-text{text-shadow:0 0 12px rgba(255,51,85,0.4)}
+
+/* Success */
+.scifi-success{border:1px solid rgba(0,255,136,0.3);background:transparent;color:var(--success);--glow-color:rgba(0,255,136,0.3)}
+.scifi-success:hover{border-color:rgba(0,255,136,0.6);box-shadow:0 0 20px rgba(0,255,136,0.12),inset 0 0 20px rgba(0,255,136,0.04)}
+.scifi-success:hover .scifi-btn-text{text-shadow:0 0 12px rgba(0,255,136,0.4)}
+
+/* Warning */
+.scifi-warning{border:1px solid rgba(255,184,0,0.3);background:transparent;color:var(--warning);--glow-color:rgba(255,184,0,0.3)}
+.scifi-warning:hover{border-color:rgba(255,184,0,0.6);box-shadow:0 0 20px rgba(255,184,0,0.12),inset 0 0 20px rgba(255,184,0,0.04)}
+
+/* Disabled */
+.scifi-disabled{opacity:0.3;cursor:not-allowed;pointer-events:none;filter:grayscale(0.5)}
+
+/* === INTERACTIVE RESIZE DEMO === */
+.resize-demo{position:relative;background:var(--bg-panel);border:1px solid var(--border-med);overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.resize-demo .corner-tl,.resize-demo .corner-tr,.resize-demo .corner-bl,.resize-demo .corner-br{position:absolute;width:14px;height:14px;z-index:5}
+.resize-demo .corner-tl{top:-1px;left:-1px;border-top:2px solid var(--primary-dim);border-left:2px solid var(--primary-dim);cursor:nw-resize}
+.resize-demo .corner-tr{top:-1px;right:-1px;border-top:2px solid var(--primary-dim);border-right:2px solid var(--primary-dim);cursor:ne-resize}
+.resize-demo .corner-bl{bottom:-1px;left:-1px;border-bottom:2px solid var(--primary-dim);border-left:2px solid var(--primary-dim);cursor:sw-resize}
+.resize-demo .corner-br{bottom:-1px;right:-1px;border-bottom:2px solid var(--primary-dim);border-right:2px solid var(--primary-dim);cursor:se-resize}
+.resize-demo:hover .corner-tl,.resize-demo:hover .corner-tr,.resize-demo:hover .corner-bl,.resize-demo:hover .corner-br{border-color:var(--primary)}
+
+/* === FLEX UTILS === */
+.fr{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.fc{display:flex;flex-direction:column;gap:8px}
+.lbl{font-family:var(--f-mono);font-size:var(--t-3xs);letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Design + Implementation Reference</div>
+  <h1>Beyond Horizon</h1>
+  <div class="hero-sub">Unified UI Design System — Colors, Typography, Components, Panels, Effects, Theming, and Unity Implementation</div>
+  <div class="hero-ver">v2.0 · February 2026 · Unity HDRP</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#tokens">Tokens</a>
+  <a href="#colors">Colors</a>
+  <a href="#type">Typography</a>
+  <a href="#spacing">Spacing</a>
+  <a href="#panels">Panels</a>
+  <a href="#splitters">Splitters</a>
+  <a href="#buttons">Buttons</a>
+  <a href="#inputs">Inputs</a>
+  <a href="#tabs">Tabs</a>
+  <a href="#lists">Lists</a>
+  <a href="#comps">Components</a>
+  <a href="#flows">Flows</a>
+  <a href="#icons">Icons</a>
+  <a href="#hud">HUD</a>
+  <a href="#resize">Resizable</a>
+  <a href="#hdrp">HDRP</a>
+  <a href="#anim">Animation</a>
+  <a href="#sound">Sound</a>
+  <a href="#theme">Theming</a>
+  <a href="#impl">Implementation</a>
+  <a href="#rules">Rules</a>
+</nav>
+
+<!-- 01 TOKENS -->
+<section class="sec" id="tokens">
+  <span class="sec-id">01</span><h2>Design Tokens</h2>
+  <p class="sec-desc">Every value is a token. HSL-based architecture allows the entire theme to shift via 3 hue values. Players control <code>--ph</code> (primary), <code>--sh</code> (secondary), <code>--ah</code> (accent). Everything derives automatically. Semantic colors are fixed constants.</p>
+  <div class="gl" style="margin-top:16px"><div class="gl-t">Token Architecture</div><p>Primary hue rotation drives: accent color, borders, glows, panel tints, text accents, button colors, scrollbar styling, and all interactive states. Background colors use a fixed <strong>dark navy</strong> base (hue 218–220°) that doesn't rotate — this ensures readability at any theme hue. Text lightness values are locked (32%–95%) guaranteeing 4.5:1 contrast. Semantic colors bypass the theme entirely.</p></div>
+</section>
+
+<!-- 02 COLORS -->
+<section class="sec" id="colors">
+  <span class="sec-id">02</span><h2>Color System</h2>
+
+  <h3 class="sub">Primary Palette (Themeable)</h3>
+  <div class="g-auto" style="margin-top:8px">
+    <div class="sw"><div class="sw-color" style="background:var(--primary);box-shadow:inset 0 0 20px hsla(var(--ph),var(--ps),50%,0.3);"></div><div class="sw-info"><div class="sw-name">Primary</div><div class="sw-token">--primary</div><div class="sw-hex">#00FFFF · hsl(180,100%,50%)</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--primary-bright)"></div><div class="sw-info"><div class="sw-name">Bright</div><div class="sw-token">--primary-bright</div><div class="sw-hex">hsl(180,100%,65%)</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--primary-dim)"></div><div class="sw-info"><div class="sw-name">Dim</div><div class="sw-token">--primary-dim</div><div class="sw-hex">hsl(180,100%,30%)</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--primary-glow);border:1px solid var(--primary-15)"></div><div class="sw-info"><div class="sw-name">Glow</div><div class="sw-token">--primary-glow</div><div class="sw-hex">Alpha: 0.35 — Bloom/shadow</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--primary-ghost);border:1px solid var(--primary-10)"></div><div class="sw-info"><div class="sw-name">Ghost</div><div class="sw-token">--primary-ghost</div><div class="sw-hex">Alpha: 0.08 — Hover tint</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--primary-surface);border:1px solid hsla(var(--ph),var(--ps),50%,0.06)"></div><div class="sw-info"><div class="sw-name">Surface</div><div class="sw-token">--primary-surface</div><div class="sw-hex">Alpha: 0.04 — Background tint</div></div></div>
+  </div>
+
+  <h3 class="sub">Secondary & Accent (Themeable)</h3>
+  <div class="g-auto" style="margin-top:8px">
+    <div class="sw"><div class="sw-color" style="background:var(--secondary)"></div><div class="sw-info"><div class="sw-name">Secondary</div><div class="sw-token">--secondary</div><div class="sw-hex">hsl(220,60%,55%)</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--accent);box-shadow:inset 0 0 15px var(--accent-glow)"></div><div class="sw-info"><div class="sw-name">Accent</div><div class="sw-token">--accent</div><div class="sw-hex">hsl(35,100%,55%)</div></div></div>
+  </div>
+
+  <h3 class="sub">Backgrounds (Dark Navy — Fixed)</h3>
+  <div class="g-auto" style="margin-top:8px">
+    <div class="sw"><div class="sw-color" style="background:var(--bg-deep)"></div><div class="sw-info"><div class="sw-name">Deep</div><div class="sw-token">--bg-deep</div><div class="sw-hex">hsl(220,35%,4%)</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--bg-base)"></div><div class="sw-info"><div class="sw-name">Base</div><div class="sw-token">--bg-base</div><div class="sw-hex">hsl(220,30%,6%)</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--bg-panel)"></div><div class="sw-info"><div class="sw-name">Panel</div><div class="sw-token">--bg-panel</div><div class="sw-hex">hsl(218,28%,9%)</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--bg-elevated)"></div><div class="sw-info"><div class="sw-name">Elevated</div><div class="sw-token">--bg-elevated</div><div class="sw-hex">hsl(216,25%,12%)</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--bg-hover)"></div><div class="sw-info"><div class="sw-name">Hover</div><div class="sw-token">--bg-hover</div><div class="sw-hex">hsl(214,22%,15%)</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--bg-active)"></div><div class="sw-info"><div class="sw-name">Active</div><div class="sw-token">--bg-active</div><div class="sw-hex">hsl(212,20%,18%)</div></div></div>
+  </div>
+
+  <h3 class="sub">Text Scale</h3>
+  <div class="g-auto" style="margin-top:8px">
+    <div class="sw"><div class="sw-color" style="background:var(--text-max)"></div><div class="sw-info"><div class="sw-name">Maximum</div><div class="sw-token">--text-max</div><div class="sw-hex">L:95% — Titles</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--text-bright)"></div><div class="sw-info"><div class="sw-name">Bright</div><div class="sw-token">--text-bright</div><div class="sw-hex">L:88% — Primary content</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--text-body)"></div><div class="sw-info"><div class="sw-name">Body</div><div class="sw-token">--text-body</div><div class="sw-hex">L:72% — Default text</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--text-dim)"></div><div class="sw-info"><div class="sw-name">Dim</div><div class="sw-token">--text-dim</div><div class="sw-hex">L:48% — Labels</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--text-muted)"></div><div class="sw-info"><div class="sw-name">Muted</div><div class="sw-token">--text-muted</div><div class="sw-hex">L:32% — Disabled</div></div></div>
+  </div>
+
+  <h3 class="sub">Semantic Colors (Fixed — Never Themed)</h3>
+  <div class="g-auto" style="margin-top:8px">
+    <div class="sw"><div class="sw-color" style="background:var(--success);box-shadow:inset 0 0 15px rgba(0,255,136,0.2)"></div><div class="sw-info"><div class="sw-name">Success</div><div class="sw-token">--success</div><div class="sw-hex">#00FF88 — Health, ready</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--warning);box-shadow:inset 0 0 15px rgba(255,184,0,0.2)"></div><div class="sw-info"><div class="sw-name">Warning</div><div class="sw-token">--warning</div><div class="sw-hex">#FFB800 — Caution</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--danger);box-shadow:inset 0 0 15px rgba(255,51,85,0.2)"></div><div class="sw-info"><div class="sw-name">Danger</div><div class="sw-token">--danger</div><div class="sw-hex">#FF3355 — Damage, cost</div></div></div>
+    <div class="sw"><div class="sw-color" style="background:var(--info);box-shadow:inset 0 0 15px rgba(68,153,255,0.2)"></div><div class="sw-info"><div class="sw-name">Info</div><div class="sw-token">--info</div><div class="sw-hex">#4499FF — Shield, links</div></div></div>
+  </div>
+
+  <h3 class="sub">Border Scale</h3>
+  <div class="g3" style="margin-top:8px">
+    <div style="padding:20px;border:1px solid var(--border-subtle);background:var(--bg-panel)"><div class="lbl">Subtle (0.08)</div><div style="font-family:var(--f-mono);font-size:10px;color:var(--text-muted)">Inactive borders, dividers</div></div>
+    <div style="padding:20px;border:1px solid var(--border-med);background:var(--bg-panel)"><div class="lbl">Medium (0.18)</div><div style="font-family:var(--f-mono);font-size:10px;color:var(--text-muted)">Active panels, focus</div></div>
+    <div style="padding:20px;border:1px solid var(--border-bright);background:var(--bg-panel);box-shadow:0 0 12px var(--primary-glow)"><div class="lbl">Bright (0.45)</div><div style="font-family:var(--f-mono);font-size:10px;color:var(--text-muted)">Modal, emphasis, glow</div></div>
+  </div>
+</section>
+
+<!-- 03 TYPOGRAPHY -->
+<section class="sec" id="type">
+  <span class="sec-id">03</span><h2>Typography</h2>
+  <p class="sec-desc">Three primary font families. Orbitron for display authority. Rajdhani for readable body text and tabs. Share Tech Mono for data precision. Share Tech for navigation menus.</p>
+
+  <h3 class="sub">Font Assignment Rules</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Context</th><th>Font</th><th>Weight</th><th>Never Use</th></tr></thead>
+    <tbody>
+      <tr><td>Panel titles / headers</td><td style="color:var(--primary)">Orbitron</td><td>600–700</td><td>Rajdhani</td></tr>
+      <tr><td>Body / descriptions</td><td style="color:var(--primary)">Rajdhani</td><td>400–500</td><td>Orbitron, Mono</td></tr>
+      <tr><td>Button labels</td><td style="color:var(--primary)">Orbitron</td><td>500–600</td><td>Rajdhani</td></tr>
+      <tr><td>Tab labels</td><td style="color:var(--primary)">Rajdhani</td><td>500–600</td><td>Orbitron</td></tr>
+      <tr><td>Nav / menus</td><td style="color:var(--primary)">Share Tech</td><td>400</td><td>Orbitron</td></tr>
+      <tr><td>Data values / stats</td><td style="color:var(--primary)">Share Tech Mono</td><td>400</td><td>Rajdhani</td></tr>
+      <tr><td>Column headers / labels</td><td style="color:var(--primary)">Share Tech Mono</td><td>400</td><td>Rajdhani</td></tr>
+      <tr><td>HUD stats / timers</td><td style="color:var(--primary)">Share Tech Mono</td><td>400–700</td><td>Rajdhani</td></tr>
+      <tr><td>Chat messages</td><td style="color:var(--primary)">Rajdhani</td><td>500</td><td>Orbitron</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Type Scale Samples</h3>
+  <div class="tsamp"><div class="tsamp-label">Display XL — Page Headers</div><div style="font-family:var(--f-display);font-size:32px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--primary);text-shadow:0 0 30px var(--primary-glow)">FLEET COMMAND</div><div class="tsamp-meta"><span>Orbitron 700</span><span>32px</span><span>Spacing: 6px</span><span>UPPERCASE</span></div></div>
+  <div class="tsamp"><div class="tsamp-label">Display LG — Section Headers</div><div style="font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--text-max)">ANDIL OARIR</div><div class="tsamp-meta"><span>Orbitron 700</span><span>24px</span><span>Spacing: 4px</span></div></div>
+  <div class="tsamp"><div class="tsamp-label">Display MD — Sub-headers</div><div style="font-family:var(--f-display);font-size:20px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-max)">Technology Research</div><div class="tsamp-meta"><span>Orbitron 600</span><span>20px</span><span>Spacing: 3px</span></div></div>
+  <div class="tsamp"><div class="tsamp-label">Display SM — Panel Titles, Buttons</div><div style="font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-max)">Ship Configuration</div><div class="tsamp-meta"><span>Orbitron 600</span><span>12px</span><span>Spacing: 0.06em</span></div></div>
+  <div class="tsamp"><div class="tsamp-label">Heading — Category Headers</div><div style="font-family:var(--f-body);font-size:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-bright)">INSTALLATION INFORMATION</div><div class="tsamp-meta"><span>Rajdhani 700</span><span>20px</span><span>Spacing: 1px</span></div></div>
+  <div class="tsamp"><div class="tsamp-label">Body — General Content</div><div style="font-size:15px;font-weight:500;color:var(--text-body);line-height:1.5">Your civilization awakens to itself. Knowledge once lost is rediscovered, myths become science, and the sky shifts from boundary to invitation.</div><div class="tsamp-meta"><span>Rajdhani 500</span><span>15px</span><span>Line-height: 1.5</span></div></div>
+  <div class="tsamp"><div class="tsamp-label">Mono Data — Numbers & Stats</div><div style="font-family:var(--f-mono);font-size:13px;color:var(--primary);letter-spacing:1px">6,205,940,079 &nbsp;|&nbsp; 370,000 / 370,000 &nbsp;|&nbsp; 0d 0h 1m</div><div class="tsamp-meta"><span>Share Tech Mono</span><span>13px</span><span>Spacing: 1px</span><span>Color: --primary</span></div></div>
+  <div class="tsamp"><div class="tsamp-label">Mono Label — Column Headers</div><div style="font-family:var(--f-mono);font-size:11px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase">UNIT NAME &nbsp;&nbsp; HEALTH &nbsp;&nbsp; STATUS &nbsp;&nbsp; SHARE STATUS</div><div class="tsamp-meta"><span>Share Tech Mono</span><span>11px</span><span>Spacing: 2px</span><span>UPPERCASE</span></div></div>
+  <div class="tsamp"><div class="tsamp-label">Data Value LG — Hero Stats</div><div style="font-family:var(--f-display);font-size:24px;font-weight:700;color:var(--primary);text-shadow:0 0 8px var(--primary-glow)">3,233</div><div class="tsamp-meta"><span>Orbitron 700</span><span>24px</span><span>Glow shadow</span></div></div>
+  <div class="tsamp"><div class="tsamp-label">Tab / Nav — Navigation Items</div><div style="font-family:var(--f-body);font-size:12px;font-weight:600;color:var(--text-dim);letter-spacing:0.04em">Overview &nbsp;&nbsp; Ships &nbsp;&nbsp; Loadout &nbsp;&nbsp; Routes</div><div class="tsamp-meta"><span>Rajdhani SemiBold</span><span>12px</span><span>Spacing: 0.04em</span></div></div>
+</section>
+
+<!-- 04 SPACING -->
+<section class="sec" id="spacing">
+  <span class="sec-id">04</span><h2>Spacing, Sizing & Layout</h2>
+  <p class="sec-desc">Canvas: 1920×1080, "Scale With Screen Size". 8px base grid with half-steps. All panels follow offset rules.</p>
+
+  <h3 class="sub">Spacing Scale</h3>
+  <div style="margin-top:8px">
+    <div class="spd"><span class="spd-l">2xs</span><div class="spd-b" style="width:2px"></div><span class="spd-v">2px — Hairline gaps</span></div>
+    <div class="spd"><span class="spd-l">xs</span><div class="spd-b" style="width:4px"></div><span class="spd-v">4px — Icon gaps</span></div>
+    <div class="spd"><span class="spd-l">sm</span><div class="spd-b" style="width:8px"></div><span class="spd-v">8px — List items, tight</span></div>
+    <div class="spd"><span class="spd-l">md</span><div class="spd-b" style="width:12px"></div><span class="spd-v">12px — Content padding</span></div>
+    <div class="spd"><span class="spd-l">lg</span><div class="spd-b" style="width:16px"></div><span class="spd-v">16px — Panel body padding</span></div>
+    <div class="spd"><span class="spd-l">xl</span><div class="spd-b" style="width:24px"></div><span class="spd-v">24px — Major sections</span></div>
+    <div class="spd"><span class="spd-l">2xl</span><div class="spd-b" style="width:32px"></div><span class="spd-v">32px — Panel margins</span></div>
+    <div class="spd"><span class="spd-l">3xl</span><div class="spd-b" style="width:48px"></div><span class="spd-v">48px — Page sections</span></div>
+    <div class="spd"><span class="spd-l">4xl</span><div class="spd-b" style="width:64px"></div><span class="spd-v">64px — Page-level spacing</span></div>
+  </div>
+
+  <h3 class="sub">Panel Padding Rules</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Element</th><th>Top</th><th>Right</th><th>Bottom</th><th>Left</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Panel Header</td><td>10</td><td>16</td><td>10</td><td>16</td><td>All panels</td></tr>
+      <tr><td>Panel Body</td><td>16</td><td>16</td><td>16</td><td>16</td><td>Standard content</td></tr>
+      <tr><td>Panel Footer</td><td>8</td><td>16</td><td>8</td><td>16</td><td>Thinner than header</td></tr>
+      <tr><td>Tab Item</td><td>10</td><td>20</td><td>10</td><td>20</td><td>Generous horizontal</td></tr>
+      <tr><td>List Item</td><td>8</td><td>12</td><td>8</td><td>12</td><td>Tight vertical</td></tr>
+      <tr><td>Button</td><td>8</td><td>20</td><td>8</td><td>20</td><td>Wide horizontal</td></tr>
+      <tr><td>Input Field</td><td>9</td><td>14</td><td>9</td><td>14</td><td>Slight extra vertical</td></tr>
+      <tr><td>Modal Content</td><td>24</td><td>24</td><td>24</td><td>24</td><td>Generous breathing room</td></tr>
+      <tr><td>HUD Bar</td><td>0</td><td>6</td><td>0</td><td>6</td><td>Data-dense, minimal</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Container Widths</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Container</th><th>Width</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>Full Panel</td><td>Screen fill, 40–60px margin</td><td>Build, Tech, VIX, Settings</td></tr>
+      <tr><td>Large Panel</td><td>600–900px</td><td>Fleet, Social, Mail (resizable)</td></tr>
+      <tr><td>Medium Panel</td><td>360–500px</td><td>System info, chat, notepad</td></tr>
+      <tr><td>Small Dialog</td><td>350–480px</td><td>Confirmations, send ships</td></tr>
+      <tr><td>Sidebar</td><td>140–220px</td><td>Nav sidebar within panels</td></tr>
+      <tr><td>Card</td><td>200–320px</td><td>Ship cards, planet info</td></tr>
+      <tr><td>Tooltip</td><td>200–320px max</td><td>Hover info</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 05 PANELS -->
+<section class="sec" id="panels">
+  <span class="sec-id">05</span><h2>Panels & Layouts</h2>
+  <p class="sec-desc">All panels use <code>ThemeablePanel</code> with PanelGlow shader. <code>Image.color = WHITE</code> — shader handles tinting. Four visual styles serve different panel roles.</p>
+
+  <h3 class="sub">Style 1: Layered Header — Main Panels</h3>
+  <p class="sec-desc" style="margin-bottom:12px">Fleet Command, Social, Mail, Build, Tech, VIX. Distinct header zone with glowing separator, tab support.</p>
+  <div class="pg pg-lay glow" style="margin-top:8px">
+    <div class="pg-h"><span class="pg-h-title">Fleet Command</span><div class="pg-h-ctrls"><button class="pg-h-btn">─</button><button class="pg-h-btn">□</button><button class="pg-h-btn close">✕</button></div></div>
+    <div class="tabs"><button class="tab a">All Units</button><button class="tab">Stations</button><button class="tab">Ships</button></div>
+    <div class="pg-body">
+      <div class="dr"><span class="dr-l">VX-6C Vulcan</span><span class="dr-v">3,233</span></div>
+      <div class="dr"><span class="dr-l">VX-6A Tyrant</span><span class="dr-v">1</span></div>
+      <div class="dr"><span class="dr-l">VX-6C Apex</span><span class="dr-v">2</span></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Style 2: Holographic — Modals & Confirmations</h3>
+  <p class="sec-desc" style="margin-bottom:12px">Send Ships, Destroy, Confirm Listing. Floating with ghost frame, top/bottom accent beams.</p>
+  <div style="background:var(--bg-overlay);padding:40px;display:flex;justify-content:center;margin-top:8px">
+    <div class="pg-holo-w" style="max-width:380px;width:100%"><div class="pg pg-holo">
+      <div style="padding:24px;text-align:center">
+        <div style="font-family:var(--f-display);font-size:20px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-max);margin-bottom:20px">Send Ships</div>
+        <div class="dr"><span class="dr-l">EX-1A Vibz</span><span class="dr-v">2 / 2</span></div>
+        <div class="dr"><span class="dr-l">KX-5A Warlord</span><span class="dr-v">2 / 2</span></div>
+        <div class="fr" style="justify-content:center;margin-top:20px"><button class="btn btn-md btn-s">Cancel</button><button class="btn btn-md btn-p">Confirm</button></div>
+      </div>
+    </div></div>
+  </div>
+
+  <h3 class="sub">Style 3: Double-Line Frame — Data Panels</h3>
+  <p class="sec-desc" style="margin-bottom:12px">System info, planet lists, installations. Two nested borders with soft glow between.</p>
+  <div class="pg pg-frame" style="max-width:360px;margin-top:8px">
+    <div style="padding:20px">
+      <div style="font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-bright);margin-bottom:16px">System Info</div>
+      <div class="dr"><span class="dr-l">Region</span><span class="dr-v">[227, 239]</span></div>
+      <div class="dr"><span class="dr-l">Planets</span><span class="dr-v">8</span></div>
+      <div class="dr"><span class="dr-l">Owner</span><span class="dr-v">Emperor</span></div>
+      <div class="dr"><span class="dr-l">Status</span><span class="bdg bdg-s">Controlled</span></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Style 4: Side Accent + Scanlines — HUD Elements</h3>
+  <p class="sec-desc" style="margin-bottom:12px">Tooltips, ship cards, notepad header, coordinate displays. Left glow bar with subtle CRT scanlines.</p>
+  <div class="pg pg-side" style="max-width:280px;margin-top:8px">
+    <div style="padding:16px 16px 16px 24px">
+      <div style="font-family:var(--f-display);font-size:15px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Andil Oarir</div>
+      <div class="mono" style="margin-bottom:4px">[227, 239]</div>
+      <div style="font-size:13px;color:var(--text-dim)">Current System</div>
+    </div>
+  </div>
+
+  <h3 class="sub">Sidebar + Content Layout</h3>
+  <div class="pg glow" style="margin-top:8px;display:flex;min-height:160px">
+    <div style="width:160px;border-right:1px solid var(--border-subtle);padding:8px 0">
+      <div class="lbl" style="padding:4px 12px">Navigation</div>
+      <div class="li sel"><span class="li-pri" style="color:var(--primary)">Overview</span></div>
+      <div class="li"><span class="li-pri">Inventory</span></div>
+      <div class="li"><span class="li-pri">Market</span></div>
+      <div class="li"><span class="li-pri">Fitting</span></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column">
+      <div class="pg-h" style="border-bottom:1px solid var(--border-subtle)"><span class="pg-h-title" style="font-size:11px">Overview · Fleet Status</span></div>
+      <div style="flex:1;padding:16px;color:var(--text-dim);font-size:13px">Main content area (flex: 1). Sidebar stays fixed width.</div>
+      <div style="padding:8px 16px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted)"><span>3 ships docked</span><span style="color:var(--primary)">● Online</span></div>
+    </div>
+  </div>
+
+  <h3 class="sub">PanelGlow Shader Properties</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Property</th><th>Default</th><th>Range</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>_PanelColor</code></td><td>From theme</td><td>—</td><td>Background fill color</td></tr>
+      <tr><td><code>_BorderColor</code></td><td>Primary</td><td>—</td><td>Glow/border color from theme</td></tr>
+      <tr><td><code>_GlowIntensity</code></td><td>0.8</td><td>0–3.0</td><td>Border glow brightness</td></tr>
+      <tr><td><code>_GlowWidth</code></td><td>0.02</td><td>0–0.1</td><td>Glow thickness (UV space)</td></tr>
+      <tr><td><code>_GlowFalloff</code></td><td>3.0</td><td>0.5–10</td><td>Fade speed from edge</td></tr>
+      <tr><td>Side toggles</td><td>All on</td><td>bool</td><td>Per-side glow enable (T/R/B/L)</td></tr>
+      <tr><td>Corner toggles</td><td>All on</td><td>bool</td><td>Per-corner glow enable</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Panel Style Assignment</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Panel</th><th>Style</th><th>Fixed / Resizable</th></tr></thead>
+    <tbody>
+      <tr><td>Fleet Command, Build Menu, Tech Tree, VIX Exchange, Settings</td><td style="color:var(--primary)">Layered Header</td><td>Full-page (fixed)</td></tr>
+      <tr><td>Chat, Mail, Social/Guild, Notepad</td><td style="color:var(--primary)">Layered Header</td><td>Resizable + draggable</td></tr>
+      <tr><td>Send Ships, Destroy, Confirm Listing, Exit Menu</td><td style="color:var(--primary)">Holographic</td><td>Modal (fixed center)</td></tr>
+      <tr><td>System Info, Planet List, Installations</td><td style="color:var(--primary)">Double-Line Frame</td><td>Medium (draggable)</td></tr>
+      <tr><td>Coordinate display, Ship cards, HUD tooltips</td><td style="color:var(--primary)">Side Accent</td><td>Small (fixed position)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 06 SPLITTERS -->
+<section class="sec" id="splitters">
+  <span class="sec-id">06</span><h2>Panel Splitters</h2>
+  <p class="sec-desc">Splitters divide panels into resizable sub-regions — like the left/right split on the VX-9 Vanguard ship detail panel. Players drag the divider to adjust proportions.</p>
+
+  <h3 class="sub">Vertical Splitter (Left ↔ Right)</h3>
+  <div class="pg glow" style="margin-top:8px;display:flex;min-height:200px">
+    <div style="flex:1;min-width:120px">
+      <div class="pg-h"><span class="pg-h-title">VX-9 Vanguard</span></div>
+      <div class="tabs"><button class="tab a">Status</button><button class="tab">Details</button></div>
+      <div style="padding:16px">
+        <div style="font-family:var(--f-body);font-size:14px;font-weight:600;color:var(--text-bright);margin-bottom:8px">VX-9 Vanguard</div>
+        <div style="font-size:12px;color:var(--text-dim)">Command Ship</div>
+        <div style="font-size:12px;color:var(--text-dim)">Owned by Admin</div>
+        <div class="bdg bdg-n" style="margin-top:8px">Not Shared</div>
+      </div>
+    </div>
+    <!-- SPLITTER -->
+    <div class="splitter" title="Drag to resize"></div>
+    <!-- RIGHT CONTENT -->
+    <div style="flex:1.5;min-width:200px;display:flex;flex-direction:column">
+      <div style="padding:8px 12px;background:var(--bg-panel-header);border-bottom:1px solid var(--border-subtle)">
+        <div style="display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;letter-spacing:0.06em;text-transform:uppercase">
+          <span style="color:var(--text-dim)">Hull: <span style="color:var(--success)">100%</span></span>
+          <span style="color:var(--text-dim)">Shield: <span style="color:var(--info)">100%</span></span>
+        </div>
+      </div>
+      <div style="padding:8px 12px;flex:1;overflow-y:auto">
+        <div style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-bright);padding:6px 0;border-bottom:1px solid var(--border-subtle);margin-bottom:4px">Weapon Systems</div>
+        <div class="dr" style="padding:4px 0"><span class="dr-l" style="font-size:13px">TL-5</span><span class="dr-v" style="font-size:12px">x10</span></div>
+        <div class="dr" style="padding:4px 0"><span class="dr-l" style="font-size:13px">ION-3</span><span class="dr-v" style="font-size:12px">x2</span></div>
+        <div class="dr" style="padding:4px 0"><span class="dr-l" style="font-size:13px">HM-4</span><span class="dr-v" style="font-size:12px">x4</span></div>
+        <div class="dr" style="padding:4px 0"><span class="dr-l" style="font-size:13px">AM-5</span><span class="dr-v" style="font-size:12px">x4</span></div>
+        <div style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-bright);padding:6px 0;border-bottom:1px solid var(--border-subtle);margin-top:8px;margin-bottom:4px">Installation Information</div>
+        <div class="dr" style="padding:4px 0"><span class="dr-l" style="font-size:13px">Size</span><span class="dr-v" style="font-size:12px">24</span></div>
+        <div class="dr" style="padding:4px 0"><span class="dr-l" style="font-size:13px">Hull</span><span class="dr-v" style="font-size:12px">1,000,000</span></div>
+        <div class="dr" style="padding:4px 0"><span class="dr-l" style="font-size:13px">Shield</span><span class="dr-v" style="font-size:12px">4,000,000</span></div>
+        <div class="dr" style="padding:4px 0"><span class="dr-l" style="font-size:13px">Speed</span><span class="dr-v" style="font-size:12px">18</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">Horizontal Splitter (Top ↕ Bottom)</h3>
+  <div class="pg glow" style="margin-top:8px;min-height:180px;display:flex;flex-direction:column">
+    <div style="flex:1;padding:16px"><div class="lbl">Top Region</div><div style="font-size:13px;color:var(--text-dim)">Primary content — list, map, etc.</div></div>
+    <div class="splitter splitter-h" title="Drag to resize" style="width:100%;height:4px;cursor:row-resize"></div>
+    <div style="flex:0.6;padding:16px"><div class="lbl">Bottom Region</div><div style="font-size:13px;color:var(--text-dim)">Detail pane, console, log output.</div></div>
+  </div>
+
+  <h3 class="sub">Splitter Specifications</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Property</th><th>Vertical</th><th>Horizontal</th></tr></thead>
+    <tbody>
+      <tr><td>Visual width</td><td>4px</td><td>4px (height)</td></tr>
+      <tr><td>Hit area</td><td>12px (extend 4px each side)</td><td>12px</td></tr>
+      <tr><td>Idle color</td><td><code>--bg-panel-header</code></td><td><code>--bg-panel-header</code></td></tr>
+      <tr><td>Hover color</td><td><code>--primary-dim</code></td><td><code>--primary-dim</code></td></tr>
+      <tr><td>Active (dragging)</td><td><code>--primary</code> + glow</td><td><code>--primary</code> + glow</td></tr>
+      <tr><td>Grab indicator</td><td>2×32px pill, centered</td><td>32×2px pill, centered</td></tr>
+      <tr><td>Cursor</td><td><code>col-resize</code></td><td><code>row-resize</code></td></tr>
+      <tr><td>Min pane size</td><td>120px per side</td><td>80px per side</td></tr>
+    </tbody>
+  </table>
+
+  <div class="gl" style="margin-top:16px"><div class="gl-t">Splitter Behavior</div><p>
+    Splitters follow the cursor exactly during drag (no transition). On hover, the grab indicator pill fades in over <code>150ms</code>. While dragging, splitter brightens to <code>--primary</code> with glow. Content in both panes reflows live. If a pane hits its minimum size (120px for vertical, 80px for horizontal), the splitter stops — same rubber-band feedback as resize handles (4px over-drag, spring back 150ms). Save splitter positions per panel to player preferences.
+  </p></div>
+
+  <div class="gl"><div class="gl-t">Unity Implementation</div><p>
+    Use a child RectTransform as the splitter handle. On drag, adjust <code>flexibleWidth</code> / <code>flexibleHeight</code> of sibling LayoutElements, or directly adjust <code>sizeDelta</code>. For Flexalon: use a <code>FlexalonFlexibleLayout</code> with the splitter modifying the <code>basis</code> values of each child. Ensure <code>LayoutRebuilder.ForceRebuildLayoutImmediate</code> is called on the parent during drag for smooth reflow.
+  </p></div>
+</section>
+
+<!-- 07 BUTTONS -->
+<section class="sec" id="buttons">
+  <span class="sec-id">07</span><h2>Buttons & States</h2>
+  <p class="sec-desc">All buttons use <code>SciFiButton</code> shader with reference material <code>MAT_SciFiButton_Filled</code>. Features an outer glow that tracks mouse position — brightening near the cursor to create a reactive, tactile feel. Default style is outlined (transparent fill). Filled reserved for single critical action per panel.</p>
+
+  <h3 class="sub">SciFiButton Outer Glow Effect</h3>
+  <p class="sec-desc" style="margin-bottom:12px">The glow follows the mouse cursor position across the button surface. As the mouse enters, a radial highlight appears at the cursor location and moves in real-time. This is handled by the shader — CSS below simulates the effect.</p>
+
+  <!-- Wide Button Demos with mouse-tracking glow -->
+  <div class="fc" style="gap:16px;margin-top:12px">
+    <div class="lbl">Primary Outlined — 400px (Hover to see glow track)</div>
+    <div class="scifi-btn scifi-primary" style="width:400px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)">
+      <span class="scifi-btn-glow"></span>
+      <span class="scifi-btn-text">Launch Fleet</span>
+    </div>
+
+    <div class="lbl">Filled (Critical Action) — 400px</div>
+    <div class="scifi-btn scifi-filled" style="width:400px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)">
+      <span class="scifi-btn-glow"></span>
+      <span class="scifi-btn-text">Build Station</span>
+    </div>
+
+    <div class="lbl">Danger — 400px</div>
+    <div class="scifi-btn scifi-danger" style="width:400px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)">
+      <span class="scifi-btn-glow"></span>
+      <span class="scifi-btn-text">Self Destruct</span>
+    </div>
+
+    <div class="lbl">Success / Confirm — 400px</div>
+    <div class="scifi-btn scifi-success" style="width:400px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)">
+      <span class="scifi-btn-glow"></span>
+      <span class="scifi-btn-text">Confirm Transaction</span>
+    </div>
+
+    <div class="lbl">Warning — 400px</div>
+    <div class="scifi-btn scifi-warning" style="width:400px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)">
+      <span class="scifi-btn-glow"></span>
+      <span class="scifi-btn-text">Undock Anyway</span>
+    </div>
+
+    <div class="lbl">Secondary — 400px</div>
+    <div class="scifi-btn scifi-secondary" style="width:400px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)">
+      <span class="scifi-btn-glow"></span>
+      <span class="scifi-btn-text">View Details</span>
+    </div>
+  </div>
+
+  <h3 class="sub">Standard Sizes</h3>
+  <div class="fr" style="margin-top:8px;align-items:center;gap:12px;flex-wrap:wrap">
+    <div class="scifi-btn scifi-primary scifi-sm" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Small</span></div>
+    <div class="scifi-btn scifi-primary scifi-md" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Medium</span></div>
+    <div class="scifi-btn scifi-primary scifi-lg" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Large</span></div>
+  </div>
+
+  <h3 class="sub">Common Button Pairs (with glow)</h3>
+  <div class="fc" style="gap:16px;margin-top:8px">
+    <div class="fr" style="gap:12px">
+      <div class="scifi-btn scifi-secondary scifi-md" style="width:180px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Cancel</span></div>
+      <div class="scifi-btn scifi-primary scifi-md" style="width:180px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Confirm</span></div>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:8px">— Standard confirm</span>
+    </div>
+    <div class="fr" style="gap:12px">
+      <div class="scifi-btn scifi-secondary scifi-md" style="width:180px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Cancel</span></div>
+      <div class="scifi-btn scifi-danger scifi-md" style="width:180px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Self Destruct</span></div>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:8px">— Destructive</span>
+    </div>
+    <div class="fr" style="gap:12px">
+      <div class="scifi-btn scifi-secondary scifi-md" style="width:180px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Cancel</span></div>
+      <div class="scifi-btn scifi-filled scifi-md" style="width:180px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">List Now</span></div>
+      <span style="font-size:11px;color:var(--text-muted);margin-left:8px">— Transaction (filled)</span>
+    </div>
+  </div>
+
+  <h3 class="sub">Icon Buttons</h3>
+  <div class="fr" style="margin-top:8px;gap:8px">
+    <div class="scifi-btn scifi-primary scifi-icon" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">⚙</span></div>
+    <div class="scifi-btn scifi-primary scifi-icon" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">+</span></div>
+    <div class="scifi-btn scifi-danger scifi-icon" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">✕</span></div>
+    <div class="scifi-btn scifi-secondary scifi-icon" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">≡</span></div>
+  </div>
+
+  <h3 class="sub">Disabled State</h3>
+  <div class="fr" style="margin-top:8px;gap:12px">
+    <div class="scifi-btn scifi-primary scifi-md scifi-disabled"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Disabled Primary</span></div>
+    <div class="scifi-btn scifi-filled scifi-md scifi-disabled"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Disabled Filled</span></div>
+  </div>
+
+  <h3 class="sub">SciFiButton Shader Properties</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Property</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>_BaseColor</code></td><td>From theme</td><td>Button border / fill color</td></tr>
+      <tr><td><code>_GlowColor</code></td><td>Primary</td><td>Outer glow color (matches border)</td></tr>
+      <tr><td><code>_GlowIntensity</code></td><td>0.0 → 1.5</td><td>Increases on hover / near mouse</td></tr>
+      <tr><td><code>_GlowRadius</code></td><td>0.3</td><td>Size of mouse-tracking radial glow (UV space)</td></tr>
+      <tr><td><code>_GlowFalloff</code></td><td>2.5</td><td>Softness of glow edge</td></tr>
+      <tr><td><code>_MousePos</code></td><td>Vector2</td><td>Mouse position in UV space (0–1). Updated per frame via script.</td></tr>
+      <tr><td><code>_FillAlpha</code></td><td>0.0 / 0.15</td><td>0 for outlined, 0.15 for filled variant</td></tr>
+      <tr><td><code>_BorderWidth</code></td><td>0.015</td><td>Border thickness in UV space</td></tr>
+      <tr><td><code>_PressScale</code></td><td>0.97</td><td>Scale on active/press state</td></tr>
+    </tbody>
+  </table>
+
+  <div class="gl" style="margin-top:16px"><div class="gl-t">Unity Implementation</div><p>
+    All buttons use <code>MAT_SciFiButton_Filled</code> reference material. <code>ThemeableButton</code> script updates <code>_BaseColor</code> and <code>_GlowColor</code> from the theme system. On <code>IPointerEnter</code>, tween <code>_GlowIntensity</code> from 0 → 1.0 over 200ms. On <code>IPointerMove</code>, update <code>_MousePos</code> with normalized cursor position relative to RectTransform. On press, scale to <code>0.97</code> and spike <code>_GlowIntensity</code> to 1.5. On exit, tween glow back to 0 over 150ms.
+  </p></div>
+
+  <div class="gl"><div class="gl-t">Button Rules</div><p>Only <strong>one</strong> filled button per panel. Secondary on left, primary on right. Destructive = danger variant, never filled. Min click target: 32px height. Min modal button width: 100px. All text: Orbitron uppercase. Ghost buttons for back/cancel when minimal presence is needed.</p></div>
+
+  <h3 class="sub">Expanding Button Rows</h3>
+  <p class="sec-desc" style="margin-bottom:12px">When buttons share a horizontal row that may need to fill varying widths (modal footers, toolbar actions, tab bar actions), they use flex layout with consistent rules.</p>
+
+  <div class="lbl" style="margin-top:16px">Equal Width — Modal Footer (buttons expand to fill)</div>
+  <div style="display:flex;gap:8px;margin-top:4px;max-width:600px">
+    <div class="scifi-btn scifi-secondary scifi-md" style="flex:1" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Cancel</span></div>
+    <div class="scifi-btn scifi-primary scifi-md" style="flex:1" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Confirm</span></div>
+  </div>
+
+  <div class="lbl" style="margin-top:20px">Three-Way Equal — Destroy Dialog</div>
+  <div style="display:flex;gap:8px;margin-top:4px;max-width:600px">
+    <div class="scifi-btn scifi-primary scifi-md" style="flex:1" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Dismantle</span></div>
+    <div class="scifi-btn scifi-danger scifi-md" style="flex:1" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Self Destruct</span></div>
+    <div class="scifi-btn scifi-secondary scifi-md" style="flex:1" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Cancel</span></div>
+  </div>
+
+  <div class="lbl" style="margin-top:20px">Primary Weighted — Transaction (primary takes 2× space)</div>
+  <div style="display:flex;gap:8px;margin-top:4px;max-width:600px">
+    <div class="scifi-btn scifi-secondary scifi-md" style="flex:1" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Cancel</span></div>
+    <div class="scifi-btn scifi-filled scifi-md" style="flex:2" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">List Now</span></div>
+  </div>
+
+  <div class="lbl" style="margin-top:20px">Toolbar Row — Mixed sizes, left-aligned actions + right-aligned</div>
+  <div style="display:flex;gap:6px;margin-top:4px;max-width:700px;align-items:center">
+    <div class="scifi-btn scifi-primary scifi-sm" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Select All</span></div>
+    <div class="scifi-btn scifi-secondary scifi-sm" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Group</span></div>
+    <div class="scifi-btn scifi-secondary scifi-sm" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Filter</span></div>
+    <div style="flex:1"></div>
+    <div class="scifi-btn scifi-danger scifi-sm" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">Disband</span></div>
+  </div>
+
+  <div class="lbl" style="margin-top:20px">Full Width — Bottom bar (e.g. Build panel, VIX footer)</div>
+  <div style="display:flex;gap:8px;margin-top:4px">
+    <div class="scifi-btn scifi-secondary scifi-lg" style="flex:1" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">‹ Back</span></div>
+    <div class="scifi-btn scifi-filled scifi-lg" style="flex:2" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text">List For Sale</span></div>
+  </div>
+
+  <h3 class="sub">Expanding Row Rules</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Pattern</th><th>Layout</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td>Equal width</td><td><code>flex: 1</code> on all buttons</td><td>2–3 equally weighted actions (modals, dialogs)</td></tr>
+      <tr><td>Primary weighted</td><td><code>flex: 2</code> primary, <code>flex: 1</code> secondary</td><td>One clear main action (transaction, build)</td></tr>
+      <tr><td>Toolbar</td><td>Fixed-width left, <code>flex: 1</code> spacer, fixed right</td><td>Toolbar with mixed actions + danger on far right</td></tr>
+      <tr><td>Full-width footer</td><td>100% parent width, <code>flex: 1/2</code> inside</td><td>Bottom bar of large panels (VIX, Build)</td></tr>
+    </tbody>
+  </table>
+  <div class="gl" style="margin-top:12px"><div class="gl-t">Row Gap</div><p>Always <code>8px</code> gap between buttons in a row. In dense toolbars, <code>6px</code>. Never stack buttons vertically in a footer — if space is tight, the row scrolls horizontally or buttons wrap to a second row at <code>8px</code> row gap.</p></div>
+</section>
+
+<!-- 08 INPUTS -->
+<section class="sec" id="inputs">
+  <span class="sec-id">08</span><h2>Input Fields</h2>
+  <p class="sec-desc"><code>ThemeableInputField</code> on TMP_InputField. Auto-themes background, text, placeholder, focus border.</p>
+  <div class="g2" style="margin-top:16px">
+    <div class="fc"><div class="lbl">Default</div><input class="inp" type="text" placeholder="Enter ship name..."></div>
+    <div class="fc"><div class="lbl">Focused (click to see)</div><input class="inp" type="text" value="VX-440 Sentinel"></div>
+    <div class="fc"><div class="lbl">Error</div><input class="inp error" type="text" value="Invalid sector ID"><span style="font-size:11px;color:var(--danger);margin-top:4px;font-family:var(--f-nav)">Sector not found</span></div>
+    <div class="fc"><div class="lbl">Disabled</div><input class="inp" type="text" value="System locked" disabled style="opacity:0.35;cursor:not-allowed"></div>
+  </div>
+</section>
+
+<!-- 09 TABS -->
+<section class="sec" id="tabs">
+  <span class="sec-id">09</span><h2>Tabs</h2>
+  <p class="sec-desc"><code>ThemeableTab</code> — active gets accent glow underline + color. Inactive: dim. Disabled: muted + lock indicator.</p>
+
+  <h3 class="sub">Top Tabs</h3>
+  <div class="pg glow" style="margin-top:8px">
+    <div class="pg-h"><span class="pg-h-title">Exchange</span></div>
+    <div class="tabs"><button class="tab a">Browse</button><button class="tab">Voran Shop</button><button class="tab">Dashboard</button><button class="tab">Messages</button><button class="tab" style="color:var(--text-muted);cursor:not-allowed">Locked ◆</button></div>
+    <div class="pg-body" style="min-height:40px"><span style="font-size:13px;color:var(--text-dim)">Tab content area. Active: accent underline + glow. Disabled: muted with lock icon.</span></div>
+  </div>
+
+  <h3 class="sub">Side Tabs</h3>
+  <div class="pg glow" style="margin-top:8px;display:flex;min-height:140px">
+    <div class="tabs-side" style="min-width:130px;padding:8px 0">
+      <button class="tab-s a">Status</button><button class="tab-s">Resources</button><button class="tab-s">Hangar</button><button class="tab-s">Trade</button>
+    </div>
+    <div style="flex:1;padding:16px;border-left:1px solid rgba(255,255,255,0.04)">
+      <div class="dr"><span class="dr-l">Size</span><span class="dr-v">50</span></div>
+      <div class="dr"><span class="dr-l">Hull</span><span class="dr-v">92,000 / 92,000</span></div>
+      <div class="dr"><span class="dr-l">Shield</span><span class="dr-v">370,000 / 370,000</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 LISTS -->
+<section class="sec" id="lists">
+  <span class="sec-id">10</span><h2>List Items</h2>
+  <p class="sec-desc"><code>ThemeableListItem</code> — Normal, Hover, Selected (left accent bar), Alternate, Drop Target states. No ThemeableText inside — list items self-manage text colors.</p>
+  <div class="pg glow" style="margin-top:16px">
+    <div class="pg-h"><span class="pg-h-title">Ship Inventory</span></div>
+    <div style="padding:4px">
+      <div class="li"><div class="li-icon" style="background:var(--primary-10);border-radius:2px"></div><span class="li-pri">VX-440 Sentinel</span><span class="li-sec">Cruiser · Docked</span></div>
+      <div class="li alt"><div class="li-icon" style="background:rgba(255,184,0,0.12);border-radius:2px"></div><span class="li-pri">CX-210 Hauler</span><span class="li-sec">Freighter · In Transit</span></div>
+      <div class="li sel"><div class="li-icon" style="background:rgba(183,64,217,0.12);border-radius:2px"></div><span class="li-pri" style="color:var(--primary)">BX-001 Wraith</span><span class="li-sec">Stealth · Selected</span></div>
+      <div class="li" style="background:var(--row-hover);border-color:hsla(var(--ph),var(--ps),50%,0.04)"><div class="li-icon" style="background:var(--danger-ghost);border-radius:2px"></div><span class="li-pri">MX-770 Striker</span><span class="li-sec">Fighter · Hovered</span></div>
+      <div class="li" style="border-color:var(--primary);background:var(--primary-surface);box-shadow:inset 0 0 12px hsla(var(--ph),var(--ps),50%,0.06)"><div class="li-icon" style="background:var(--primary-10);border-radius:2px"></div><span class="li-pri">Drop Target State</span><span class="li-sec">Drag item here</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 COMPONENTS -->
+<section class="sec" id="comps">
+  <span class="sec-id">11</span><h2>UI Components</h2>
+
+  <h3 class="sub">Health / Progress Bars (Thin)</h3>
+  <div style="max-width:500px;padding:20px;background:var(--bg-panel);border:1px solid rgba(255,255,255,0.04)">
+    <div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:var(--text-dim)">Hull</span><span class="mono" style="font-size:11px">92,000 / 92,000</span></div><div class="bar"><div class="bar-f bar-h" style="width:100%"></div></div></div>
+    <div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:var(--text-dim)">Shield</span><span class="mono" style="font-size:11px;color:var(--info)">280,000 / 370,000</span></div><div class="bar"><div class="bar-f bar-sh" style="width:75%"></div></div></div>
+    <div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:var(--text-dim)">Critical Hull</span><span class="mono" style="font-size:11px;color:var(--danger)">18,400 / 92,000</span></div><div class="bar"><div class="bar-f bar-dg" style="width:20%"></div></div></div>
+    <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:var(--text-dim)">Construction</span><span class="mono" style="font-size:11px;color:var(--warning)">65%</span></div><div class="bar"><div class="bar-f bar-wn" style="width:65%"></div></div></div>
+  </div>
+
+  <h3 class="sub">Badges & Status Tags</h3>
+  <div class="fr" style="margin-top:8px;gap:8px">
+    <span class="bdg bdg-p">Online</span><span class="bdg bdg-s">Complete</span><span class="bdg bdg-w">Pending</span><span class="bdg bdg-d">Offline</span><span class="bdg bdg-i">T6</span><span class="bdg bdg-n">Not Shared</span>
+  </div>
+
+  <h3 class="sub">Notifications / Toasts</h3>
+  <div class="fc" style="gap:8px;margin-top:8px;max-width:500px">
+    <div class="notif notif-info"><span class="notif-icon">ℹ</span><div><strong style="color:var(--text-max)">Docking Complete</strong><br>VX-440 docked at Arclight Station.</div></div>
+    <div class="notif notif-ok"><span class="notif-icon">✓</span><div><strong style="color:var(--text-max)">Build Complete</strong><br>PSG-2A Pulse Core ready.</div></div>
+    <div class="notif notif-warn"><span class="notif-icon">⚠</span><div><strong style="color:var(--text-max)">Shields Low</strong><br>Below 25%. Recommend evasion.</div></div>
+    <div class="notif notif-err"><span class="notif-icon">✕</span><div><strong style="color:var(--text-max)">Connection Lost</strong><br>Retrying in 5 seconds...</div></div>
+  </div>
+
+  <h3 class="sub">Dropdown Menu</h3>
+  <div class="dd-menu" style="margin-top:8px;max-width:220px">
+    <div class="dd-item">⬡ Select All<span class="shortcut">Ctrl+A</span></div>
+    <div class="dd-item">◈ Group Selected<span class="shortcut">Ctrl+G</span></div>
+    <div class="dd-sep"></div>
+    <div class="dd-item">⚙ Fleet Settings</div>
+    <div class="dd-item" style="color:var(--danger)">✕ Disband Fleet</div>
+  </div>
+
+  <h3 class="sub">Tooltip</h3>
+  <div style="margin-top:8px;padding:40px;display:flex;justify-content:center">
+    <div style="position:relative;display:inline-block">
+      <div style="position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--bg-panel-header);border:1px solid var(--border-med);padding:6px 10px;font-size:11px;color:var(--text-bright);white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.5)">Shield regeneration rate: 450/s<div style="position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--border-med)"></div></div>
+      <button class="btn btn-md btn-p">Hover Target</button>
+    </div>
+  </div>
+
+  <h3 class="sub">Scrollbar</h3>
+  <div class="pg pg-frame" style="max-width:360px;margin-top:8px;height:130px;overflow-y:auto">
+    <div style="padding:12px">
+      <div class="dr"><span class="dr-l">Labea Ethbea</span><span class="dr-v">440</span></div>
+      <div class="dr"><span class="dr-l">Andil Oarir</span><span class="dr-v">389</span></div>
+      <div class="dr"><span class="dr-l">Qaom Bidaa</span><span class="dr-v">247</span></div>
+      <div class="dr"><span class="dr-l">Xuwa Zeaqa</span><span class="dr-v">161</span></div>
+      <div class="dr"><span class="dr-l">Cissy Artdoo</span><span class="dr-v">124</span></div>
+      <div class="dr"><span class="dr-l">Ackbe Dede</span><span class="dr-v">108</span></div>
+      <div class="dr"><span class="dr-l">Omay Veeol</span><span class="dr-v">104</span></div>
+      <div class="dr"><span class="dr-l">Beave Dessy</span><span class="dr-v">101</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11b MULTI-PANEL FLOWS -->
+<section class="sec" id="flows">
+  <span class="sec-id">11b</span><h2>Multi-Panel Flows</h2>
+  <p class="sec-desc">Some interactions cascade across multiple sub-panels that appear sequentially left-to-right. Each step reveals the next panel with a slide-in animation. The user can go back or cancel at any point, which collapses panels right-to-left.</p>
+
+  <h3 class="sub">Flow Pattern: Left → Middle → Right</h3>
+  <div class="gl"><div class="gl-t">How It Works</div><p>
+    The parent panel contains a flex row of sub-panels. Initially only the leftmost panel (Step 1) is visible. When the user makes a selection, the next panel slides in from the right (300ms, EaseOutQuad). Previous panels stay visible but may narrow. Each panel has a minimum width — if the container can't fit all panels, earlier steps compress to their minimum or show a collapsed "breadcrumb" state. Cancelling or going back collapses the rightmost panel (200ms, EaseInQuad).
+  </p></div>
+
+  <h3 class="sub">Imperial Base — Resource Transfer (Interactive Demo)</h3>
+  <p class="sec-desc" style="margin-bottom:12px">Click through: <strong>Select Tab → Select Resource → Set Amount → Select Ship</strong>. Each step reveals the next panel.</p>
+
+  <!-- Interactive multi-panel flow demo -->
+  <div id="flowDemo" class="pg pg-lay glow" style="margin-top:8px;overflow:hidden">
+    <div class="pg-h"><span class="pg-h-title">Imperial Station</span><div class="pg-h-ctrls"><button class="pg-h-btn close" onclick="flowReset()">✕</button></div></div>
+    <div class="tabs">
+      <button class="tab" id="ftSell" onclick="flowSetTab('sell')">Sell</button>
+      <button class="tab" id="ftTransfer" onclick="flowSetTab('transfer')">Transfer</button>
+      <button class="tab" id="ftBuy" onclick="flowSetTab('buy')">Buy</button>
+    </div>
+    <div style="display:flex;min-height:340px;position:relative" id="flowContainer">
+
+      <!-- STEP 1: Resource List -->
+      <div id="flowStep1" class="flow-panel" style="width:100%;min-width:180px;border-right:1px solid var(--border-subtle);display:none;flex-direction:column">
+        <div style="padding:8px 12px;background:var(--bg-panel-header);border-bottom:1px solid rgba(255,255,255,0.03)">
+          <div class="lbl" id="flowStep1Title">Select Resource</div>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:4px" id="flowResList">
+          <div class="li flow-res" data-res="iron" onclick="flowSelectRes(this)"><div class="li-icon" style="background:rgba(160,160,160,0.15);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-dim)">Fe</div><span class="li-pri">Iron</span><span class="li-sec" style="font-family:var(--f-mono)">880,000</span></div>
+          <div class="li flow-res" data-res="copper" onclick="flowSelectRes(this)"><div class="li-icon" style="background:rgba(200,120,50,0.15);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#c87832">Cu</div><span class="li-pri">Copper</span><span class="li-sec" style="font-family:var(--f-mono)">550,000</span></div>
+          <div class="li flow-res" data-res="titanium" onclick="flowSelectRes(this)"><div class="li-icon" style="background:rgba(100,180,220,0.15);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64b4dc">Ti</div><span class="li-pri">Titanium</span><span class="li-sec" style="font-family:var(--f-mono)">770,000</span></div>
+          <div class="li flow-res" data-res="gold" onclick="flowSelectRes(this)"><div class="li-icon" style="background:rgba(255,200,50,0.15);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#ffc832">Au</div><span class="li-pri">Gold</span><span class="li-sec" style="font-family:var(--f-mono)">35,000</span></div>
+          <div class="li flow-res" data-res="uranium" onclick="flowSelectRes(this)"><div class="li-icon" style="background:rgba(100,220,100,0.15);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64dc64">Ur</div><span class="li-pri">Uranium</span><span class="li-sec" style="font-family:var(--f-mono)">110,000</span></div>
+          <div class="li flow-res" data-res="iridium" onclick="flowSelectRes(this)"><div class="li-icon" style="background:rgba(180,100,220,0.15);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#b464dc">Ir</div><span class="li-pri">Iridium</span><span class="li-sec" style="font-family:var(--f-mono)">176,000</span></div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Amount (hidden initially) -->
+      <div id="flowStep2" class="flow-panel" style="width:0;min-width:0;overflow:hidden;opacity:0;flex-direction:column;border-right:1px solid var(--border-subtle);transition:width 0.3s cubic-bezier(0.16,1,0.3,1),opacity 0.3s ease,min-width 0.3s cubic-bezier(0.16,1,0.3,1)">
+        <div style="padding:8px 12px;background:var(--bg-panel-header);border-bottom:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center">
+          <div class="lbl" style="margin:0" id="flowResLabel">Amount</div>
+          <div style="cursor:pointer;color:var(--text-muted);font-size:12px" onclick="flowCloseStep2()">✕</div>
+        </div>
+        <div style="flex:1;padding:16px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+          <div style="text-align:center">
+            <div id="flowResIcon" style="font-size:32px;margin-bottom:8px">Fe</div>
+            <div id="flowResName" style="font-family:var(--f-display);font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-max)">Iron</div>
+            <div id="flowResAvail" style="font-family:var(--f-mono);font-size:11px;color:var(--text-dim);margin-top:2px">Available: 880,000</div>
+          </div>
+          <div class="fc" style="gap:4px">
+            <div class="lbl">Quantity</div>
+            <input type="number" id="flowQtyInput" class="inp" value="10000" min="1" style="text-align:center;font-family:var(--f-mono);font-size:15px">
+          </div>
+          <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap">
+            <div class="scifi-btn scifi-secondary scifi-sm" style="padding:0 8px;height:26px" onclick="flowSetQty(0.25)" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text" style="font-size:8px">25%</span></div>
+            <div class="scifi-btn scifi-secondary scifi-sm" style="padding:0 8px;height:26px" onclick="flowSetQty(0.5)" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text" style="font-size:8px">50%</span></div>
+            <div class="scifi-btn scifi-secondary scifi-sm" style="padding:0 8px;height:26px" onclick="flowSetQty(0.75)" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text" style="font-size:8px">75%</span></div>
+            <div class="scifi-btn scifi-primary scifi-sm" style="padding:0 8px;height:26px" onclick="flowSetQty(1)" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text" style="font-size:8px">Max</span></div>
+          </div>
+          <div id="flowStep2Action" style="margin-top:4px">
+            <div class="scifi-btn scifi-primary scifi-md" style="width:100%" onclick="flowOpenStep3()" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text" id="flowStep2Btn">Select Ship →</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Ship Selection (hidden initially) -->
+      <div id="flowStep3" class="flow-panel" style="width:0;min-width:0;overflow:hidden;opacity:0;flex-direction:column;transition:width 0.3s cubic-bezier(0.16,1,0.3,1),opacity 0.3s ease,min-width 0.3s cubic-bezier(0.16,1,0.3,1)">
+        <div style="padding:8px 12px;background:var(--bg-panel-header);border-bottom:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center">
+          <div class="lbl" style="margin:0">Select Ship</div>
+          <div style="cursor:pointer;color:var(--text-muted);font-size:12px" onclick="flowCloseStep3()">✕</div>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:4px">
+          <div class="li flow-ship" onclick="flowSelectShip(this,'CX-1A Skiff')"><div class="li-icon" style="background:var(--primary-10);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--primary)">⬡</div><span class="li-pri">CX-1A Skiff</span><span class="li-sec">Cargo · Docked</span></div>
+          <div class="li flow-ship" onclick="flowSelectShip(this,'CX-3B Hauler')"><div class="li-icon" style="background:var(--primary-10);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--primary)">⬡</div><span class="li-pri">CX-3B Hauler</span><span class="li-sec">Cargo · Docked</span></div>
+          <div class="li flow-ship" onclick="flowSelectShip(this,'EX-1A Vibz')"><div class="li-icon" style="background:var(--primary-10);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--primary)">⬡</div><span class="li-pri">EX-1A Vibz</span><span class="li-sec">Builder · Docked</span></div>
+          <div class="li flow-ship" onclick="flowSelectShip(this,'VX-6C Vulcan')"><div class="li-icon" style="background:var(--primary-10);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--primary)">⬡</div><span class="li-pri">VX-6C Vulcan</span><span class="li-sec">Fighter · Docked</span></div>
+        </div>
+        <div style="padding:8px 12px;border-top:1px solid rgba(255,255,255,0.03)" id="flowConfirmArea">
+          <div class="scifi-btn scifi-filled scifi-md scifi-disabled" style="width:100%" id="flowConfirmBtn"><span class="scifi-btn-glow"></span><span class="scifi-btn-text" id="flowConfirmLabel">Select a ship</span></div>
+        </div>
+      </div>
+
+      <!-- Empty state before tab selected -->
+      <div id="flowEmpty" style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px">
+        Select a tab above to begin
+      </div>
+    </div>
+  </div>
+
+  <!-- Flow step indicator -->
+  <div style="display:flex;align-items:center;gap:8px;margin-top:12px;font-family:var(--f-mono);font-size:11px">
+    <div id="flowDot1" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted);transition:all 0.2s"></div><span style="color:var(--text-dim)">Tab</span>
+    <span style="color:var(--text-muted)">→</span>
+    <div id="flowDot2" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted);transition:all 0.2s"></div><span style="color:var(--text-dim)">Resource</span>
+    <span style="color:var(--text-muted)">→</span>
+    <div id="flowDot3" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted);transition:all 0.2s"></div><span style="color:var(--text-dim)">Amount</span>
+    <span style="color:var(--text-muted)">→</span>
+    <div id="flowDot4" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted);transition:all 0.2s"></div><span style="color:var(--text-dim)">Ship</span>
+    <span style="color:var(--text-muted)">→</span>
+    <span style="color:var(--text-muted)">Confirm</span>
+    <div style="flex:1"></div>
+    <div class="scifi-btn scifi-secondary scifi-sm" style="height:24px;padding:0 10px" onclick="flowReset()" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text" style="font-size:8px">Reset Demo</span></div>
+  </div>
+
+  <h3 class="sub">Flow Specifications</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Property</th><th>Value</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Direction</td><td>Left → Right</td><td>New panels always appear to the right</td></tr>
+      <tr><td>Slide-in animation</td><td>300ms, <code>EaseOutQuad</code></td><td>Width expands from 0, opacity 0→1</td></tr>
+      <tr><td>Collapse animation</td><td>200ms, <code>EaseInQuad</code></td><td>Width shrinks to 0, opacity 1→0</td></tr>
+      <tr><td>Panel min-width</td><td>180px per step panel</td><td>Previous panels may compress</td></tr>
+      <tr><td>Dividers</td><td>1px <code>--border-subtle</code></td><td>Between each step panel</td></tr>
+      <tr><td>Step header</td><td><code>--bg-panel-header</code> + label</td><td>Each panel has its own sub-header with close ✕</td></tr>
+      <tr><td>Cancel (✕)</td><td>Collapses that panel + all to right</td><td>Cascading close, right-to-left, 50ms stagger</td></tr>
+      <tr><td>Back navigation</td><td>Click earlier step in breadcrumb/list</td><td>Re-selecting a resource in Step 1 resets Steps 2–3</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Flow Compression Behavior</h3>
+  <div class="gl"><div class="gl-t">When Space Runs Out</div><p>
+    When the container can't fit all panels at their comfortable width, panels compress in priority order: Step 1 compresses first (list items truncate, secondary text hides). Step 2 compresses next (percentage buttons wrap). Step 3 never compresses below 180px — if it can't fit, the container scrolls horizontally instead. On narrow screens, consider switching to a stacked/modal approach where Steps 2 and 3 become overlapping modals instead of side-by-side panels.
+  </p></div>
+
+  <h3 class="sub">Sell vs Transfer vs Buy Variations</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Tab</th><th>Step 1</th><th>Step 2</th><th>Step 3</th><th>Final Action</th></tr></thead>
+    <tbody>
+      <tr><td style="color:var(--primary)">Sell</td><td>Resource list (station inventory)</td><td>Set quantity + see credit value</td><td><em>None — confirms directly</em></td><td><span class="bdg bdg-s">Sell (filled)</span></td></tr>
+      <tr><td style="color:var(--primary)">Transfer</td><td>Resource list (station inventory)</td><td>Set quantity</td><td>Select destination ship</td><td><span class="bdg bdg-p">Transfer (filled)</span></td></tr>
+      <tr><td style="color:var(--primary)">Buy</td><td>Resource list (market/available)</td><td>Set quantity + see credit cost</td><td><em>None — confirms directly</em></td><td><span class="bdg bdg-s">Buy (filled)</span></td></tr>
+    </tbody>
+  </table>
+  <div class="gl" style="margin-top:12px"><div class="gl-t">Key Difference</div><p>
+    Sell and Buy are 2-step flows (no ship selection). Transfer is a 3-step flow. The "action" button in Step 2 changes label: Sell shows "Sell for X credits" (filled, success color), Buy shows "Buy for X credits" (filled, warning color), Transfer shows "Select Ship →" (outlined primary, opens Step 3). This keeps the user oriented — the button always tells them what the next action is.
+  </p></div>
+
+  <h3 class="sub">Unity Implementation</h3>
+  <div class="gl"><div class="gl-t">Architecture</div><p>
+    Use a parent HorizontalLayoutGroup (or Flexalon row). Each step panel is a child with a <code>LayoutElement</code>. To show: tween <code>preferredWidth</code> from 0 → target over 300ms + fade CanvasGroup alpha 0→1. To hide: reverse. Stagger close animations by 50ms when cascading. Keep selection state in a <code>FlowController</code> that tracks current step, selected resource, quantity, and target ship. On tab change, reset all state and collapse panels 2+3.
+  </p></div>
+  <div class="cblock" style="margin-top:8px"><span class="cm">// Multi-panel flow controller pseudocode</span>
+<span class="kw">public class</span> <span class="ty">StationFlowController</span> : MonoBehaviour {
+    [SerializeField] <span class="ty">FlowPanel</span>[] steps; <span class="cm">// Step1, Step2, Step3</span>
+    
+    <span class="kw">public void</span> <span class="fn">ShowStep</span>(<span class="kw">int</span> index) {
+        <span class="cm">// Close any panels to the right first</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = steps.Length-<span class="num">1</span>; i > index; i--)
+            steps[i].<span class="fn">CollapseWithDelay</span>((steps.Length-<span class="num">1</span>-i) * <span class="num">0.05f</span>);
+        <span class="cm">// Then open the target</span>
+        steps[index].<span class="fn">Expand</span>(<span class="num">0.3f</span>, <span class="ty">Ease</span>.OutQuad);
+    }
+    
+    <span class="kw">public void</span> <span class="fn">CloseFrom</span>(<span class="kw">int</span> index) {
+        <span class="kw">for</span> (<span class="kw">int</span> i = steps.Length-<span class="num">1</span>; i >= index; i--)
+            steps[i].<span class="fn">CollapseWithDelay</span>((steps.Length-<span class="num">1</span>-i) * <span class="num">0.05f</span>);
+    }
+}</div>
+</section>
+
+<!-- 12 ICONS -->
+<section class="sec" id="icons">
+  <span class="sec-id">12</span><h2>Icons & Imagery</h2>
+  <p class="sec-desc">Icons in <code>/Assets/Resources/Sprites/</code>. Recolored via <code>Image.color</code>. Use white base sprites. Sizes: 16, 20, 24, 32, 48, 64px.</p>
+
+  <h3 class="sub">Standard Sizes</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Size</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>16×16</td><td>Inline text, status dots, resource icons</td></tr>
+      <tr><td>20×20</td><td>List item icons</td></tr>
+      <tr><td>24×24</td><td>Buttons, tabs, toolbar</td></tr>
+      <tr><td>32×32</td><td>Nav sidebar icons, HUD</td></tr>
+      <tr><td>48×48</td><td>Feature icons, empty states</td></tr>
+      <tr><td>64×64</td><td>Card thumbnails, ship class icons</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Conceptual Icons</h3>
+  <div class="icon-grid" style="margin-top:8px">
+    <div class="icon-cell"><div class="icon-cell-glyph">⬡</div><div class="icon-cell-name">Ship</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">◈</div><div class="icon-cell-name">Station</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">⚙</div><div class="icon-cell-name">Settings</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">◉</div><div class="icon-cell-name">Status</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">⌕</div><div class="icon-cell-name">Search</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">▣</div><div class="icon-cell-name">Cargo</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">△</div><div class="icon-cell-name">Warning</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph" style="color:var(--danger)">✕</div><div class="icon-cell-name">Close</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">☰</div><div class="icon-cell-name">Menu</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">↻</div><div class="icon-cell-name">Refresh</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">⊕</div><div class="icon-cell-name">Add</div></div>
+    <div class="icon-cell"><div class="icon-cell-glyph">◫</div><div class="icon-cell-name">Panel</div></div>
+  </div>
+
+  <div class="gl" style="margin-top:16px"><div class="gl-t">Icon Rules</div><p>All icons are white base sprites tinted by <code>Image.color</code>. This allows the theme system to recolor them. Interactive icons use <code>--text-dim</code> idle, <code>--primary</code> on hover, <code>--primary-bright</code> on active. Decorative icons use <code>--text-muted</code>. Semantic icons (warning triangle, error X) use their respective semantic colors. Minimum touch target for icon buttons: 32×32px.</p></div>
+</section>
+
+<!-- 13 HUD -->
+<section class="sec" id="hud">
+  <span class="sec-id">13</span><h2>HUD Elements</h2>
+  <p class="sec-desc">Heads-up display elements: labeled bars, stat counters, crosshair, status indicators. All use <code>Share Tech Mono</code>. Data-dense — minimal padding.</p>
+
+  <h3 class="sub">HUD Bars (With Labels)</h3>
+  <div style="max-width:400px;margin-top:8px;display:flex;flex-direction:column;gap:6px">
+    <div class="hbar"><div class="hbar-name">Hull</div><div class="hbar-f bar-h" style="width:100%"></div><div class="hbar-val">1,000,000</div></div>
+    <div class="hbar"><div class="hbar-name">Shield</div><div class="hbar-f bar-sh" style="width:75%"></div><div class="hbar-val">3,000,000 / 4,000,000</div></div>
+    <div class="hbar"><div class="hbar-name">Energy</div><div class="hbar-f bar-wn" style="width:45%"></div><div class="hbar-val">450 / 1,000</div></div>
+    <div class="hbar"><div class="hbar-name">Hull</div><div class="hbar-f bar-dg" style="width:15%"></div><div class="hbar-val" style="color:var(--danger)">150,000</div></div>
+  </div>
+
+  <h3 class="sub">Stat Counters</h3>
+  <div class="fr" style="margin-top:8px;gap:24px">
+    <div style="text-align:center"><div style="font-family:var(--f-mono);font-size:24px;font-weight:700;color:var(--text-max);line-height:1">3,233</div><div style="font-family:var(--f-mono);font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:4px">Fleet Strength</div></div>
+    <div style="text-align:center"><div style="font-family:var(--f-mono);font-size:24px;font-weight:700;color:var(--text-max);line-height:1">27</div><div style="font-family:var(--f-mono);font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:4px">Systems</div></div>
+    <div style="text-align:center"><div style="font-family:var(--f-mono);font-size:24px;font-weight:700;color:var(--accent);line-height:1">6.2B</div><div style="font-family:var(--f-mono);font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:4px">Credits</div></div>
+  </div>
+
+  <h3 class="sub">Status Indicators</h3>
+  <div class="fr" style="margin-top:8px;gap:16px">
+    <div class="fr" style="gap:4px"><div class="anim-pulse" style="width:8px;height:8px;background:var(--success)"></div><span style="font-family:var(--f-mono);font-size:11px;color:var(--text-dim)">Online</span></div>
+    <div class="fr" style="gap:4px"><div class="anim-breathe" style="width:8px;height:8px;border-color:var(--warning)"></div><span style="font-family:var(--f-mono);font-size:11px;color:var(--text-dim)">Pending</span></div>
+    <div class="fr" style="gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:var(--danger);opacity:0.6"></div><span style="font-family:var(--f-mono);font-size:11px;color:var(--text-dim)">Offline</span></div>
+    <div class="fr" style="gap:4px"><div style="width:8px;height:8px;border-radius:50%;border:1px solid var(--text-muted)"></div><span style="font-family:var(--f-mono);font-size:11px;color:var(--text-dim)">Unknown</span></div>
+  </div>
+
+  <h3 class="sub">Top HUD Bar Layout</h3>
+  <div class="gl"><div class="gl-t">Structure</div><p>Top bar spans full screen width. Left: selected unit name + icon. Center: system name (Orbitron), region coordinates (Mono), zone label. Right: currency (accent color), notification icons (mail, chat, social, players). All text uses <code>Share Tech Mono</code> except system name (Orbitron). Background: gradient from <code>--bg-panel</code> 95% opacity, fading to transparent at bottom edge. The connecting line between unit and system name is decorative — 1px <code>--primary-dim</code> with small diamond endpoints.</p></div>
+</section>
+
+<!-- 14 RESIZABLE PANELS -->
+<section class="sec" id="resize">
+  <span class="sec-id">14</span><h2>Resizable Panels</h2>
+  <p class="sec-desc">Chat, Mail, Social/Guild, and Notepad are freely resizable and draggable. Corner L-bracket handles and mid-edge grabbers. Content adapts via breakpoints.</p>
+
+  <h3 class="sub">Interactive Resize Demo — Drag corners or edges</h3>
+  <div id="resizeDemo" class="resize-demo" style="width:520px;height:320px;margin-top:8px;resize:both;overflow:hidden;min-width:320px;min-height:200px;max-width:900px">
+    <div class="corner-tl"></div><div class="corner-tr"></div><div class="corner-bl"></div><div class="corner-br"></div>
+    <!-- Edge grabbers -->
+    <div style="position:absolute;left:-2px;top:50%;transform:translateY(-50%);width:4px;height:32px;background:var(--primary-dim);border-radius:2px;z-index:5;pointer-events:none"></div>
+    <div style="position:absolute;right:-2px;top:50%;transform:translateY(-50%);width:4px;height:32px;background:var(--primary-dim);border-radius:2px;z-index:5;pointer-events:none"></div>
+    <div style="position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);height:4px;width:32px;background:var(--primary-dim);border-radius:2px;z-index:5;pointer-events:none"></div>
+    <!-- Header -->
+    <div class="pg-h" style="cursor:grab"><span class="pg-h-title">Chat</span><div class="pg-h-ctrls"><span class="bdg bdg-p" style="font-size:8px">Global [2]</span><span class="bdg bdg-n" style="font-size:8px">System</span></div></div>
+    <!-- Content -->
+    <div style="height:calc(100% - 80px);overflow-y:auto;padding:8px 12px">
+      <div style="font-family:var(--f-mono);font-size:12px;line-height:1.9;color:var(--text-body)">
+        <div><span style="color:var(--text-muted)">01:54</span> <span style="color:var(--primary);font-weight:700">sharkle777</span> just model MKR</div>
+        <div><span style="color:var(--text-muted)">01:54</span> <span style="color:var(--primary);font-weight:700">sharkle777</span> veloce, rocket, erika</div>
+        <div><span style="color:var(--text-muted)">01:55</span> <span style="color:var(--success);font-weight:700">God321</span> sounds easy lol</div>
+        <div><span style="color:var(--text-muted)">01:55</span> <span style="color:var(--primary);font-weight:700">sharkle777</span> then tweak them</div>
+        <div><span style="color:var(--text-muted)">01:55</span> <span style="color:var(--success);font-weight:700">God321</span> yea we will get it :)</div>
+        <div><span style="color:var(--text-muted)">01:57</span> <span style="color:var(--primary);font-weight:700">sharkle777</span> you guys are doing great</div>
+        <div><span style="color:var(--text-muted)">12:53</span> <span style="color:var(--accent);font-weight:700">Skinner</span> hello</div>
+        <div><span style="color:var(--text-muted)">14:36</span> <span style="color:var(--danger);font-weight:700">Emperor</span> Well ill be damned</div>
+        <div><span style="color:var(--text-muted)">14:48</span> <span style="color:var(--success);font-weight:700">God321</span> hello</div>
+        <div><span style="color:var(--text-muted)">15:04</span> <span style="color:var(--accent);font-weight:700">Skinner</span> i will enjoy testing this</div>
+        <div><span style="color:var(--text-muted)">15:12</span> <span style="color:var(--success);font-weight:700">God321</span> still lots will change :)</div>
+        <div><span style="color:var(--text-muted)">16:03</span> <span style="color:var(--info);font-weight:700">Tesk</span> word</div>
+        <div><span style="color:var(--text-muted)">16:27</span> <span style="color:var(--danger);font-weight:700">Emperor</span> test</div>
+      </div>
+    </div>
+    <!-- Input bar pinned bottom -->
+    <div style="position:absolute;bottom:0;left:0;right:0;border-top:1px solid rgba(255,255,255,0.06);padding:8px 12px;display:flex;gap:8px;background:var(--bg-panel)">
+      <input type="text" class="inp" placeholder="Message channel..." style="flex:1;padding:6px 10px;font-size:12px">
+      <div class="scifi-btn scifi-primary scifi-sm" style="height:30px;padding:0 12px" onmousemove="trackGlow(event,this)" onmouseleave="clearGlow(this)"><span class="scifi-btn-glow"></span><span class="scifi-btn-text" style="font-size:9px">Send</span></div>
+    </div>
+    <!-- Size indicator -->
+    <div id="resizeSizeLabel" style="position:absolute;bottom:36px;right:8px;font-family:var(--f-mono);font-size:9px;color:var(--text-muted);pointer-events:none;z-index:5">↘ drag corner to resize</div>
+  </div>
+
+  <h3 class="sub">Interactive Splitter Demo — Drag the divider</h3>
+  <div class="pg glow" style="margin-top:8px;display:flex;height:260px;user-select:none" id="splitDemo">
+    <!-- Left pane -->
+    <div id="splitLeft" style="width:40%;min-width:120px;display:flex;flex-direction:column;overflow:hidden">
+      <div class="pg-h"><span class="pg-h-title">VX-9 Vanguard</span></div>
+      <div class="tabs"><button class="tab a">Status</button><button class="tab">Details</button></div>
+      <div style="padding:12px;flex:1;overflow-y:auto">
+        <div style="font-family:var(--f-body);font-size:14px;font-weight:600;color:var(--text-bright);margin-bottom:4px">VX-9 Vanguard</div>
+        <div style="font-size:12px;color:var(--text-dim)">Command Ship</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px">Owned by Admin</div>
+        <div class="bdg bdg-n">Not Shared</div>
+      </div>
+    </div>
+    <!-- Draggable splitter -->
+    <div id="splitHandle" style="width:4px;background:var(--bg-panel-header);cursor:col-resize;flex-shrink:0;position:relative;transition:background 0.15s" onmousedown="startSplit(event)">
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:2px;height:32px;background:var(--primary-dim);border-radius:1px;transition:all 0.15s;pointer-events:none" id="splitPill"></div>
+    </div>
+    <!-- Right pane -->
+    <div id="splitRight" style="flex:1;min-width:120px;display:flex;flex-direction:column;overflow:hidden">
+      <div style="padding:6px 12px;background:var(--bg-panel-header);border-bottom:1px solid var(--border-subtle);display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;letter-spacing:0.06em;text-transform:uppercase">
+        <span style="color:var(--text-dim)">Hull: <span style="color:var(--success)">100%</span></span>
+        <span style="color:var(--text-dim)">Shield: <span style="color:var(--info)">100%</span></span>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:8px 12px">
+        <div style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-bright);padding:4px 0;border-bottom:1px solid var(--border-subtle);margin-bottom:2px">Weapon Systems</div>
+        <div class="dr" style="padding:3px 0"><span class="dr-l" style="font-size:13px">TL-5</span><span class="dr-v" style="font-size:12px">x10</span></div>
+        <div class="dr" style="padding:3px 0"><span class="dr-l" style="font-size:13px">ION-3</span><span class="dr-v" style="font-size:12px">x2</span></div>
+        <div class="dr" style="padding:3px 0"><span class="dr-l" style="font-size:13px">HM-4</span><span class="dr-v" style="font-size:12px">x4</span></div>
+        <div class="dr" style="padding:3px 0"><span class="dr-l" style="font-size:13px">AM-5</span><span class="dr-v" style="font-size:12px">x4</span></div>
+        <div style="font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--text-bright);padding:4px 0;border-bottom:1px solid var(--border-subtle);margin-top:6px;margin-bottom:2px">Stats</div>
+        <div class="dr" style="padding:3px 0"><span class="dr-l" style="font-size:13px">Size</span><span class="dr-v" style="font-size:12px">24</span></div>
+        <div class="dr" style="padding:3px 0"><span class="dr-l" style="font-size:13px">Hull</span><span class="dr-v" style="font-size:12px">1,000,000</span></div>
+        <div class="dr" style="padding:3px 0"><span class="dr-l" style="font-size:13px">Shield</span><span class="dr-v" style="font-size:12px">4,000,000</span></div>
+        <div class="dr" style="padding:3px 0"><span class="dr-l" style="font-size:13px">Speed</span><span class="dr-v" style="font-size:12px">18</span></div>
+        <div class="dr" style="padding:3px 0"><span class="dr-l" style="font-size:13px">Hyperspace</span><span class="dr-v" style="font-size:12px">300</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">Size Constraints</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Panel</th><th>Min W</th><th>Min H</th><th>Default</th><th>Max</th></tr></thead>
+    <tbody>
+      <tr><td>Chat</td><td>320px</td><td>250px</td><td>500 × 600</td><td>800 × 90vh</td></tr>
+      <tr><td>Mail</td><td>400px</td><td>300px</td><td>700 × 500</td><td>1000 × 90vh</td></tr>
+      <tr><td>Social/Guild</td><td>360px</td><td>280px</td><td>600 × 500</td><td>900 × 90vh</td></tr>
+      <tr><td>Notepad</td><td>280px</td><td>200px</td><td>420 × 400</td><td>700 × 90vh</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Content Breakpoints</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Breakpoint</th><th>Width</th><th>Behavior</th></tr></thead>
+    <tbody>
+      <tr><td>XS (Compact)</td><td>Min → 380px</td><td>Single column. Side panels → icons. Tab labels → icons. Timestamps hide. Font drops to <code>--t-sm</code> min.</td></tr>
+      <tr><td>SM (Narrow)</td><td>380 → 500px</td><td>Full labels. Side tabs → icon + short label. Secondary columns truncate. Scroll preferred over wrapping.</td></tr>
+      <tr><td>MD (Default)</td><td>500 → 700px</td><td>Standard layout. All columns visible. Side tabs expanded. Design-time default.</td></tr>
+      <tr><td>LG (Wide)</td><td>700px → Max</td><td>Extra columns appear (mail preview pane, chat member sidebar). Padding increases to <code>--sp-2xl</code>.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="gl" style="margin-top:16px"><div class="gl-t">Drag & Snap</div><p>
+    Header = drag handle. <code>cursor: grab / grabbing</code>. During drag: shadow deepens (<code>0 12px 48px rgba(0,0,0,0.7)</code>), scale <code>1.005</code>. At least 60px of header must stay on-screen. Snap to edges within 12px (shows cyan guide line). Click brings panel to front (z-order). Persist <code>{ x, y, width, height, isOpen, zIndex }</code> per panel. "Reset Layout" in settings.
+  </p></div>
+  <div class="gl"><div class="gl-t">Min Size Feedback</div><p>Allow 4px over-drag past minimum, then spring back over 150ms with ease-out. Handle flashes <code>--warning</code> at bounce point.</p></div>
+</section>
+
+<!-- 15 HDRP -->
+<section class="sec" id="hdrp">
+  <span class="sec-id">15</span><h2>HDRP Effects</h2>
+  <p class="sec-desc">Unity HDRP bloom, emissive materials, and HDR color values for UI elements. Tasteful restraint — glow supports hierarchy, never overwhelms.</p>
+  <div class="gl"><div class="gl-t">Bloom Settings</div><p>Bloom threshold: ~0.8. Catches only intentional bright elements. Set UI elements to HDR values (intensity > 1.0). Borders: <code>1.2x</code>. Active tabs: <code>2.0x</code>. Critical warnings: <code>2.5x</code>. Body text stays at 1.0x.</p></div>
+  <div class="gl"><div class="gl-t">Emissive Materials</div><p>Panel borders, accent bars, side glow strips use emissive materials. Intensity: borders <code>1.2</code>, accent bars <code>2.0</code>, active states <code>2.5</code>, hover <code>1.8</code>. Holographic top beam: subtle pulse (3s, 0.8–1.0 range).</p></div>
+  <div class="gl"><div class="gl-t">HDR Color Scale</div><p><code>Subtle: 1.2</code> — Idle borders, dividers. <code>Medium: 1.8</code> — Hover, health bars, active tabs. <code>Strong: 2.5</code> — Selected items, primary buttons. <code>Intense: 3.5</code> — Critical warnings, damage alerts. In Unity: <code>Color(0, 1.0, 1.0) * intensity</code>. Maps to CSS shadow: 8px → 16px → 30px → 50px blur.</p></div>
+  <div class="gl"><div class="gl-t">Panel Shadows</div><p>Standard: <code>rgba(0,0,0,0.5), 8px blur, 32px spread</code>. Elevated (modals): <code>0.7 opacity, 40px spread</code>. Holographic: additional <code>drop-shadow</code> filter for ghost glow effect.</p></div>
+  <div class="gl gl-dn"><div class="gl-t">Never Do</div><p>Apply HDR/bloom to backgrounds, large surfaces, or body text. Only edges, lines, accent bars, small indicators, and interactive highlights. Large emissive areas wash out the entire screen.</p></div>
+</section>
+
+<!-- 16 ANIMATION -->
+<section class="sec" id="anim">
+  <span class="sec-id">16</span><h2>Animation & Motion</h2>
+  <p class="sec-desc">Animator for state machines, DOTween for procedural. <code>PanelBase</code> auto-handles show/hide.</p>
+
+  <h3 class="sub">Duration Scale</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Duration</th><th>Usage</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>100ms</td><td>Instant feedback</td><td>Hover highlight, row tint, press</td></tr>
+      <tr><td>150ms</td><td>Fast transitions</td><td>Tooltip show, icon color change</td></tr>
+      <tr><td>200ms</td><td>Normal</td><td>Tab switch, button glow, input focus</td></tr>
+      <tr><td>300ms</td><td>Standard panels</td><td>Panel fade+scale, modal, dropdown</td></tr>
+      <tr><td>350ms</td><td>Main panels</td><td>Large panel slide + fade, stagger children 30ms</td></tr>
+      <tr><td>500ms</td><td>Long sequences</td><td>Slide from screen edge</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Easing</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Easing</th><th>CSS</th><th>DOTween</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>Out (Open)</td><td><code>cubic-bezier(0.16,1,0.3,1)</code></td><td><code>Ease.OutQuad</code></td><td>Panel show, entrance, expand</td></tr>
+      <tr><td>In (Close)</td><td><code>cubic-bezier(0.55,0,1,0.45)</code></td><td><code>Ease.InQuad</code></td><td>Panel hide, exit, collapse</td></tr>
+      <tr><td>Symmetric</td><td><code>cubic-bezier(0.65,0,0.35,1)</code></td><td><code>Ease.InOutQuad</code></td><td>Tab slide, looping, ambient</td></tr>
+      <tr><td>Spring</td><td>—</td><td><code>Ease.OutBack</code></td><td>Sparingly — notification pop</td></tr>
+      <tr><td>Linear</td><td><code>linear</code></td><td><code>Ease.Linear</code></td><td>Progress bars, loading</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Panel Show/Hide (DOTween)</h3>
+  <div class="cblock" style="margin-top:8px"><span class="kw">public virtual void</span> <span class="fn">Show</span>() {
+    gameObject.SetActive(<span class="kw">true</span>);
+    canvasGroup.alpha = <span class="num">0</span>;
+    canvasGroup.<span class="fn">DOFade</span>(<span class="num">1f</span>, <span class="num">0.3f</span>).<span class="fn">SetEase</span>(<span class="ty">Ease</span>.OutQuad);
+    transform.<span class="fn">DOScale</span>(<span class="num">1f</span>, <span class="num">0.3f</span>).<span class="fn">From</span>(<span class="num">0.95f</span>).<span class="fn">SetEase</span>(<span class="ty">Ease</span>.OutQuad);
+}
+<span class="kw">public virtual void</span> <span class="fn">Hide</span>() {
+    canvasGroup.<span class="fn">DOFade</span>(<span class="num">0f</span>, <span class="num">0.2f</span>).<span class="fn">SetEase</span>(<span class="ty">Ease</span>.InQuad)
+        .<span class="fn">OnComplete</span>(() => gameObject.SetActive(<span class="kw">false</span>));
+}</div>
+
+  <h3 class="sub">Animation Demos</h3>
+  <div class="g3" style="margin-top:8px">
+    <div style="background:var(--bg-panel);border:1px solid rgba(255,255,255,0.04);padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px"><div class="anim-pulse"></div><div class="lbl" style="margin:0">Glow Pulse · 2s</div><div style="font-size:10px;color:var(--text-muted);text-align:center">Status indicators</div></div>
+    <div style="background:var(--bg-panel);border:1px solid rgba(255,255,255,0.04);padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px"><div class="anim-breathe"></div><div class="lbl" style="margin:0">Breathe · 4s</div><div style="font-size:10px;color:var(--text-muted);text-align:center">Idle ambient</div></div>
+    <div style="background:var(--bg-panel);border:1px solid rgba(255,255,255,0.04);padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:80px;height:4px;background:rgba(255,255,255,0.04);overflow:hidden;border-radius:2px"><div style="width:40%;height:100%;background:var(--primary);animation:scan 2s ease-in-out infinite;border-radius:2px"></div></div><div class="lbl" style="margin:0">Scan Line · 2s</div><div style="font-size:10px;color:var(--text-muted);text-align:center">Loading / skeleton</div></div>
+  </div>
+  <style>@keyframes scan{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}</style>
+
+  <div class="gl" style="margin-top:16px"><div class="gl-t">Ambient & Feedback</div><p><strong>Glow pulse:</strong> Opacity 0.6→1.0, 3s cycle on active borders. <strong>Health bars:</strong> Smooth width 350ms. Critical (&lt;20%): slow red pulse. <strong>Hover:</strong> Border brightens + glow, 200ms, no scale. <strong>List items:</strong> 2px left-shift + highlight, 150ms.</p></div>
+</section>
+
+<!-- 17 SOUND -->
+<section class="sec" id="sound">
+  <span class="sec-id">17</span><h2>UI Sound Design</h2>
+  <p class="sec-desc">Every interaction sounds like a control panel aboard a capital ship. Short, clean, non-fatiguing.</p>
+  <table class="dtable" style="margin-top:16px">
+    <thead><tr><th>Interaction</th><th>Character</th><th>Duration</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Button Hover</td><td>Soft blip / subtle tick</td><td>50–80ms</td><td>Very quiet. Capacitive sensor feel.</td></tr>
+      <tr><td>Button Click</td><td>Crisp click + resonance</td><td>80–120ms</td><td>Toggle switch on spaceship console.</td></tr>
+      <tr><td>Panel Open</td><td>Whoosh + electronic hum</td><td>200–300ms</td><td>Rising pitch. Holographic display powering on.</td></tr>
+      <tr><td>Panel Close</td><td>Descending tone + air</td><td>150–200ms</td><td>Faster than open. Pneumatic seal feel.</td></tr>
+      <tr><td>Tab Switch</td><td>Electronic chirp</td><td>60–100ms</td><td>Two quick tones, distinct from click.</td></tr>
+      <tr><td>Confirm</td><td>Ascending two-tone chime</td><td>200–350ms</td><td>Major third or fifth interval.</td></tr>
+      <tr><td>Error</td><td>Low buzz + dissonant</td><td>200–300ms</td><td>Clearly different. Two low tones.</td></tr>
+      <tr><td>Danger Action</td><td>Warning klaxon chirp</td><td>150–250ms</td><td>For destroy/self-destruct confirms.</td></tr>
+      <tr><td>Build Complete</td><td>Mechanical clunk + chime</td><td>300–500ms</td><td>Rewarding. Industrial + clean finish.</td></tr>
+      <tr><td>Notification</td><td>Soft ping + shimmer</td><td>200–300ms</td><td>Mail, chat, alerts.</td></tr>
+    </tbody>
+  </table>
+  <div class="gl" style="margin-top:16px"><div class="gl-t">Principles</div><p>All sounds share tonal palette with subtle reverb (ship hull interior). UI volume at 40–60% of SFX. Provide separate UI volume slider in settings. Scrolling should be silent or near-silent.</p></div>
+</section>
+
+<!-- 18 THEMING -->
+<section class="sec" id="theme">
+  <span class="sec-id">18</span><h2>Theming System</h2>
+  <p class="sec-desc">Full HSL hue rotation. Players control 3 hue sliders — everything derives. Backgrounds stay dark navy. Semantic colors are fixed.</p>
+
+  <h3 class="sub">Live Theme Controls</h3>
+  <div class="tc">
+    <div class="tci"><label>Primary (180°)</label><input type="range" id="pH" min="0" max="360" value="180"><span class="mono" id="pHv">180°</span></div>
+    <div class="tci"><label>Secondary (220°)</label><input type="range" id="sH" min="0" max="360" value="220"><span class="mono" id="sHv">220°</span></div>
+    <div class="tci"><label>Accent (35°)</label><input type="range" id="aH" min="0" max="360" value="35"><span class="mono" id="aHv">35°</span></div>
+    <div><button class="btn btn-sm btn-s" onclick="resetTheme()">Reset</button></div>
+  </div>
+
+  <h3 class="sub">What Changes vs. What Doesn't</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Property</th><th>Themed?</th></tr></thead>
+    <tbody>
+      <tr><td>Primary, borders, glows, interactive states, accent bars, button colors</td><td style="color:var(--primary)">✓ Yes (hue rotates)</td></tr>
+      <tr><td>Secondary color</td><td style="color:var(--primary)">✓ Yes (separate hue)</td></tr>
+      <tr><td>Accent (warm highlight)</td><td style="color:var(--primary)">✓ Yes (separate hue)</td></tr>
+      <tr><td>Background colors (dark navy)</td><td style="color:var(--text-muted)">✗ Fixed (hue 218–220°)</td></tr>
+      <tr><td>Text scale (max, bright, body, dim, muted)</td><td style="color:var(--text-muted)">✗ Fixed lightness</td></tr>
+      <tr><td>Semantic colors (success, warning, danger, info)</td><td style="color:var(--text-muted)">✗ Never changes</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Preset Themes</h3>
+  <div class="fr" style="gap:16px;margin-top:8px">
+    <div style="text-align:center;cursor:pointer" onclick="setTheme(180,220,35)"><div style="width:32px;height:32px;border-radius:50%;background:#00FFFF;margin:0 auto;border:2px solid rgba(255,255,255,0.2)"></div><div style="font-size:9px;color:var(--text-muted);margin-top:4px">Cyan</div></div>
+    <div style="text-align:center;cursor:pointer" onclick="setTheme(350,240,35)"><div style="width:32px;height:32px;border-radius:50%;background:#FF1A40;margin:0 auto;border:2px solid rgba(255,255,255,0.2)"></div><div style="font-size:9px;color:var(--text-muted);margin-top:4px">Imperial</div></div>
+    <div style="text-align:center;cursor:pointer" onclick="setTheme(140,180,45)"><div style="width:32px;height:32px;border-radius:50%;background:#00CC55;margin:0 auto;border:2px solid rgba(255,255,255,0.2)"></div><div style="font-size:9px;color:var(--text-muted);margin-top:4px">Verdant</div></div>
+    <div style="text-align:center;cursor:pointer" onclick="setTheme(45,200,15)"><div style="width:32px;height:32px;border-radius:50%;background:#FFAA00;margin:0 auto;border:2px solid rgba(255,255,255,0.2)"></div><div style="font-size:9px;color:var(--text-muted);margin-top:4px">Solar</div></div>
+    <div style="text-align:center;cursor:pointer" onclick="setTheme(270,220,320)"><div style="width:32px;height:32px;border-radius:50%;background:#AA44FF;margin:0 auto;border:2px solid rgba(255,255,255,0.2)"></div><div style="font-size:9px;color:var(--text-muted);margin-top:4px">Phantom</div></div>
+  </div>
+
+  <div class="gl" style="margin-top:16px"><div class="gl-t">Unity Implementation</div><p>Store <code>primaryHue</code>, <code>secondaryHue</code>, <code>accentHue</code> (0–360 float) in PlayerPrefs. <code>ThemeManager</code> singleton recalculates all derived colors via HSL→RGB. Materials reference shared <code>_ThemeColor</code> properties. Use <code>MaterialPropertyBlock</code> for per-element overrides. Boost saturation slightly for yellow hues (50°–70°) to prevent washout.</p></div>
+  <div class="gl"><div class="gl-t">Contrast Safety</div><p>Background lightness: fixed 4–18% (dark navy). Text lightness: fixed 32–95%. Only hue rotates. Guarantees 4.5:1 for body text, 3:1 for display text at any hue. Test with Imperial Red (350°) and Solar Gold (45°) — these are the hardest to read.</p></div>
+</section>
+
+<!-- 19 IMPLEMENTATION -->
+<section class="sec" id="impl">
+  <span class="sec-id">19</span><h2>Unity Implementation</h2>
+  <p class="sec-desc">Component system, shader pipeline, and hierarchy patterns for building UI in Unity.</p>
+
+  <h3 class="sub">Component Hierarchies</h3>
+  <div class="cblock" style="margin-top:8px"><span class="cm">// Button (SciFiButton shader)</span>
+MyButton (GO)
+├── Image (<span class="ty">MAT_SciFiButton_Filled</span>, color=WHITE)
+├── Button + <span class="ty">ThemeableButton</span>  <span class="cm">← updates _BaseColor, _GlowColor, _MousePos</span>
+├── TMP_Text  <span class="cm">← NO ThemeableText (button self-manages)</span>
+└── Icon (optional)
+
+<span class="cm">// Panel</span>
+MyPanel (GO)
+├── Image (PanelGlow, color=WHITE)
+├── <span class="ty">ThemeablePanel</span> + CanvasGroup
+├── Header/
+│   ├── Image + <span class="ty">ThemeablePanel</span>
+│   └── TMP + <span class="ty">ThemeableText</span> (Header)
+├── TabBar/ (optional)
+│   └── Tabs (Button + <span class="ty">ThemeableTab</span>)
+├── Body/ (16px padding)
+│   └── Content + optional Splitter
+└── Footer/ (optional)
+
+<span class="cm">// List Item</span>
+ListItem (GO)
+├── Image (PanelGlow, color=WHITE)
+├── <span class="ty">ThemeableListItem</span>
+├── PrimaryIcon, SecondaryIcon
+├── PrimaryText  <span class="cm">← NO ThemeableText (list item self-manages)</span>
+└── SecondaryText
+
+<span class="cm">// Splitter</span>
+SplitterHandle (GO)
+├── Image (thin bar, color=WHITE, PanelGlow)
+├── <span class="ty">ThemeableSplitter</span> + EventTrigger (Drag)
+└── GrabIndicator (child Image, pill shape)</div>
+
+  <h3 class="sub">New Panel Checklist</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>#</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Create GO with Image, set <code>color = WHITE</code></td></tr>
+      <tr><td>2</td><td>Assign PanelGlow material from <code>ThemeMaterialLibraryConfig</code></td></tr>
+      <tr><td>3</td><td>Add <code>ThemeablePanel</code>, enable accent border if needed</td></tr>
+      <tr><td>4</td><td>Set RectTransform per spacing rules (Section 04)</td></tr>
+      <tr><td>5</td><td>Add header (child Image + ThemeablePanel + title TMP in Orbitron)</td></tr>
+      <tr><td>6</td><td>Add body with 16px padding</td></tr>
+      <tr><td>7</td><td>Add CanvasGroup for show/hide animation</td></tr>
+      <tr><td>8</td><td>If resizable: add resize handles + persist size/position</td></tr>
+      <tr><td>9</td><td>If splitter needed: add SplitterHandle between child regions</td></tr>
+      <tr><td>10</td><td>Test with ALL preset themes (Cyan, Imperial, Verdant, Solar, Phantom)</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Flexalon Layout Tips</h3>
+  <div class="gl"><div class="gl-t">Best Practices</div><p>Use <code>FlexalonFlexibleLayout</code> for data rows, lists, grids. Set <code>minWidth</code> on text containers to prevent crushing. Tab bar should be outside scroll area. Map Flexalon padding/margin to spacing tokens. Sidebar: fixed width via <code>basis</code>. Content: <code>grow: 1</code> for flexible fill. For splitters: modify child <code>basis</code> values during drag.</p></div>
+</section>
+
+<!-- 20 RULES -->
+<section class="sec" id="rules">
+  <span class="sec-id">20</span><h2>Rules & Checklist</h2>
+  <p class="sec-desc">Follow when building any new UI. Violations break theme switching and visual consistency.</p>
+
+  <div class="dd" style="margin-top:16px">
+    <div class="dd-do"><div class="dd-label">✓ Always</div><p><code>Image.color = WHITE</code> on PanelGlow materials. Use ThemeableText for standalone text. Reference UIThemeData — never hardcode hex. Test all preset themes. Orbitron for headers/buttons, Rajdhani for body/tabs, Share Tech Mono for data. Opaque panel backgrounds. Primary action right, secondary left. Min click target 32px. Save resizable panel positions. Pin headers/inputs so always visible. Use correct panel style per context. Use <code>SciFiButton</code> shader + <code>MAT_SciFiButton_Filled</code> for all buttons.</p></div>
+    <div class="dd-dn"><div class="dd-label">✗ Never</div><p>ThemeableText inside ThemeableButton/InputField/ListItem (they self-manage). <code>GlowIntensity = 0</code> (breaks hierarchy). Orbitron for body text. Custom one-off colors — add to UIThemeData. Skip PanelGlow shader. Multiple filled buttons per panel. HDR bloom on large surfaces. Mix panel styles in one panel. Use <code>--primary</code> for errors. Scanlines on data-heavy panels. Animate content being read. Allow panels fully off-screen. Theme semantic colors.</p></div>
+  </div>
+
+  <h3 class="sub">Font Assignment Quick Reference</h3>
+  <table class="dtable" style="margin-top:8px">
+    <thead><tr><th>Context</th><th>Font</th><th>Never Use</th></tr></thead>
+    <tbody>
+      <tr><td>Panel titles</td><td style="color:var(--primary)">Orbitron Bold</td><td>Rajdhani</td></tr>
+      <tr><td>Body / descriptions</td><td style="color:var(--primary)">Rajdhani Medium</td><td>Orbitron, Mono</td></tr>
+      <tr><td>Button labels</td><td style="color:var(--primary)">Orbitron Medium</td><td>Rajdhani</td></tr>
+      <tr><td>Tab / nav labels</td><td style="color:var(--primary)">Rajdhani / Share Tech</td><td>Orbitron</td></tr>
+      <tr><td>Data values / stats</td><td style="color:var(--primary)">Share Tech Mono</td><td>Rajdhani</td></tr>
+      <tr><td>Chat messages</td><td style="color:var(--primary)">Rajdhani Medium</td><td>Orbitron</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Accessibility</h3>
+  <div class="gl"><div class="gl-t">Requirements</div><p>Option to disable scanlines, glow pulses, and ambient animations. Support UI scaling (80%, 100%, 120%, 150%). 4.5:1 contrast on body text (guaranteed by fixed lightness tokens). Don't rely solely on color — pair with text labels or icons. Keyboard-navigable for future controller support. Separate UI volume slider.</p></div>
+</section>
+
+<footer style="padding:64px 0 32px;text-align:center;border-top:1px solid var(--border-subtle);position:relative">
+  <div style="position:absolute;top:-1px;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,var(--primary-glow),transparent)"></div>
+  <div style="font-family:var(--f-display);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--primary);margin-bottom:8px">Beyond Horizon</div>
+  <div style="font-family:var(--f-mono);font-size:10px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase">Unified UI Design System v2.0 · Unity HDRP · 2026</div>
+</footer>
+
+</div><!-- end .page -->
+
+<script>
+const r=document.documentElement;
+
+// === Theme sliders ===
+document.getElementById('pH').addEventListener('input',e=>{r.style.setProperty('--ph',e.target.value);document.getElementById('pHv').textContent=e.target.value+'°';});
+document.getElementById('sH').addEventListener('input',e=>{r.style.setProperty('--sh',e.target.value);document.getElementById('sHv').textContent=e.target.value+'°';});
+document.getElementById('aH').addEventListener('input',e=>{r.style.setProperty('--ah',e.target.value);document.getElementById('aHv').textContent=e.target.value+'°';});
+function setTheme(p,s,a){r.style.setProperty('--ph',p);r.style.setProperty('--sh',s);r.style.setProperty('--ah',a);document.getElementById('pH').value=p;document.getElementById('sH').value=s;document.getElementById('aH').value=a;document.getElementById('pHv').textContent=p+'°';document.getElementById('sHv').textContent=s+'°';document.getElementById('aHv').textContent=a+'°';}
+function resetTheme(){setTheme(180,220,35);}
+
+// === SciFiButton mouse-tracking glow ===
+function trackGlow(e, el) {
+  const rect = el.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  el.style.setProperty('--mx', x + '%');
+  el.style.setProperty('--my', y + '%');
+}
+function clearGlow(el) {
+  // Reset to center on leave
+  el.style.setProperty('--mx', '50%');
+  el.style.setProperty('--my', '50%');
+}
+
+// === Resizable panel size indicator ===
+(function(){
+  const demo = document.getElementById('resizeDemo');
+  const label = document.getElementById('resizeSizeLabel');
+  if (!demo || !label) return;
+  const ro = new ResizeObserver(entries => {
+    for (const entry of entries) {
+      const w = Math.round(entry.contentRect.width);
+      const h = Math.round(entry.contentRect.height);
+      let bp = 'XS';
+      if (w >= 700) bp = 'LG';
+      else if (w >= 500) bp = 'MD';
+      else if (w >= 380) bp = 'SM';
+      label.textContent = w + ' × ' + h + 'px · ' + bp;
+      // Color corners based on breakpoint
+      const corners = demo.querySelectorAll('[class^="corner-"]');
+      const isMin = w <= 322 || h <= 202;
+      corners.forEach(c => {
+        c.style.borderColor = isMin ? 'var(--warning)' : '';
+      });
+    }
+  });
+  ro.observe(demo);
+})();
+
+// === Draggable splitter ===
+let splitActive = false;
+let splitContainer = null;
+let splitLeft = null;
+
+function startSplit(e) {
+  e.preventDefault();
+  splitActive = true;
+  splitContainer = document.getElementById('splitDemo');
+  splitLeft = document.getElementById('splitLeft');
+  const handle = document.getElementById('splitHandle');
+  const pill = document.getElementById('splitPill');
+  handle.style.background = 'var(--primary)';
+  handle.style.boxShadow = '0 0 8px var(--primary-glow)';
+  pill.style.background = 'var(--primary-bright)';
+  pill.style.boxShadow = '0 0 12px var(--primary-glow)';
+  document.body.style.cursor = 'col-resize';
+  document.body.style.userSelect = 'none';
+
+  function onMove(ev) {
+    if (!splitActive) return;
+    const rect = splitContainer.getBoundingClientRect();
+    let x = ev.clientX - rect.left;
+    const min = 120;
+    const max = rect.width - 120 - 4; // 4px handle
+    x = Math.max(min, Math.min(max, x));
+    const pct = (x / rect.width) * 100;
+    splitLeft.style.width = pct + '%';
+    splitLeft.style.flexGrow = '0';
+    splitLeft.style.flexShrink = '0';
+  }
+
+  function onUp() {
+    splitActive = false;
+    handle.style.background = '';
+    handle.style.boxShadow = '';
+    pill.style.background = '';
+    pill.style.boxShadow = '';
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+  }
+
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+}
+
+// Splitter handle hover effect
+(function(){
+  const handle = document.getElementById('splitHandle');
+  const pill = document.getElementById('splitPill');
+  if (!handle || !pill) return;
+  handle.addEventListener('mouseenter', () => {
+    if (!splitActive) {
+      handle.style.background = 'var(--primary-dim)';
+      pill.style.background = 'var(--primary)';
+      pill.style.boxShadow = '0 0 6px var(--primary-glow)';
+    }
+  });
+  handle.addEventListener('mouseleave', () => {
+    if (!splitActive) {
+      handle.style.background = '';
+      pill.style.background = '';
+      pill.style.boxShadow = '';
+    }
+  });
+})();
+// === Multi-Panel Flow Demo ===
+let flowState = { tab: null, res: null, resMax: 0, qty: 0, ship: null };
+const flowResData = {
+  iron:    { icon:'Fe', color:'rgba(160,160,160,0.8)', name:'Iron', max:880000 },
+  copper:  { icon:'Cu', color:'#c87832', name:'Copper', max:550000 },
+  titanium:{ icon:'Ti', color:'#64b4dc', name:'Titanium', max:770000 },
+  gold:    { icon:'Au', color:'#ffc832', name:'Gold', max:35000 },
+  uranium: { icon:'Ur', color:'#64dc64', name:'Uranium', max:110000 },
+  iridium: { icon:'Ir', color:'#b464dc', name:'Iridium', max:176000 }
+};
+
+function flowUpdateDots() {
+  const d1 = document.getElementById('flowDot1');
+  const d2 = document.getElementById('flowDot2');
+  const d3 = document.getElementById('flowDot3');
+  const d4 = document.getElementById('flowDot4');
+  d1.style.background = flowState.tab ? 'var(--primary)' : 'var(--text-muted)';
+  d1.style.boxShadow = flowState.tab ? '0 0 6px var(--primary-glow)' : 'none';
+  d2.style.background = flowState.res ? 'var(--primary)' : 'var(--text-muted)';
+  d2.style.boxShadow = flowState.res ? '0 0 6px var(--primary-glow)' : 'none';
+  d3.style.background = (flowState.res && flowState.qty > 0) ? 'var(--primary)' : 'var(--text-muted)';
+  d3.style.boxShadow = (flowState.res && flowState.qty > 0) ? '0 0 6px var(--primary-glow)' : 'none';
+  d4.style.background = flowState.ship ? 'var(--success)' : 'var(--text-muted)';
+  d4.style.boxShadow = flowState.ship ? '0 0 6px var(--success-glow)' : 'none';
+}
+
+function flowSetTab(tab) {
+  flowState = { tab, res:null, resMax:0, qty:0, ship:null };
+  document.querySelectorAll('#flowDemo .tab').forEach(t=>t.classList.remove('a'));
+  document.getElementById('ft'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('a');
+  document.getElementById('flowEmpty').style.display='none';
+  const s1 = document.getElementById('flowStep1');
+  s1.style.display='flex'; s1.style.width='100%';
+  const s1t = document.getElementById('flowStep1Title');
+  s1t.textContent = tab === 'sell' ? 'Sell Resource' : tab === 'buy' ? 'Buy Resource' : 'Transfer Resource';
+  // close steps 2 and 3
+  flowCloseStep3(); flowCloseStep2();
+  // deselect all resources
+  document.querySelectorAll('.flow-res').forEach(r=>r.classList.remove('sel'));
+  flowUpdateDots();
+}
+
+function flowSelectRes(el) {
+  const res = el.dataset.res;
+  const data = flowResData[res];
+  flowState.res = res; flowState.resMax = data.max; flowState.qty = Math.round(data.max * 0.5);
+  flowState.ship = null;
+  // Highlight
+  document.querySelectorAll('.flow-res').forEach(r=>r.classList.remove('sel'));
+  el.classList.add('sel');
+  // Compress step 1 and open step 2
+  document.getElementById('flowStep1').style.width = '35%';
+  const s2 = document.getElementById('flowStep2');
+  s2.style.display='flex';
+  setTimeout(()=>{ s2.style.width='35%'; s2.style.minWidth='200px'; s2.style.opacity='1'; },20);
+  // Populate
+  document.getElementById('flowResIcon').textContent = data.icon;
+  document.getElementById('flowResIcon').style.color = data.color;
+  document.getElementById('flowResName').textContent = data.name;
+  document.getElementById('flowResAvail').textContent = 'Available: '+data.max.toLocaleString();
+  document.getElementById('flowResLabel').textContent = data.name+' — Amount';
+  document.getElementById('flowQtyInput').value = flowState.qty;
+  document.getElementById('flowQtyInput').max = data.max;
+  // Update button label based on tab
+  const btn = document.getElementById('flowStep2Btn');
+  if (flowState.tab === 'sell') btn.textContent = 'Sell for '+Math.round(flowState.qty*0.8).toLocaleString()+' cr';
+  else if (flowState.tab === 'buy') btn.textContent = 'Buy for '+Math.round(flowState.qty*1.2).toLocaleString()+' cr';
+  else btn.textContent = 'Select Ship →';
+  // Close step 3 if open
+  flowCloseStep3();
+  flowUpdateDots();
+}
+
+function flowSetQty(pct) {
+  flowState.qty = Math.round(flowState.resMax * pct);
+  document.getElementById('flowQtyInput').value = flowState.qty;
+  const btn = document.getElementById('flowStep2Btn');
+  if (flowState.tab === 'sell') btn.textContent = 'Sell for '+Math.round(flowState.qty*0.8).toLocaleString()+' cr';
+  else if (flowState.tab === 'buy') btn.textContent = 'Buy for '+Math.round(flowState.qty*1.2).toLocaleString()+' cr';
+  else btn.textContent = 'Select Ship →';
+  flowUpdateDots();
+}
+
+function flowOpenStep3() {
+  if (flowState.tab !== 'transfer') {
+    // Sell/Buy — just flash the button as confirmation
+    const btn = document.getElementById('flowStep2Btn');
+    btn.textContent = '✓ Done!';
+    setTimeout(()=>{ if(flowState.tab==='sell') btn.textContent='Sell for '+Math.round(flowState.qty*0.8).toLocaleString()+' cr'; else btn.textContent='Buy for '+Math.round(flowState.qty*1.2).toLocaleString()+' cr'; },1200);
+    return;
+  }
+  // Transfer — open ship selection
+  document.getElementById('flowStep1').style.width = '25%';
+  document.getElementById('flowStep2').style.width = '28%';
+  const s3 = document.getElementById('flowStep3');
+  s3.style.display = 'flex';
+  setTimeout(()=>{ s3.style.width='47%'; s3.style.minWidth='200px'; s3.style.opacity='1'; },20);
+  document.querySelectorAll('.flow-ship').forEach(s=>s.classList.remove('sel'));
+  const cb = document.getElementById('flowConfirmBtn');
+  cb.classList.add('scifi-disabled');
+  document.getElementById('flowConfirmLabel').textContent = 'Select a ship';
+  flowUpdateDots();
+}
+
+function flowSelectShip(el, name) {
+  flowState.ship = name;
+  document.querySelectorAll('.flow-ship').forEach(s=>s.classList.remove('sel'));
+  el.classList.add('sel');
+  const cb = document.getElementById('flowConfirmBtn');
+  cb.classList.remove('scifi-disabled');
+  cb.setAttribute('onmousemove','trackGlow(event,this)');
+  cb.setAttribute('onmouseleave','clearGlow(this)');
+  cb.onclick = flowConfirm;
+  document.getElementById('flowConfirmLabel').textContent = 'Transfer '+flowState.qty.toLocaleString()+' to '+name;
+  flowUpdateDots();
+}
+
+function flowConfirm() {
+  document.getElementById('flowConfirmLabel').textContent = '✓ Transferred!';
+  const cb = document.getElementById('flowConfirmBtn');
+  cb.classList.add('scifi-disabled');
+  cb.style.borderColor = 'rgba(0,255,136,0.5)';
+  cb.style.background = 'rgba(0,255,136,0.08)';
+  setTimeout(()=>{cb.style.borderColor='';cb.style.background='';document.getElementById('flowConfirmLabel').textContent='Select a ship';},2000);
+}
+
+function flowCloseStep2() {
+  const s2=document.getElementById('flowStep2');
+  s2.style.width='0';s2.style.minWidth='0';s2.style.opacity='0';
+  setTimeout(()=>{s2.style.display='none';},300);
+  flowState.res=null; flowState.qty=0;
+  document.querySelectorAll('.flow-res').forEach(r=>r.classList.remove('sel'));
+  document.getElementById('flowStep1').style.width = '100%';
+  flowCloseStep3();
+  flowUpdateDots();
+}
+
+function flowCloseStep3() {
+  const s3=document.getElementById('flowStep3');
+  s3.style.width='0';s3.style.minWidth='0';s3.style.opacity='0';
+  setTimeout(()=>{s3.style.display='none';},300);
+  flowState.ship=null;
+  if(flowState.res){
+    document.getElementById('flowStep1').style.width='35%';
+    document.getElementById('flowStep2').style.width='65%';
+    document.getElementById('flowStep2').style.minWidth='200px';
+  }
+  flowUpdateDots();
+}
+
+function flowReset() {
+  flowState = { tab:null, res:null, resMax:0, qty:0, ship:null };
+  document.querySelectorAll('#flowDemo .tab').forEach(t=>t.classList.remove('a'));
+  document.getElementById('flowStep1').style.display='none';
+  const s2=document.getElementById('flowStep2');s2.style.display='none';s2.style.width='0';s2.style.opacity='0';s2.style.minWidth='0';
+  const s3=document.getElementById('flowStep3');s3.style.display='none';s3.style.width='0';s3.style.opacity='0';s3.style.minWidth='0';
+  document.getElementById('flowEmpty').style.display='flex';
+  document.querySelectorAll('.flow-res,.flow-ship').forEach(r=>r.classList.remove('sel'));
+  flowUpdateDots();
+}
+</script>
+</body>
+</html>
